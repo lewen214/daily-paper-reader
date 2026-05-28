@@ -1,0 +1,214 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-05-28T13:10:56.938456+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 4,
+    "quick_skim_target": 11,
+    "quick_selected": 4
+  },
+  "deep_dive": [
+    {
+      "id": "2604.27203v1",
+      "source": "arxiv",
+      "title": "Reading Speed, Image Quality Ratings, and Comfort Ratings in Augmented Reality",
+      "abstract": "The rendering and display of text is a key use-case for augmented reality (AR). Here, we present the Read-AR, a dataset of reading in AR, for which we collected over 11,000 reading speeds and almost 6000 visual quality and comfort ratings across over 80 different experiment conditions on the same experiment set-up. The consistent, controlled set-up enables the dataset to function as a reference for benchmarking the quality of different AR headset architectures.",
+      "authors": [
+        "Minjung Kim",
+        "Saeideh Ghahghaei Nezamabadi",
+        "Trisha Lian",
+        "Anand Singh"
+      ],
+      "primary_category": "cs.HC",
+      "categories": [
+        "cs.HC"
+      ],
+      "published": "2026-04-29T21:16:38+00:00",
+      "link": "https://arxiv.org/pdf/2604.27203v1",
+      "tags": [
+        "keyword:pwad",
+        "query:pwad"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "AR visual comfort ratings and reading performance dataset",
+      "llm_evidence_cn": "AR视觉舒适度评分与阅读表现数据集",
+      "llm_evidence": "AR视觉舒适度评分与阅读表现数据集",
+      "canonical_evidence": "AR视觉舒适度评分与阅读表现数据集",
+      "llm_tldr_en": "The Read-AR dataset provides over 11,000 reading speeds and 6,000 quality/comfort ratings across 80+ AR conditions, enabling benchmarking of AR headset visual performance.",
+      "llm_tldr_cn": "针对增强现实文本显示，本研究构建了Read-AR数据集，包含超过80种实验条件下的11000余个阅读速度和近6000个视觉质量及舒适度主观评分，为不同AR头显架构的视觉质量评估提供了标准化参考基准。",
+      "llm_tldr": "针对增强现实文本显示，本研究构建了Read-AR数据集，包含超过80种实验条件下的11000余个阅读速度和近6000个视觉质量及舒适度主观评分，为不同AR头显架构的视觉质量评估提供了标准化参考基准。",
+      "llm_tags": [
+        "query:pwad"
+      ],
+      "matched_query_tag": "query:pwad",
+      "matched_query_text": "Find literature on perceived display brightness models using pupil diameter, retinal imaging, ambient illumination, and visual comfort for AR, OLED, or mobile displays.",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2605.15418v1",
+      "source": "arxiv",
+      "title": "A General Differentiable Ray-Wave Framework for Hybrid Refractive-Diffractive System Modeling and Optimization",
+      "abstract": "Hybrid optical systems combining refractive and diffractive optical responses have the potential to support new types of optical behavior, but they are difficult to model and optimize due to the disparate spatial scales and physics exhibited by ray and wave phenomena. In this work, we present a differentiable ray-wave framework that serves as a general model for hybrid refractive-diffractive optical systems and that operates as a plug-and-play module within standard ray tracing pipelines. Our model uniquely applies to both planar and curvilinear diffractive surfaces and can accommodate arbitrary holographic diffractive profiles with high spatial frequency responses. We analyze ray-wave modeling regimes that optimally account for the spatial frequency properties and spatial curvature of the diffractive surfaces, and we demonstrate the gradient-based end-to-end optimization of hybrid refractive-diffractive systems featuring planar and conformal diffractive surfaces. We anticipate that these modeling capabilities will enable new classes of hybrid optical systems relevant to computational imaging and display applications.",
+      "authors": [
+        "Jiazhou Cheng",
+        "Margaret Gao",
+        "Yixuan Shao",
+        "Chenkai Mao",
+        "Tom D. Milster",
+        "Jonathan A. Fan"
+      ],
+      "primary_category": "physics.optics",
+      "categories": [
+        "physics.optics",
+        "eess.SP",
+        "physics.comp-ph"
+      ],
+      "published": "2026-05-14T21:04:00+00:00",
+      "link": "https://arxiv.org/pdf/2605.15418v1",
+      "tags": [
+        "keyword:pwad",
+        "query:pwad"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "differentiable ray-wave framework for hybrid refractive-diffractive systems, applicable to diffractive optical waveguides",
+      "llm_evidence_cn": "适用于折射-衍射混合系统的可微分光线-波动框架，可应用于衍射光波导",
+      "llm_evidence": "适用于折射-衍射混合系统的可微分光线-波动框架，可应用于衍射光波导",
+      "canonical_evidence": "适用于折射-衍射混合系统的可微分光线-波动框架，可应用于衍射光波导",
+      "llm_tldr_en": "Proposes a differentiable ray-wave modeling framework for hybrid refractive-diffractive optical systems, enabling optimization of diffractive surfaces in standard ray tracing, useful for designing diffractive waveguides for AR.",
+      "llm_tldr_cn": "针对折射-衍射混合光学系统难以协同优化的问题，提出一种可微光线-波动框架，可无缝嵌入标准光线追迹流水线，支持平面和曲面衍射表面及任意全息衍射轮廓建模，为衍射光波导等AR近眼显示器件设计提供了高效的优化工具。",
+      "llm_tldr": "针对折射-衍射混合光学系统难以协同优化的问题，提出一种可微光线-波动框架，可无缝嵌入标准光线追迹流水线，支持平面和曲面衍射表面及任意全息衍射轮廓建模，为衍射光波导等AR近眼显示器件设计提供了高效的优化工具。",
+      "llm_tags": [
+        "query:pwad"
+      ],
+      "matched_query_tag": "query:pwad",
+      "matched_query_text": "diffractive optical waveguide",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-04-28-721480-v1",
+      "source": "biorxiv",
+      "title": "Dark adaptation of cone photoreceptor responses is revealed by optoretinography",
+      "abstract": "Dark adaptation is the essential process that restores visual sensitivity following exposure to bright light, yet the underlying mechanisms remain incompletely understood. Here, we propose a method for assessing dark adaptation in cones using optoretinography (ORG) based on adaptive optics optical coherence tomography (AO-OCT). ORG quantifies cone functional response by monitoring nano-scale changes in the cones outer segment occurring over hundreds of milliseconds after visible stimulation. This method consists of sequential measurements of stimulus-evoked cone responses over the course of minutes of dark adaptation. Each response captures optical path length changes in single photoreceptor outer segments over milliseconds during a multi-minute recovery period following a strong photopigment bleach. We parameterized cone ORG responses and proposed an exponential model linking ORG dynamics to pigment regeneration. Parameters of the ORG response exhibited exponential decay behavior during dark adaptation, and were thus fit with exponential functions and quantified by the resulting decay parameter{tau} . Parameters capturing the amplitude of the ORG responses recovered more slowly than those capturing temporal dynamics of the responses. This difference is consistent with distinct contributions from photopigment regeneration and downstream phototransduction processes. Recovery speed varied by two-to threefold among three normal subjects, suggesting substantial inter-subject physiological diversity. Processes within the cone, including pigment regeneration, are thought to underlie the gains in photopic visual sensitivity that occur in the dark. These findings highlight ORG as an objective and sensitive assay of those cellular mechanisms. While the ORG itself has shown promise as a biomarker of the health of the photoreceptor response to light, the results of this study show that it may also be useful for probing the health of the intra- and intercellular homeostatic mechanisms that support it.",
+      "authors": [
+        "Cai, Y.",
+        "Zhang, A.",
+        "Bartuzel, M. M.",
+        "Maddipatla, R.",
+        "Zawadzki, R. J.",
+        "Jonnal, R. S."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-05-01T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.04.28.721480v1.full.pdf",
+      "tags": [
+        "keyword:pwad",
+        "query:pwad"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Uses optoretinography and AO-OCT to measure cone responses during dark adaptation, a method potentially applicable to perceived brightness models using retinal imaging.",
+      "llm_evidence_cn": "利用视视网膜电图和自适应光学OCT测量暗适应下锥体细胞响应，可应用于基于视网膜成像的感知亮度模型。",
+      "llm_evidence": "利用视视网膜电图和自适应光学OCT测量暗适应下锥体细胞响应，可应用于基于视网膜成像的感知亮度模型。",
+      "canonical_evidence": "利用视视网膜电图和自适应光学OCT测量暗适应下锥体细胞响应，可应用于基于视网膜成像的感知亮度模型。",
+      "llm_tldr_en": "This paper proposes using optoretinography with adaptive optics OCT to assess cone dark adaptation by measuring optical path length changes, offering a method for retinal imaging that could inform perceived brightness models.",
+      "llm_tldr_cn": "该研究针对人眼暗适应过程中视锥细胞功能评估的难题，提出了一种基于自适应光学光学相干断层扫描的视视网膜电图方法，通过连续测量光刺激后视锥细胞外段的纳米尺度光学路径长度变化，揭示了暗适应的动态恢复过程，为构建精确的感知亮度模型提供了重要的视网膜功能测量工具。",
+      "llm_tldr": "该研究针对人眼暗适应过程中视锥细胞功能评估的难题，提出了一种基于自适应光学光学相干断层扫描的视视网膜电图方法，通过连续测量光刺激后视锥细胞外段的纳米尺度光学路径长度变化，揭示了暗适应的动态恢复过程，为构建精确的感知亮度模型提供了重要的视网膜功能测量工具。",
+      "llm_tags": [
+        "query:pwad"
+      ],
+      "matched_query_tag": "query:pwad",
+      "matched_query_text": "Find literature on perceived display brightness models using pupil diameter, retinal imaging, ambient illumination, and visual comfort for AR, OLED, or mobile displays.",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "biorxiv-10-1101-2025-07-08-663604-v2",
+      "source": "biorxiv",
+      "title": "Light stimulation system for measuring pupillary light responses based on Maxwellian view optical system using a retina presentation type viewfinder",
+      "abstract": "BackgroundMelanopsin-expressing intrinsically photosensitive retinal ganglion cells (ipRGC) contribute predominantly to non-image-forming effects of light, such as light-induced circadian phase shift, melatonin suppression, and pupillary light reflex. Post-illumination pupil response (PIPR) has been well-used for the evaluation of ipRGC sensitivity for humans since it is able to detect ipRGC function independently from conventional cones. However, pharmacological mydriasis or a specialized light stimulation system, such as the Maxwellian view (MV) optical system, is required to avoid dynamic pupil constriction in the stimulated eye for effective PIPR measurements, which makes these approaches less practical and difficult to implement in standard experimental settings. In this context, we propose the application of a retinal projection viewfinder based on the MV system as a practical approach for measuring PIPR, and evaluate the feasibility of this approach by comparing its performance with a typical LED-based optical system.\n\nMethodsTwenty-two healthy participants underwent pupillometry using both the MV-based viewfinder and a typical LED-based system. Monochromatic red and blue light stimuli were presented for durations of 1 and 10 seconds. Pupil responses, including maximum constriction, PIPR amplitude after 6 seconds from the light offset, area under the curve (AUC) values of PIPR, and sustained slopes, were analyzed using a linear mixed-effects model to assess the differences between the two systems.\n\nResultsThe MV-based viewfinder significantly enhanced net PIPR amplitude (p < 0.05) and sustained slope (p < 0.01) during 10-second light stimulation compared to the LED system, demonstrating its capability to effectively measure ipRGC-driven responses. In contrast, no significant differences were observed in the net AUC values. These results highlight that the MV-based viewfinder enables effective PIPR measurements by delivering constant and controlled light stimulation directly to the retina, minimizing the effects of dynamic pupil constriction during light stimulation.\n\nConclusionsThe MV-based viewfinder showed feasibility as an effective method for measuring PIPR without requiring pharmacological dilation or complex optical instrumentation. This approach has strong potential for advancing the assessment of human ipRGC function using pupillary responses.",
+      "authors": [
+        "Eto, T.",
+        "Yoshiike, T.",
+        "Utsumi, T.",
+        "Kawamura, A.",
+        "Nagao, K.",
+        "Kuriyama, K.",
+        "Kitamura, S."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-05-11T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.1101/2025.07.08.663604v2.full.pdf",
+      "tags": [
+        "keyword:pwad",
+        "query:pwad"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Light stimulation system for measuring pupillary light responses using Maxwellian view, involving pupil diameter and light perception.",
+      "llm_evidence_cn": "基于麦克斯韦视野光学系统的瞳孔光反应测量系统，涉及瞳孔直径和光感知。",
+      "llm_evidence": "基于麦克斯韦视野光学系统的瞳孔光反应测量系统，涉及瞳孔直径和光感知。",
+      "canonical_evidence": "基于麦克斯韦视野光学系统的瞳孔光反应测量系统，涉及瞳孔直径和光感知。",
+      "llm_tldr_en": "This paper presents a system for measuring pupillary light responses using a Maxwellian view optical system and a retina presentation viewfinder, enabling ipRGC sensitivity evaluation. It addresses the need for controlled pupil stimulation in post-illumination pupil response measurements, which is relevant to understanding pupil dynamics under different lighting conditions and could inform perceived brightness models.",
+      "llm_tldr_cn": "该论文提出了一种基于麦克斯韦视野光学系统的瞳孔光反应测量系统，通过视网膜投射式取景器实现有效光刺激，避免动态瞳孔收缩对测量的干扰。该系统专门用于评估内在光敏视网膜神经节细胞的功能，解决了传统方法需要散瞳或复杂光路的难题。其精确的瞳孔控制测量方法可为显示亮度感知模型中瞳孔直径因素的建模提供实用工具，尤其在AR和移动显示的视觉舒适度研究中具有参考价值。",
+      "llm_tldr": "该论文提出了一种基于麦克斯韦视野光学系统的瞳孔光反应测量系统，通过视网膜投射式取景器实现有效光刺激，避免动态瞳孔收缩对测量的干扰。该系统专门用于评估内在光敏视网膜神经节细胞的功能，解决了传统方法需要散瞳或复杂光路的难题。其精确的瞳孔控制测量方法可为显示亮度感知模型中瞳孔直径因素的建模提供实用工具，尤其在AR和移动显示的视觉舒适度研究中具有参考价值。",
+      "llm_tags": [
+        "query:pwad"
+      ],
+      "matched_query_tag": "query:pwad",
+      "matched_query_text": "Find literature on perceived display brightness models using pupil diameter, retinal imaging, ambient illumination, and visual comfort for AR, OLED, or mobile displays.",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-05-04-722601-v1",
+      "source": "biorxiv",
+      "title": "Pupil size reflects the content of covertly attended afterimages",
+      "abstract": "Does attention operate within afterimages? Here we show that it does, using a novel pupillometry-based paradigm. Participants fixated centrally while bright and dark peripheral stimuli were presented, and a central cue directed attention to one of them. Over time, the stimuli perceptually faded due to adaptation and were then removed, leaving strong, negative afterimages. We found that pupil size tracked the brightness of the attended stimulus both during perceptual fading, when stimuli were present but perceptually weakened, and during perception of afterimages, when no physical stimuli were present. In the latter case, pupil size reflected the brightness of the negative afterimage rather than the preceding physical stimulus. This finding shows that covert attention can be directed within afterimages. More broadly, the results suggest that attention to afterimages bridges the gap between external and internal attention, challenging the notion of a strict dichotomy and supporting the view that this distinction is better understood as a continuum.",
+      "authors": [
+        "Vilotijevic, A.",
+        "Mathot, S."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-05-07T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.05.04.722601v1.full.pdf",
+      "tags": [
+        "keyword:pwad",
+        "query:pwad"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "pupil size tracks perceived brightness of afterimages, linking pupil and subjective brightness",
+      "llm_evidence_cn": "瞳孔大小追踪后像的感知亮度,将瞳孔与主观亮度直接关联",
+      "llm_evidence": "瞳孔大小追踪后像的感知亮度,将瞳孔与主观亮度直接关联",
+      "canonical_evidence": "瞳孔大小追踪后像的感知亮度,将瞳孔与主观亮度直接关联",
+      "llm_tldr_en": "Using a novel afterimage paradigm, this study shows that pupil size tracks the perceived brightness of attended stimuli even without physical light, revealing a direct link between attention, subjective brightness, and pupil dynamics. This finding provides a foundation for incorporating pupil measurements into perceived display brightness models.",
+      "llm_tldr_cn": "该研究利用瞳孔测量法,发现在没有物理刺激的情况下,瞳孔大小能够反映内隐注意后像的感知亮度。参与者注视中心,注意外周亮暗刺激并产生后像,瞳孔大小随注意刺激的主观亮度变化。这一发现表明瞳孔不仅是自动的光反射指标,还受注意和主观感知调制。研究采用新型瞳孔测量范式,通过适应和后像阶段测量瞳孔直径,排除了物理刺激的直接光反射干扰,证实了瞳孔与主观亮度体验的紧密耦合。这为利用瞳孔大小作为显示感知亮度代理指标的可行性提供了关键实验支持,并为建立包含瞳孔因素的显示亮度模型奠定了基础。",
+      "llm_tldr": "该研究利用瞳孔测量法,发现在没有物理刺激的情况下,瞳孔大小能够反映内隐注意后像的感知亮度。参与者注视中心,注意外周亮暗刺激并产生后像,瞳孔大小随注意刺激的主观亮度变化。这一发现表明瞳孔不仅是自动的光反射指标,还受注意和主观感知调制。研究采用新型瞳孔测量范式,通过适应和后像阶段测量瞳孔直径,排除了物理刺激的直接光反射干扰,证实了瞳孔与主观亮度体验的紧密耦合。这为利用瞳孔大小作为显示感知亮度代理指标的可行性提供了关键实验支持,并为建立包含瞳孔因素的显示亮度模型奠定了基础。",
+      "llm_tags": [
+        "query:pwad"
+      ],
+      "matched_query_tag": "query:pwad",
+      "matched_query_text": "Find literature on perceived display brightness models using pupil diameter, retinal imaging, ambient illumination, and visual comfort for AR, OLED, or mobile displays.",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
