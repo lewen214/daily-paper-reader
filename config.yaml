@@ -25,3 +25,73 @@ subscriptions:
     stage: A
     diff_threshold_pct: 15
   keyword_recall_mode: or
+  intent_profiles:
+    - tag: pwad
+      description: 用于跟踪偏振体光栅/全息光栅衍射波导 AR 近眼显示、出瞳扩展、视场与效率优化，以及显示亮度感知和 Mini-LED halo 评价的最新论文。
+      enabled: true
+      paper_sources:
+        - arxiv
+      keywords:
+        - keyword: display perceived brightness
+          keyword_cn: 显示亮度感知
+          query: display perceived brightness
+        - keyword: gradient period polarization volume grating
+          keyword_cn: 梯度周期偏振体光栅
+          query: gradient period polarization volume grating
+        - keyword: exit pupil expansion
+          keyword_cn: 出瞳扩展
+          query: exit pupil expansion
+        - keyword: augmented reality near-eye display
+          keyword_cn: 增强现实近眼显示
+          query: v
+        - keyword: diffractive optical waveguide
+          keyword_cn: 衍射光波导
+          query: diffractive optical waveguide
+        - keyword: polarization volume grating
+          keyword_cn: 偏振体光栅
+          query: polarization volume grating
+      intent_queries:
+        - query: >-
+            Search recent studies on Mini LED backlit LCD halo measurement, characterization, dynamic halo visibility,
+            and suppression methods.
+          query_cn: 检索 Mini LED 背光 LCD halo 测量、动态 halo 可见性和抑制方法。
+          enabled: true
+          source: manual
+          note: ''
+        - query: >-
+            Find literature on perceived display brightness models using pupil diameter, retinal imaging, ambient
+            illumination, and visual comfort for AR, OLED, or mobile displays.
+          query_cn: 检索结合瞳孔、视网膜成像、环境光和视觉舒适度的显示亮度感知模型。
+          enabled: true
+          source: manual
+          note: ''
+        - query: >-
+            Search for recent research on gradient period or chirped polarization volume gratings for wide field of view
+            full color AR waveguide displays.
+          query_cn: 检索梯度周期/啁啾 PVG 在宽视场全彩 AR 波导中的最新研究。
+          enabled: true
+          source: manual
+          note: ''
+        - query: >-
+            Find recent papers on polarization volume grating based diffractive waveguides for augmented reality near
+            eye displays, focusing on field of view, efficiency, and exit pupil expansion.
+          query_cn: 检索 PVG 衍射波导 AR 近眼显示，重点看视场、效率和出瞳扩展。
+          enabled: true
+          source: manual
+          note: ''
+      updated_at: '2026-05-28T03:37:19.187Z'
+source_backends:
+  arxiv:
+    papers_table: arxiv_papers
+    use_vector_rpc: true
+    vector_rpc: match_arxiv_papers
+    vector_rpc_exact: match_arxiv_papers_exact
+    use_bm25_rpc: true
+    bm25_rpc: match_arxiv_papers_bm25
+    sync_table: arxiv_sync_status
+    sync_success_value: success
+    schema: public
+    kind: supabase
+    enabled: true
+    url: https://lyucdwgefyfbmaiopjbk.supabase.co
+    anon_key: sb_publishable_lX-oi64Uxyd7SIVv3_w2Uw_MTOojeKq
