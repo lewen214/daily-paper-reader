@@ -1,0 +1,94 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-05-30T22:03:57.593159+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "biorxiv-10-64898-2026-05-29-728653-v1",
+      "source": "biorxiv",
+      "title": "Luminance-corrected Pupillometry for Reliable Effort-tracking in Dynamic Environments",
+      "abstract": "Pupillometry provides an objective way to index effort across domains. However, pupil size is strongly affected by luminance changes, which can obscure effort-related effects, and limit its use in most applied scenarios with dynamic visual input. We here introduce and validate a method to overcome this problem. To this end, participants performed an auditory n-back task of differing difficulty while viewing either constant visual input or dynamic driving movie clips. Effort was assessed physiologically (pupil size), behaviorally (accuracy), and subjectively (NASA-TLX). Accuracy, questionnaire scores, and pupil size were analyzed at the session level, while pupillometry additionally provided continuous time-resolved information. As expected, pupillometry tracked differences in effort, but its discriminability was substantially reduced under dynamic visual input. Correcting for the effects of overall luminance and moment-to-moment luminance changes using a dynamic, explainable, and open-source modeling procedure (Open-DPSM) considerably improved effort discriminability on both aggregate and time-resolved levels. At the aggregate level, luminance-corrected pupillometry slightly outperformed accuracy and NASA-TLX. Combining all three measures yielded the highest classification performance (AUC = 0.98), supporting the view that effort is multifaceted and best captured multimodally. These findings establish a practical basis for fine-grained physiological tracking of effort and arousal in both fundamental and applied research using complex, dynamic stimuli. A tutorial section guides researchers in applying luminance correction to their own pupillometric data in dynamic viewing environments using the here validated approach.",
+      "authors": [
+        "Cai, Y.",
+        "Naber, M.",
+        "Van der Stigchel, S.",
+        "Strauch, C."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-05-29T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.05.29.728653v1.full.pdf",
+      "tags": [
+        "keyword:pwad",
+        "query:pwad"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Luminance-corrected pupillometry for isolating effort from pupil size changes caused by luminance",
+      "llm_evidence_cn": "亮度校正瞳孔测量法用于从亮度引起的瞳孔变化中分离努力",
+      "llm_evidence": "亮度校正瞳孔测量法用于从亮度引起的瞳孔变化中分离努力",
+      "canonical_evidence": "亮度校正瞳孔测量法用于从亮度引起的瞳孔变化中分离努力",
+      "llm_tldr_en": "This paper introduces luminance-corrected pupillometry to reliably track cognitive effort in dynamic environments with changing luminance. The method separates effort-driven pupil changes from luminance-driven ones, validated with n-back tasks and driving movies, offering a transferable approach for studying perceived brightness and visual comfort.",
+      "llm_tldr_cn": "针对动态视觉环境下亮度变化掩盖努力相关瞳孔反应的难题，提出了一种亮度校正瞳孔测量方法。通过听觉n-back任务与驾驶视频观看实验，该方法有效分离了亮度与认知努力对瞳孔大小的影响，实现了实时努力追踪。这一校正技术可迁移应用于显示亮度感知与视觉舒适性研究，为AR/OLED等显示设备在复杂光照下的用户体验评估提供客观生理指标。",
+      "llm_tldr": "针对动态视觉环境下亮度变化掩盖努力相关瞳孔反应的难题，提出了一种亮度校正瞳孔测量方法。通过听觉n-back任务与驾驶视频观看实验，该方法有效分离了亮度与认知努力对瞳孔大小的影响，实现了实时努力追踪。这一校正技术可迁移应用于显示亮度感知与视觉舒适性研究，为AR/OLED等显示设备在复杂光照下的用户体验评估提供客观生理指标。",
+      "llm_tags": [
+        "query:pwad"
+      ],
+      "matched_query_tag": "query:pwad",
+      "matched_query_text": "Find literature on perceived display brightness models using pupil diameter, retinal imaging, ambient illumination, and visual comfort for AR, OLED, or mobile displays.",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.29415v1",
+      "source": "arxiv",
+      "title": "Constructing efficient channels for ideal observers using the conjugate gradient method",
+      "abstract": "Task-based assessment of image quality (IQ) is critically important for the design and optimization of medical imaging systems. Ideal observers, including the Bayesian Ideal Observer (IO) and the ideal linear observer, i.e., the Hotelling observer (HO), provide objective figures of merit (FOMs) that quantify system performance on signal detection tasks. However, the application of ideal observers to high-dimensional image data is often computationally intractable. Channel mechanisms provide an effective framework for dimensionality reduction that can facilitate the computation of ideal observers. This work presents a conjugate gradient (CG)-based method to construct efficient channels for approximating the IO and HO performance.",
+      "authors": [
+        "Weimin Zhou"
+      ],
+      "primary_category": "eess.IV",
+      "categories": [
+        "eess.IV",
+        "cs.CV",
+        "cs.LG",
+        "eess.SP",
+        "stat.ML"
+      ],
+      "published": "2026-05-28T06:04:00+00:00",
+      "link": "https://arxiv.org/pdf/2605.29415v1",
+      "tags": [
+        "keyword:pwad",
+        "query:pwad"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Ideal observer channels for image quality assessment; applicable to halo visibility evaluation",
+      "llm_evidence_cn": "使用理想观察者通道评估图像质量；可应用于光晕可见性评价",
+      "llm_evidence": "使用理想观察者通道评估图像质量；可应用于光晕可见性评价",
+      "canonical_evidence": "使用理想观察者通道评估图像质量；可应用于光晕可见性评价",
+      "llm_tldr_en": "This paper presents a conjugate gradient method to construct efficient channels for approximating ideal observer performance in signal detection tasks, facilitating image quality assessment in high-dimensional data.",
+      "llm_tldr_cn": "本文提出一种基于共轭梯度法的高效通道构建方法，用于近似理想观察者在信号检测任务中的性能，从而实现高维图像数据的图像质量评估。该方法为医学影像系统优化提供客观指标，并可作为评估显示光晕等图像伪影可见性的通用框架。",
+      "llm_tldr": "本文提出一种基于共轭梯度法的高效通道构建方法，用于近似理想观察者在信号检测任务中的性能，从而实现高维图像数据的图像质量评估。该方法为医学影像系统优化提供客观指标，并可作为评估显示光晕等图像伪影可见性的通用框架。",
+      "llm_tags": [
+        "query:pwad"
+      ],
+      "matched_query_tag": "query:pwad",
+      "matched_query_text": "Search recent studies on Mini LED backlit LCD halo measurement, characterization, dynamic halo visibility, and suppression methods.",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
