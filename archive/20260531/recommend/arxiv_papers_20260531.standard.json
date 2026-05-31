@@ -1,0 +1,55 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-05-31T21:54:53.432037+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "biorxiv-10-64898-2026-05-29-728653-v2",
+      "source": "biorxiv",
+      "title": "Luminance-corrected Pupillometry for Reliable Effort-tracking in Dynamic Environments",
+      "abstract": "Pupillometry provides an objective way to index effort across domains. However, pupil size is strongly affected by luminance changes, which can obscure effort-related effects, and limit its use in most applied scenarios with dynamic visual input. We here introduce and validate a method to overcome this problem. To this end, participants performed an auditory n-back task of differing difficulty while viewing either constant visual input or dynamic driving movie clips. Effort was assessed physiologically (pupil size), behaviorally (accuracy), and subjectively (NASA-TLX). Accuracy, questionnaire scores, and pupil size were analyzed at the session level, while pupillometry additionally provided continuous time-resolved information. As expected, pupillometry tracked differences in effort, but its discriminability was substantially reduced under dynamic visual input. Correcting for the effects of overall luminance and moment-to-moment luminance changes using a dynamic, explainable, and open-source modeling procedure (Open-DPSM) considerably improved effort discriminability on both aggregate and time-resolved levels. At the aggregate level, luminance-corrected pupillometry slightly outperformed accuracy and NASA-TLX. Combining all three measures yielded the highest classification performance (AUC = 0.98), supporting the view that effort is multifaceted and best captured multimodally. These findings establish a practical basis for fine-grained physiological tracking of effort and arousal in both fundamental and applied research using complex, dynamic stimuli. A tutorial section guides researchers in applying luminance correction to their own pupillometric data in dynamic viewing environments using the here validated approach.",
+      "authors": [
+        "Cai, Y.",
+        "Naber, M.",
+        "Van der Stigchel, S.",
+        "Strauch, C."
+      ],
+      "primary_category": "neuroscience",
+      "categories": [
+        "neuroscience"
+      ],
+      "published": "2026-05-31T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.05.29.728653v2.full.pdf",
+      "tags": [
+        "keyword:pwad",
+        "query:pwad"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Uses luminance-corrected pupillometry, relevant to perceived brightness models involving pupil diameter",
+      "llm_evidence_cn": "采用亮度校正的瞳孔测量法，与涉及瞳孔直径的感知亮度模型相关",
+      "llm_evidence": "采用亮度校正的瞳孔测量法，与涉及瞳孔直径的感知亮度模型相关",
+      "canonical_evidence": "采用亮度校正的瞳孔测量法，与涉及瞳孔直径的感知亮度模型相关",
+      "llm_tldr_en": "Introduces a method to correct pupil size measurements for luminance changes, enabling reliable cognitive effort tracking in dynamic visual environments, which could inform perceived brightness models that incorporate pupil dynamics.",
+      "llm_tldr_cn": "传统瞳孔测量受环境亮度变化干扰，难以在动态视觉场景中可靠反映认知努力。本文提出亮度校正瞳孔测量方法，通过同时采集瞳孔数据和亮度信息，利用听觉n-back任务在恒定或动态视觉输入条件下验证，成功校正了亮度引起的瞳孔变化，恢复了与任务难度相关的瞳孔扩张效应。该方法为在AR/移动显示等动态亮度环境下使用瞳孔指标评估视觉舒适度和感知亮度提供了可能的技术基础。",
+      "llm_tldr": "传统瞳孔测量受环境亮度变化干扰，难以在动态视觉场景中可靠反映认知努力。本文提出亮度校正瞳孔测量方法，通过同时采集瞳孔数据和亮度信息，利用听觉n-back任务在恒定或动态视觉输入条件下验证，成功校正了亮度引起的瞳孔变化，恢复了与任务难度相关的瞳孔扩张效应。该方法为在AR/移动显示等动态亮度环境下使用瞳孔指标评估视觉舒适度和感知亮度提供了可能的技术基础。",
+      "llm_tags": [
+        "query:pwad"
+      ],
+      "matched_query_tag": "query:pwad",
+      "matched_query_text": "Find literature on perceived display brightness models using pupil diameter, retinal imaging, ambient illumination, and visual comfort for AR, OLED, or mobile displays.",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
