@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-06-01 <!--dpr-date:20260601-->
+    * 速读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202606/01/2605.30820v1-binary-amplitude-modulation-suppresses-noise-up-conversion-in-coherent-diffractive-optical-networks" data-sidebar-item="{&quot;title&quot;: &quot;Binary Amplitude Modulation Suppresses Noise Up-Conversion in Coherent Diffractive Optical Networks&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2605.30820v1-binary-amplitude-modulation-suppresses-noise-up-conversion-in-coherent-diffractive-optical-networks&quot;, &quot;score&quot;: &quot;6.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;pwad&quot;}], &quot;evidence&quot;: &quot;衍射光网络中的二元振幅调制提供了可迁移至衍射波导设计的噪声抑制方法&quot;}">Binary Amplitude Modulation Suppresses Noise Up-Conversion in Coherent Diffractive Optical Networks</a>
   * 2026-05-31 <!--dpr-date:20260531-->
     * 速读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202605/31/biorxiv-10-64898-2026-05-29-728653-v2-luminance-corrected-pupillometry-for-reliable-effort-tracking-in-dynamic-environments" data-sidebar-item="{&quot;title&quot;: &quot;Luminance-corrected Pupillometry for Reliable Effort-tracking in Dynamic Environments&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/biorxiv-10-64898-2026-05-29-728653-v2-luminance-corrected-pupillometry-for-reliable-effort-tracking-in-dynamic-environments&quot;, &quot;score&quot;: &quot;6.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;pwad&quot;}], &quot;evidence&quot;: &quot;采用亮度校正的瞳孔测量法，与涉及瞳孔直径的感知亮度模型相关&quot;}">Luminance-corrected Pupillometry for Reliable Effort-tracking in Dynamic Environments</a>

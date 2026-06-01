@@ -1,0 +1,24 @@
+{
+  "label": "2026-06-01",
+  "date": "2026-06-01",
+  "generated_at": "2026-06-01T23:57:29",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202606/01/2605.30820v1-binary-amplitude-modulation-suppresses-noise-up-conversion-in-coherent-diffractive-optical-networks",
+      "section": "quick",
+      "title_en": "Binary Amplitude Modulation Suppresses Noise Up-Conversion in Coherent Diffractive Optical Networks",
+      "authors": "Hyuntae Lim, Kyoungsik Kim",
+      "date": "2026-05-29",
+      "pdf": "https://arxiv.org/pdf/2605.30820v1",
+      "score": "6.0",
+      "evidence": "衍射光网络中的二元振幅调制提供了可迁移至衍射波导设计的噪声抑制方法",
+      "tldr": "本文在相干衍射光网络中引入二元振幅调制，分析发现与连续调制相比，二元掩膜能显著抑制噪声上转换，在多种噪声模型下分类准确度提升可达32.8个百分点，同时精度损失极小。该工作揭示了衍射光学计算中“少即是多”的鲁棒性法则，为设计抗噪声的衍射波导元件和光学处理器提供了新思路。",
+      "tags": "query:pwad",
+      "abstract_en": "We establish a fundamental principle in coherent wave-optical computing: restricting the modulation manifold from continuous complex-valued to binary amplitude suppresses stochastic-noise up-conversion while preserving classification fidelity, yielding a counter-intuitive less-is-more robustness law. Seven-layer binary-amplitude-mask D2NN (BM-D2NN) achieve 90.9% (MNIST) and 81.9% (Fashion-MNIST) test accuracy, within 2~4 pp of continuous-modulation D2NN (C-D2NN). Under pixel-wise Gaussian noise N(m,σ^2), spanning zero-mean (shot noise) to nonzero-mean (thermal/readout) regimes, BM-D2NN outperform C-D2NN by up to 32.8 pp (MNIST) and 18.5 pp (Fashion-MNIST). We analytically derive a noise-contribution metric C, governed by a transmission-bias factor K computable from clean data alone, that is consistently smaller for binary modulation than for continuous modulation (as verified for all test samples), guaranteeing the robustness ordering without noisy simulation. BM-D2NN additionally deliver a 6.79-fold higher imaging-plane intensity for clean data input. These results establish a quantitative physical principle connecting modulation-manifold geometry to noise robustness, applicable to any coherent optical processor in the z/λ >> 1 regime.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
