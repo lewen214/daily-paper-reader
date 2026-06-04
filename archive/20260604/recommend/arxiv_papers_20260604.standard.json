@@ -1,18 +1,54 @@
 {
   "mode": "standard",
-  "generated_at": "2026-06-04T00:41:40.876662+00:00",
+  "generated_at": "2026-06-04T23:24:17.977520+00:00",
   "stats": {
     "mode": "standard",
     "tag_count": 1,
     "deep_divecandidates": 0,
     "deep_cap": 6,
     "deep_selected": 0,
-    "quick_candidates": 3,
+    "quick_candidates": 2,
     "quick_skim_target": 11,
-    "quick_selected": 3
+    "quick_selected": 2
   },
   "deep_dive": [],
   "quick_skim": [
+    {
+      "id": "2606.03537v1",
+      "source": "arxiv",
+      "title": "Boundedness of Left Half-Plane Eigenvalues for Non-Selfadjoint Indefinite Sturm--Liouville Problems with Applications to Fourier Modal Methods",
+      "abstract": "We study a general class of non-selfadjoint indefinite Sturm--Liouville problems of the form $$ -(p\\,y')' + q\\,y = λ\\, p\\, y, $$ on a finite interval with complex-valued coefficients, where $p$ is piecewise in $W^{2,\\infty}$, non-vanishing, and satisfies a non-degenerate interface condition, and $q$ is bounded. We prove that all eigenvalues in the open left half-plane are contained in a bounded set, which, by classical Sturm--Liouville theory, implies their finiteness. A prominent instance of this class arises in the lamellar grating diffraction problem with transverse-magnetic (TM) polarization, where $p=ε(x)^{-1}$ is the inverse of a spatially varying permittivity profile. Our result provides a simple and rigorous criterion for identifying non-physical spurious modes in low-loss metallic gratings -- a notorious source of instability in Fourier modal methods. Numerical examples illustrate the practical utility of the criterion.",
+      "authors": [
+        "Ehsan Faghihifar"
+      ],
+      "primary_category": "math.NA",
+      "categories": [
+        "math.NA",
+        "physics.optics"
+      ],
+      "published": "2026-06-02T11:59:10+00:00",
+      "link": "https://arxiv.org/pdf/2606.03537v1",
+      "tags": [
+        "keyword:pwad",
+        "query:pwad"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Mathematical results for Fourier modal methods applied to lamellar grating diffraction, relevant to diffractive optical waveguide analysis.",
+      "llm_evidence_cn": "针对层状光栅衍射问题的傅里叶模态方法的数学结果，与衍射光波导分析相关。",
+      "llm_evidence": "针对层状光栅衍射问题的傅里叶模态方法的数学结果，与衍射光波导分析相关。",
+      "canonical_evidence": "针对层状光栅衍射问题的傅里叶模态方法的数学结果，与衍射光波导分析相关。",
+      "llm_tldr_en": "This paper proves boundedness of eigenvalues for a class of Sturm-Liouville problems that arise in the Fourier modal method for lamellar grating diffraction, ensuring finite number of unstable modes and validating numerical methods for diffractive optics.",
+      "llm_tldr_cn": "本文研究了一类非自伴不定Sturm-Liouville问题，证明其左半平面特征值有界，从而保证不稳定模态数量有限。这一结果直接适用于层状光栅衍射的傅里叶模态方法，为衍射光波导等周期结构的严格数值模拟提供了数学基础，有助于提升增强现实近眼显示中光栅设计的可靠性和效率。",
+      "llm_tldr": "本文研究了一类非自伴不定Sturm-Liouville问题，证明其左半平面特征值有界，从而保证不稳定模态数量有限。这一结果直接适用于层状光栅衍射的傅里叶模态方法，为衍射光波导等周期结构的严格数值模拟提供了数学基础，有助于提升增强现实近眼显示中光栅设计的可靠性和效率。",
+      "llm_tags": [
+        "query:pwad"
+      ],
+      "matched_query_tag": "query:pwad",
+      "matched_query_text": "diffractive optical waveguide",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
     {
       "id": "2606.03774v1",
       "source": "arxiv",
@@ -37,97 +73,20 @@
         "keyword:pwad",
         "query:pwad"
       ],
-      "llm_score": 7.0,
-      "llm_evidence_en": "Provides a large-scale dataset for pupil segmentation under ambient illumination, enabling passive eye tracking on smart glasses; useful for perceived brightness models using pupil diameter and ambient light.",
-      "llm_evidence_cn": "提供自然环境红外光照下的瞳孔分割数据集，支持智能眼镜被动眼动追踪，可用于基于瞳孔直径和环境光的感知亮度模型。",
-      "llm_evidence": "提供自然环境红外光照下的瞳孔分割数据集，支持智能眼镜被动眼动追踪，可用于基于瞳孔直径和环境光的感知亮度模型。",
-      "canonical_evidence": "提供自然环境红外光照下的瞳孔分割数据集，支持智能眼镜被动眼动追踪，可用于基于瞳孔直径和环境光的感知亮度模型。",
-      "llm_tldr_en": "Eye tracking for smart glasses relies on active IR, limiting outdoor use. AmbientEye provides a large dataset of eye images under natural sunlight for passive pupil detection, enabling development of perceived brightness models using pupil diameter and ambient light in AR displays.",
-      "llm_tldr_cn": "针对智能眼镜眼动追踪依赖主动红外照明功耗高、限制户外使用的问题，本文构建了自然环境红外照明下的瞳孔分割数据集AmbientEye，采用两个离轴相机在自然阳光下采集2,606,225张眼部图像。实验证明被动红外瞳孔检测户外可行，该数据集可为利用瞳孔直径和环境光照的感知亮度模型提供基础，助力AR显示设备视觉舒适度研究。",
-      "llm_tldr": "针对智能眼镜眼动追踪依赖主动红外照明功耗高、限制户外使用的问题，本文构建了自然环境红外照明下的瞳孔分割数据集AmbientEye，采用两个离轴相机在自然阳光下采集2,606,225张眼部图像。实验证明被动红外瞳孔检测户外可行，该数据集可为利用瞳孔直径和环境光照的感知亮度模型提供基础，助力AR显示设备视觉舒适度研究。",
+      "llm_score": 6.0,
+      "llm_evidence_en": "Provides a large-scale pupil dataset under natural ambient IR, useful for pupil diameter measurement in perceived brightness models.",
+      "llm_evidence_cn": "提供自然环境红外光下的大规模瞳孔数据集，可用于感知亮度模型中的瞳孔直径测量。",
+      "llm_evidence": "提供自然环境红外光下的大规模瞳孔数据集，可用于感知亮度模型中的瞳孔直径测量。",
+      "canonical_evidence": "提供自然环境红外光下的大规模瞳孔数据集，可用于感知亮度模型中的瞳孔直径测量。",
+      "llm_tldr_en": "Introduces AmbientEye, a 2.6M natural-sunlight eye image dataset for passive pupil segmentation, facilitating outdoor eye tracking and pupil-based perceived brightness research.",
+      "llm_tldr_cn": "针对眼动追踪依赖主动红外照明、户外使用受限的问题，利用被动红外相机和自然日光构建大规模AmbientEye数据集，含260万张眼图，验证了自然光照下瞳孔检测的可行性。该方法和数据为基于瞳孔直径的显示感知亮度模型提供了重要测量基础，有助于推进AR等设备的视觉舒适度研究。",
+      "llm_tldr": "针对眼动追踪依赖主动红外照明、户外使用受限的问题，利用被动红外相机和自然日光构建大规模AmbientEye数据集，含260万张眼图，验证了自然光照下瞳孔检测的可行性。该方法和数据为基于瞳孔直径的显示感知亮度模型提供了重要测量基础，有助于推进AR等设备的视觉舒适度研究。",
       "llm_tags": [
         "query:pwad"
       ],
       "matched_query_tag": "query:pwad",
       "matched_query_text": "Find literature on perceived display brightness models using pupil diameter, retinal imaging, ambient illumination, and visual comfort for AR, OLED, or mobile displays.",
       "matched_requirement_id": "req-8",
-      "selection_source": "fresh_fetch",
-      "quick_tier": "7"
-    },
-    {
-      "id": "2605.28322v1",
-      "source": "arxiv",
-      "title": "Polarimetric Backscattering Setup for Quantitative Scattering Parameters Retrieval",
-      "abstract": "We present two backscattering polarimetric scanning setups based on point-illumination schemes, that are designed to probe the optical properties of subsurface media. We describe their advantages and limitations, characterize their performance in Mueller matrix determination, and demonstrate their ability to retrieve unknown sample parameters (such as the scattering coefficient and anisotropy factor) using a maximum likelihood approach. As an experimental validation, a polystyrene suspension is investigated as a representative case. By applying Fisher information formalism on the theoretical model, we estimate boundaries of the retrieved parameters.",
-      "authors": [
-        "Bhanu P. Singh",
-        "Vladislav Stefanov",
-        "Nadine A. Coorens",
-        "Andre Stefanov"
-      ],
-      "primary_category": "physics.optics",
-      "categories": [
-        "physics.optics"
-      ],
-      "published": "2026-05-27T11:24:59+00:00",
-      "link": "https://arxiv.org/pdf/2605.28322v1",
-      "tags": [
-        "keyword:pwad",
-        "query:pwad"
-      ],
-      "llm_score": 6.0,
-      "llm_evidence_en": "polarimetric backscattering scans and maximum likelihood retrieval of scattering parameters",
-      "llm_evidence_cn": "偏振后向散射扫描及最大似然反演散射参数",
-      "llm_evidence": "偏振后向散射扫描及最大似然反演散射参数",
-      "canonical_evidence": "偏振后向散射扫描及最大似然反演散射参数",
-      "llm_tldr_en": "Describes polarimetric backscattering setups to quantitatively retrieve optical scattering coefficients and anisotropy factors, offering a method that could be adapted for characterizing scattering layers in Mini LED backlit LCDs to help assess and suppress halo effects.",
-      "llm_tldr_cn": "针对亚表面介质散射参数定量测量难题，提出两种基于点照明的偏振后向散射扫描装置，通过最大似然反演方法获取散射系数和各向异性因子。以聚苯乙烯悬浊液为样本验证，并利用Fisher信息估计参数边界。该技术可扩展用于表征Mini LED背光LCD中散射层的光学特性，为光晕评价与抑制提供测试手段。",
-      "llm_tldr": "针对亚表面介质散射参数定量测量难题，提出两种基于点照明的偏振后向散射扫描装置，通过最大似然反演方法获取散射系数和各向异性因子。以聚苯乙烯悬浊液为样本验证，并利用Fisher信息估计参数边界。该技术可扩展用于表征Mini LED背光LCD中散射层的光学特性，为光晕评价与抑制提供测试手段。",
-      "llm_tags": [
-        "query:pwad"
-      ],
-      "matched_query_tag": "query:pwad",
-      "matched_query_text": "Search recent studies on Mini LED backlit LCD halo measurement, characterization, dynamic halo visibility, and suppression methods.",
-      "matched_requirement_id": "req-7",
-      "selection_source": "fresh_fetch",
-      "quick_tier": "6"
-    },
-    {
-      "id": "2605.31074v1",
-      "source": "arxiv",
-      "title": "Preventing the Breakdown of Tight-Binding Waveguide Optics by Löwdin Orthogonalization",
-      "abstract": "Many advancements in optics have relied on the tight-binding approximation, which simplifies the description and prediction of complex system behaviors. This approximation describes the dynamics of the total light field by examining the coupling between the guided modes of individual single-mode substructures -- also known as coupled mode theory. However, the underlying assumption, that the guided modes of individual waveguides form an orthogonal basis, breaks down when waveguides are brought into close proximity or when larger arrays are considered. In this work, we systematically analyze the consequences of this non-orthogonality and show that it leads to a generalized eigenvalue problem involving an overlap matrix, causing a fundamental mismatch between the standard TB model and solutions of the paraxial wave equation. To resolve this issue, we introduce a modified TB framework based on the Löwdin orthogonalization, which constructs an orthonormal basis from the non-orthogonal guided modes while minimally altering their physical shape and preserving their symmetry properties. The resulting Löwdin-TB method restores the standard eigenvalue problem and yields excellent agreement with exact beam propagation simulations across a wide range of system sizes and waveguide separations. Furthermore, it captures important physical effects, such as enhanced long-range coupling and nontrivial hopping phases, that are absent in the standard approach.",
-      "authors": [
-        "Konrad Tschernig",
-        "Florian H. Huber",
-        "Janik Wolters",
-        "Jasmin Meinecke"
-      ],
-      "primary_category": "physics.optics",
-      "categories": [
-        "physics.optics",
-        "quant-ph"
-      ],
-      "published": "2026-05-29T09:43:07+00:00",
-      "link": "https://arxiv.org/pdf/2605.31074v1",
-      "tags": [
-        "keyword:pwad",
-        "query:pwad"
-      ],
-      "llm_score": 6.0,
-      "llm_evidence_en": "systematic analysis of non-orthogonality in tight-binding waveguide optics and correction method",
-      "llm_evidence_cn": "系统分析紧束缚波导光学中的非正交性并给出校正方法",
-      "llm_evidence": "系统分析紧束缚波导光学中的非正交性并给出校正方法",
-      "canonical_evidence": "系统分析紧束缚波导光学中的非正交性并给出校正方法",
-      "llm_tldr_en": "Proposes a method to correct the breakdown of the tight-binding approximation in waveguide optics by using Loewdin orthogonalization, enabling accurate mode coupling analysis in closely packed waveguide arrays.",
-      "llm_tldr_cn": "针对紧束缚近似在密集波导阵列中因模式非正交性而失效的问题，提出采用Loewdin正交化方法修正耦合模理论。通过引入正交化步骤，解决了重叠矩阵导致的广义本征值问题，恢复了紧束缚方法的适用性，为复杂波导系统（如衍射光学波导）的精确建模提供了新工具。",
-      "llm_tldr": "针对紧束缚近似在密集波导阵列中因模式非正交性而失效的问题，提出采用Loewdin正交化方法修正耦合模理论。通过引入正交化步骤，解决了重叠矩阵导致的广义本征值问题，恢复了紧束缚方法的适用性，为复杂波导系统（如衍射光学波导）的精确建模提供了新工具。",
-      "llm_tags": [
-        "query:pwad"
-      ],
-      "matched_query_tag": "query:pwad",
-      "matched_query_text": "diffractive optical waveguide",
-      "matched_requirement_id": "req-5",
       "selection_source": "fresh_fetch",
       "quick_tier": "6"
     }

@@ -1,0 +1,1295 @@
+Title: Boundedness of Left Half-Plane Eigenvalues for Non-Selfadjoint Indefinite Sturm–Liouville Problems with Applications to Fourier Modal Methods
+
+URL Source: https://arxiv.org/pdf/2606.03537v1
+
+Published Time: Wed, 03 Jun 2026 01:20:47 GMT
+
+Number of Pages: 26
+
+Markdown Content:
+BOUNDEDNESS OF LEFT HALF-PLANE EIGENVALUES FOR NON-SELFADJOINT INDEFINITE STURM–LIOUVILLE PROBLEMS WITH APPLICATIONS TO FOURIER MODAL METHODS                 
+
+> EHSAN FAGHIHIFAR ∗
+> Abstract. We study a general class of non-selfadjoint indefinite Sturm–Liouville problems of the form
+> −(p y ′)′+q y =λ p y,
+> on a finite interval with complex-valued coefficients, where pis piecewise in W2,∞, non-vanishing, and satisfies a non-degenerate interface condition, and qis bounded. We prove that all eigenvalues in the open left half-plane are contained in a bounded set, which, by classical Sturm–Liouville theory, implies their finiteness. A prominent instance of this class arises in the lamellar grating diffraction problem with transverse-magnetic (TM) polarization, where p=ϵ(x)−1is the inverse of a spatially varying permittivity profile. Our result provides a simple and rigorous criterion for identifying non-physical spurious modes in low-loss metallic gratings—a notorious source of instability in Fourier modal methods. Numerical examples illustrate the practical utility of the criterion.
+> Key words. Non-selfadjoint Sturm–Liouville problems, left half-plane eigenvalues, eigenvalue boundedness, Fourier modal methods, lamellar gratings, spurious modes
+
+1. Introduction. The analysis of wave propagation and diffraction in periodic or layered media is a central problem in modern photonics. Lamellar gratings, as one-dimensional periodic structures, are particularly significant, both as canonical numerical models and key photonic components [77, 10, 2]. Among various numerical techniques devised to address this problem, modal methods are especially promi-nent, owing to their physical insight and computational efficiency [94, 85, 57, 49]. These methods rely on expressing the electromagnetic fields as a superposition of eigenmodes of a Sturm–Liouville (SL) differential operator arising from Maxwell’s equations, whose spectral properties, such as selfadjointness, completeness, eigen-value distribution, and boundedness, form the mathematical foundation of the frame-work [97, 38]. Early applications of modal methods in grating analysis relied on Fourier series to describe permittivity functions and electromagnetic fields [15, 42, 48]. Later, the analytic modal method (AMM) introduced a new approach for gratings with piece-wise constant permittivity profiles, determining layer eigenmodes in closed form and enforcing the interface conditions analytically [11, 13, 12, 14, 84, 54]. While concep-tually straightforward, AMM is restricted to simple geometries and requires solving transcendental characteristic equations in the complex plane. Subsequently, further numerical modal methods were developed. Most notably, inspired by the early Fourier modal implementations and an equivalent approximate method, called the coupled-wave method [50, 65], a more rigorous, generalized, standard Fourier-based modal approach took shape, known as the rigorous coupled-wave analysis (RCWA) or the Fourier modal method (FMM) [71, 69, 70, 73, 57, 58, 59]. To date, FMM remains a popular approach, owing to its physical insight, exceptional versatility, and computa-tional efficiency. Nonetheless, modal methods and particularly FMM, exhibit well-known far-field convergence difficulties for transverse-magnetic (TM) polarization in metallic grat-ings, in stark contrast to the well-behaved transverse-electric (TE) case [63]. Al-though the advent of Fourier factorization rules [33, 53, 56] helped circumvent trun-
+
+> ∗Independent Researcher, Tehran, Iran (eh.faghihi@gmail.com). 1
+> arXiv:2606.03537v1 [math.NA] 2 Jun 2026
+
+cated convolution errors (TCE) [24], anomalous convergence persisted with low-loss or lossless metallic gratings. Depending on implementation, these numerical anom-alies have been attributed to a variety of seemingly distinct but cognate sources, including the Gibbs phenomenon [63, 47], TCE [56, 53], ill-conditioning of Fourier coefficient matrices [78], violation of Li’s inverse rule [78, 92, 44], field singularities at metal–dielectric edges [37, 62, 61, 66], omission of ghost modes [29], and most no-tably, the emergence of spurious modes with unbounded propagation constants [64]. To that effect, numerous remedies have been proposed, including finite-difference or adaptive-resolution schemes [52, 30, 32, 35], subsectional spectral or pseudo-spectral approaches [74, 21, 22, 82, 17, 87, 86, 31], least-squares filtering [37, 36], artificial loss [78], and non-modal Fourier methods [45, 43]. Notwithstanding, fundamental questions regarding the nature of spurious modes remain largely unanswered. While regarded as numerical artifacts, the noted difficulties are also rooted in the spectral structure of the underlying differential operator, namely a non-selfadjoint indefinite Sturm–Liouville equation. Several studies have shown that the associated spectrum exhibits unexpected features, such as modes with propagation constants exceeding the bound typically associated with the maximum dielectric constant [90, 29], and ghost modes with non-real squared propagation constants (i.e., eigenvalues) even in lossless settings [29, 84, 89, 88]. Neglecting these modes leads to pronounced convergence defects [29], suggesting that such modes might even be infinite in number. Furthermore, because of the indefinite inner product, TM eigenmodes do not form a Hilbert space; consequently, modal completeness relies on a biorthogonal system, as established in non-selfadjoint spectral theory [49, 13, 38, 76]. A general SL problem over a finite interval seeks nontrivial solutions to (1.1) −(p y ′)′ + q y = λ w y, 
+
+where p, q, w are complex-valued functions, y is the eigenfunction, and λ is the eigen-value. The TM problem in gratings lies in this framework, with the magnetic field component Hy as the eigenfunction, p = w = ϵ(x)−1, q = k20 , and λ = −β2, where k0
+
+is the vacuum wave number, β is the longitudinal propagation constant, and ϵ(x) is the permittivity profile, i.e., typically modeled as a piecewise constant periodic func-tion which can change sign for metallic gratings and become complex-valued in the presence of losses. A similar formulation applies to TM modes in waveguides [49]. In classical definite SL theory, where all coefficients are real-valued, p > 0, w > 0(a.e.), and p−1, q, w ∈ L1(a, b ), the associated operator is selfadjoint in the weighted Hilbert space L2
+
+> w
+
+(a, b ). It is bounded from below, with a discrete spectrum of real eigenvalues and a complete orthogonal system of eigenfunctions [97, 93]. Allowing the potential q to be complex while keeping p > 0 and w > 0 (a.e.) can lead to complex eigenvalues [40]. If p changes sign while w > 0 (a.e.), the spectrum remains real under the associated Hilbert space framework, but can become unbounded from both below and above, provided the subsets on which p is positive and negative have nonzero Lebesgue measure [75]. A similar unboundedness result holds if w changes sign, under additional assumptions [51]. In the case of w, the sign change is the characteristic condition for the classical indefinite SL problems [97, 93]. Here, Kre˘ ın space theory provides a natural framework for the analysis [19]. Beyond the definite setting, spectral properties can indicate additional complex-ities. Early studies proved the existence and finiteness of non-real eigenvalues for classical indefinite problems [39, 83, 67, 68]. More recent works have established apriori bounds on their real and imaginary parts under various regularity assump-tions [4, 5, 6, 7, 80, 81, 46, 95, 96]. The difference with the definite case can be even 
+
+> 2
+
+more subtle concerning eigenfunction completeness. In the sense of the Riesz basis property , i.e., whether the eigenfunctions of the indefinite SL operator form a Riesz basis for the associated Hilbert space with |w| as the weight function, the outcome can be non-trivial. While under certain conditions completeness is proven [41, 3, 18], the Riesz basis property does not hold in general [91], and explicit counterexamples have been constructed [79, 27, 1, 8]. In the TM metallic grating setting, the governing equation falls into a less-explored regime of SL problems where both p and w may change sign, and may also be complex-valued. The resulting non-selfadjoint and indefinite nature of the operator alters analytic properties such as eigenvalue distribution, while also affecting numerical stability in modal computations. Motivated by the TM problem, we consider equation (1.1) and establish bound-edness of eigenvalues for a relatively general class in which p = w is piecewise in 
+
+W 2,∞, non-vanishing, and admits finitely many discontinuities, while q is bounded. We further assume flux continuity together with a non-degenerate interface condition, and impose pseudo-periodic, Dirichlet, or Neumann boundary conditions. We show that, unlike standard indefinite problems and more in line with the definite setting, these assumptions imply that the eigenvalues are bounded in the left half-plane, from which classical Sturm–Liouville theory yields that only finitely many eigenvalues can lie in this region. From a computational photonics perspective, this result formalizes a long-standing numerical observation in Fourier modal methods and provides a simple yet rigorous criterion for distinguishing spurious modes. In the TM lamellar grating problem, this can be summarized as follows: as the truncation order increases, modes with Re( β2) → +∞ are identified as spurious and have no physical analogue. One should note that, due to the indefinite nature of the governing equation, physical eigenvalues may not be bounded by classical estimates such as |β| < k 0
+
+√ϵmax .The structure of this paper is as follows. In Section 2, we recall the TE and TM scalar formulations and their relation to the general SL form. In Section 3, we present and prove the main theorem on left half-plane eigenvalue boundedness, together with a corollary for additional boundary conditions and a finiteness remark. In Section 4, applications of the results to grating analysis are illustrated through numerical examples, followed by the conclusion in Section 5. 
+
+2. Physical Motivation. In this work, gratings are non-magnetic media, typi-cally piecewise constant, that are periodic in the transverse plane and longitudinally invariant. In the context of gratings, eigenvalue problems arise in two distinct for-mulations of the same governing equation, each associated with different spectral properties. Consider the general vectorial wave equation for the electric or magnetic fields (2.1) ∇ × ∇ × E = k20 ϵE, ∇ × (ϵ−1∇ × H) = k20 H.
+
+where k0 = ω/c is the vacuum wave number for ω denoting the angular frequency and c the speed of light. When the wave propagation is assumed in the transverse plane and (2.1) is solved for the frequency as the eigenvalue with given transverse components, e.g., in photonic band structure calculations, the resulting eigenvalue problem is selfadjoint. However, when the propagation has a longitudinal component, the transverse components and frequency are fixed, and (2.1) is solved for the longi-tudinal propagation constant, e.g., in diffraction analyses, selfadjointness holds only in special instances. This paper studies the latter case for lamellar gratings. 
+
+> 3
+
+Since the periodicity is one-dimensional, we assume the transverse plane is xy , the permittivity profile is ϵ(x) with periodicity ℓ, and the plane of incidence is xz (e.g., see Fig. 1a). The latter assumption simplifies the problem into distinct scalar TE/TM equations, given the incident waves Einc = Einc ˆy or Hinc = Hinc ˆy, respectively. Otherwise, polarization coupling cannot be avoided under conical incidence. Considering the time dependence eiωt and longitudinal dependence e−iβz , the vectorial wave equations are reduced to different second-order scalar eigenvalue equa-tions for TE/TM polarizations. Under TE incidence, where the electric field inside the grating is E = Ey ˆy, one obtains the well-known eigenvalue equation in terms of 
+
+Ey , as follows: (2.2) ∂2 
+
+> x
+
+Ey +  k20 ϵ − β2Ey = 0 .
+
+where we use ∂x = d/dx for simplicity. This can be written in SL form (2.3) −(pE ′ 
+
+> y
+
+)′ + qE y = λ wE y ,
+
+with (2.4) p = w = 1 , q = −k20 ϵ(x), λ = −β2.
+
+Due to the losslessness assumption, all coefficients are real, and since p = w > 0, the associated SL operator remains selfadjoint, even for metallic gratings where ϵ changes sign in the optical regime. For the TM case, the magnetic field becomes H = Hy ˆy, and the corresponding eigenvalue equation for Hy takes the form (2.5) ∂x
+
+ ϵ−1∂xHy
+
+ +  k20 − β2ϵ−1Hy = 0 .
+
+Recast in SL form, this becomes (2.6) −(pH ′ 
+
+> y
+
+)′ + qH y = λ wH y ,
+
+with (2.7) p = w = ϵ(x)−1, q = −k20 , λ = −β2.
+
+Continuity of Hy and ϵ−1H′ 
+
+> y
+
+across interfaces follows from the tangential boundary conditions of Maxwell’s equations. Moreover, periodicity imposes the Bloch–Floquet pseudo-periodic condition (2.8) Hy (x + ℓ) = e−ik x, 0ℓHy (x).
+
+where kx, 0 is enforced by the incident plane wave. When ϵ(x) changes sign, as in metallic regions, the equation becomes a non-standard indefinite SL problem. A closely related SL formulation arises for TM modes when the lamellar grating is also magnetic, or more commonly in parallel-plate, metal–insulator–metal (MIM), or slab waveguides, where both ϵ(x) and μ(x) may vary spatially. In such problems, SL coefficients are (2.9) p = w = ϵ(x)−1, q = −k20 μ(x), λ = −β2.
+
+For a parallel-plate waveguide with perfectly conducting walls, the tangential elec-tric field vanishes at metallic surfaces, implying Ez = 0, and hence, ∂xHy PEC = 0, which corresponds to a Neumann boundary condition for Hy . At higher frequencies, the model becomes singular due to the unbounded domain, but the underlying SL structure remains the same. 
+
+> 4
+
+3. Spectral Analysis. In this section, we present a theorem on eigenvalue boundedness in the left half-plane for a class of piecewise smooth SL problems with pseudo-periodic boundary conditions, motivated by the TM formulation of Sec. 2. A corollary extends the result to Dirichlet and Neumann boundary conditions. We also remark that this boundedness implies the finiteness of eigenvalues in the left half-plane. We begin with a summary of the notation used throughout. 
+
+3.1. Notation. For m a positive integer, we define Nm := {n ∈ N : n ≤ m}
+
+where N is the set of positive integers. Let Ω = [ a, b ] ⊂ R denote a bounded interval partitioned finitely as follows: (3.1) a = x0 < x 1 < · · · < x m = b, Ωj := ( xj−1, x j ),
+
+where j ∈ Nm. We also denote (3.2) ℓj := xj − xj−1, ℓ := b − a =
+
+> m
+
+X
+
+> j=1
+
+ℓj .
+
+All functions are assumed complex-valued unless stated otherwise. In this text, the notation f = O(g) means that |f | ≤ C|g| for some real constant C > 0, uniformly with respect to all variables other than the asymptotic parameter under consideration, which is understood either explicitly or from context. Moreover, for a matrix-valued function H = [ hij ], we define (3.3) O(H) := [ O(hij )] ,
+
+denoting an asymptotic class of matrix-valued functions whose entries satisfy the corresponding entrywise asymptotic bounds. Algebraic operations involving O(H)are performed using standard matrix addition and multiplication, with the asymptotic bounds propagated entrywise. Given a set I ⊂ R, the closure I is the smallest closed subset of R containing I. The Banach space of essentially bounded functions f on I
+
+is denoted by L∞(I) with the norm (3.4) ∥f ∥L∞(I) := ess sup 
+
+> x∈I
+
+|f (x)|.
+
+For an open interval I, the Sobolev space W k, ∞(I) consists of functions whose weak derivatives up to order k belong to L∞(I). Its norm is given by (3.5) ∥f ∥W k, ∞(I) := 
+
+> k
+
+X
+
+> j=0
+
+∥f (j)∥L∞(I).
+
+For x ∈ R and a function f , we denote the one-sided limits (whenever they exist) by (3.6) f (x−) := lim  
+
+> y→x−
+
+f (y), f (x+) := lim  
+
+> y→x+
+
+f (y).
+
+Finally, for a closed interval I, the space of k-times continuously differentiable func-tions equipped with the supremum norm above is denoted by Ck(I), with C(I) := 
+
+C0(I). Finally, the norm of a bounded linear operator L is defined as (3.7) ∥L ∥op := sup  
+
+> ∥f∥∞≤1
+
+∥L f ∥L∞(I).
+
+> 5
+
+3.2. Main Theorem. 
+
+Theorem 3.1 (Left half-plane boundedness of eigenvalues). Consider 
+
+(3.8) −(p y ′)′ + q y = λ p y, x ∈ Ω,
+
+where p and q are functions defined on Ω, periodically extended to R, and let Y := (y, py ′)T denote the state vector. Assume: 
+
+• Regularity of p:
+
+(3.9) p ∈ W 2,∞(Ω j ), inf 
+
+> x∈Ωj
+
+|p(x)| > 0, (j ∈ Nm).
+
+• Boundedness of q:
+
+(3.10) q ∈ L∞(Ω) .
+
+• Non-degenerate interface condition: 
+
+(3.11) p(x+ 
+
+> j
+
+) + p(x− 
+
+> j
+
+)̸ = 0 , j ∈ Nm.
+
+• Interface continuity of Y :
+
+(3.12) Y (x+ 
+
+> j
+
+) = Y (x− 
+
+> j
+
+), (j ∈ Nm).
+
+• Pseudo-periodic boundary condition: 
+
+(3.13) Y (b+) = eiφ Y (a+), (φ ∈ R).
+
+Then every eigenvalue λ of (3.8) in the complex left half-plane is bounded, i.e., 
+
+(3.14) ∃ R0 > 0 : Re( λ) < 0 =⇒ |λ| < R 0.
+
+Proof. The proof consists of the following steps. First, the eigenvalue problem is transformed into a Schr¨ odinger-type form, and the local transfer and interface jump matrices are derived. This yields the monodromy matrix and the characteristic equa-tion. Next, the local solutions are expressed in integral form and estimated uniformly. These estimates are used to derive the asymptotic behavior of the monodromy matrix and to show that the characteristic equation admits no sufficiently large solutions in the complex left half-plane. 
+
+Liouville transformation and transfer-matrix formulation. On each subinter-val Ω j with j ∈ Nm, apply the Liouville transformation [9, 23] by defining (3.15) u := s y, s := p 12 .
+
+Here, on each subinterval Ω j , a branch of the square root is fixed. The transformed solution u is then understood in the piecewise sense (3.16) u(x) := 
+
+> m
+
+X
+
+> j=1
+
+1{x∈Ωj } uj (x), uj := u|Ωj ,
+
+> 6
+
+where 1{x∈Ωj } denotes the indicator function of Ω j . Rewriting the SL equation (3.8) in terms of u reduces it on each subinterval Ω j to the local spectral problem (3.17) Lj uj = λu j , x ∈ Ωj ,
+
+associated with the Schr¨ odinger-type operator (3.18) Lj := −∂2 
+
+> x
+
++ vj ,
+
+where the transformed coefficient is given by (3.19) vj := qp + 12
+
+ p′′ 
+
+p
+
+
+
+− 14
+
+ p′
+
+p
+
+2
+
+, x ∈ Ωj .
+
+Note that in (3.19), since p ∈ W 2,∞(Ω j ), the weak derivatives p′ and p′′ belong to L∞(Ω j ). Moreover, the non-vanishing condition inf x∈Ωj |p(x)| > 0 implies that 
+
+p−1 ∈ L∞(Ω j ). Consequently, each term in (3.19) belongs to L∞(Ω j ), and hence 
+
+vj ∈ L∞(Ω j ). One can express (3.17) as an equivalent first-order system (3.20) U ′ 
+
+> j
+
+= Aj Uj , x ∈ Ωj ,
+
+where Uj := ( uj , u ′ 
+
+> j
+
+)⊤ is the Liouville state vector on the j-th subinterval, and (3.21) Aj := 
+
+ 0 1
+
+vj − λ 0
+
+
+
+.
+
+The relationship between the original and the transformed state vectors Y and Uj for 
+
+x ∈ Ωj can be expressed as (3.22) Y Ωj
+
+= R Ωj
+
+Uj , R := 
+
+ s−1 0
+
+− p′
+
+2s s
+
+ .
+
+Here and in what follows, all quantities involving p and p′ at interface points are understood in the sense of one-sided limits, which exist since p ∈ W 2,∞(Ω j ) implies 
+
+p, p ′ ∈ C(Ω j ). Hence, R is well-defined on each subinterval. Subsequently, one can also define the global Liouville state vector as (3.23) U (x) := 
+
+> m
+
+X
+
+> j=1
+
+1{x∈Ωj } Uj (x),
+
+so that U Ωj
+
+= Uj .The fundamental matrix of (3.20) on Ω j is defined as the unique solution of (3.24) Φ′ 
+
+> j
+
+= Aj Φj , Φj (xj−1) = I, 
+
+where I is the 2 × 2 identity matrix. Consequently, if we denote Φ j = [ Uj, +|Uj, −], then Uj, ± := ( uj, ±, u ′
+
+> j, ±
+
+)⊤ would be the two independent solutions of (3.20), satisfying 
+
+Uj, +(xj−1) = (1 , 0) ⊤ and Uj, −(xj−1) = (0 , 1) ⊤. Moreover, the local transfer matrix can be defined as: (3.25) Tj := Φ j (xj ) = 
+
+uj, +(xj ) uj, −(xj )
+
+u′
+
+> j, +
+
+(xj ) u′
+
+> j, −
+
+(xj )
+
+
+
+,
+
+> 7
+
+which propagates the Liouville state vector across the j-th subinterval, i.e., (3.26) U (x− 
+
+> j
+
+) = Tj U (x+
+
+> j−1
+
+).
+
+By Liouville’s formula for linear systems (see, e.g., [16]) (3.27) det Φ j (x) = det Φ j (xj−1) exp 
+
+Z xxj−1
+
+tr Aj (s) ds 
+
+
+
+,
+
+and since Φ j (xj−1) = I and tr Aj = 0, it follows that: (3.28) det Tj = det Φ j (xj ) = 1 .
+
+Now, the jump relationship for the Liouville state vector U at each interface 
+
+x = xj can be expressed using the continuity of Y from (3.12) and the relationship (3.22) (3.29) U (x+ 
+
+> j
+
+) = Jj U (x− 
+
+> j
+
+), Jj := R(x+ 
+
+> j
+
+)−1R(x− 
+
+> j
+
+).
+
+Evaluating Jj explicitly gives (3.30) Jj = αj 0
+
+βj α−1
+
+> j
+
+!
+
+.
+
+where (3.31) αj := s(x+ 
+
+> j
+
+)
+
+s(x− 
+
+> j
+
+) , βj := p′(x+ 
+
+> j
+
+) − p′(x− 
+
+> j
+
+)2 s(x+ 
+
+> j
+
+)s(x− 
+
+> j
+
+) .
+
+Since R(x± 
+
+> j
+
+) are well-defined, Jj is well-defined, with det Jj = 1. Also, note that periodicity ensures that the interface conditions at j = 0 and j = m points are essentially identical. Composing the transfer within each subinterval, via Tj , and the transmission across interfaces, via Jj , the global monodromy matrix for the periodic problem can be written as (3.32) M =
+
+> m−1
+
+Y
+
+> j=0
+
+Jm−j Tm−j = JmTm Jm−1Tm−1 · · · J1T1,
+
+which satisfies (3.33) U (b+) = M U (a+).
+
+The pseudo-periodic boundary condition (3.13) implies for the Liouville state vector that ψ R (a+)U (a+) = R(b+)U (b+) with ψ := eiφ . Since p is periodically extended and the branch of s = p1/2 is fixed on each subinterval, the endpoint matrices satisfy 
+
+R(a+) = R(b+). Consequently, the boundary condition reduces to (3.34) ψ U (a+) = U (b+).
+
+Comparing (3.33) and (3.34), if we define the characteristic matrix ∆ := ψI − M for the periodic problem, the eigenvalues are the zeros of (3.35) det ∆ = ψ2 − ψ tr M + det M. 
+
+> 8
+
+Since each local transfer matrix and each jump matrix has determinant 1, we have det M = 1, and therefore the eigenvalues satisfy (3.36) tr M = 2 cos( φ).
+
+Local solutions and integral representation. Let κ := ( −λ) 12 = ρ + iζ with 
+
+ρ, ζ ∈ R and the branch chosen so that ρ > 0. Knowing that Re( λ) = ζ2−ρ2 < 0, what we need to show is that |κ|, equivalently ρ, cannot tend to + ∞, while |ζ| < ρ . Since the latter inequality implies ρ < |κ| < √2 ρ, henceforth, we may use the equivalence 
+
+κc O(h(ρ)) = O(κc h(ρ)) = O(ρc h(ρ)) = ρc O(h(ρ)) for any c ∈ R+ and non-negative function h.We begin by rewriting (3.17) in the following form: (3.37) Dκuj = vj uj , x ∈ Ωj ,
+
+where Dκ := ∂2 
+
+> x
+
+−κ2 is a differential operator with constant coefficients. For x, s ∈ Ωj ,we denote by G(x, s ) the Green function satisfying (3.38) DκG(x, s ) = δ(x − s), G(xj−1, s ) = ∂xG(xj−1, s ) = 0 ,
+
+The normalization conditions at xj−1 ensure uniqueness of G(·, s ) and correspond to the choice of fundamental solutions normalized at the left endpoint. Its explicit form is (3.39) G(x, s ) = κ−1 sinh  κ(x − s) 1{s≤x},
+
+where 1{s≤x} denotes the indicator of the set {(x, s ) ∈ Ωj × Ωj : s ≤ x}.Applying the Green function method [20] to (3.37), the solution can be expressed explicitly as (3.40) uj (x) = 
+
+Z
+
+> Ωj
+
+G(x, s ) vj (s) uj (s) ds +
+
+h
+
+u′ 
+
+> j
+
+(s) G(x, s ) − uj (s) ∂sG(x, s )
+
+is=xj
+
+> s=xj−1
+
+.
+
+Here, the bracketed term accounts for the contributions from the endpoints. At the upper endpoint s = xj , the boundary contribution vanishes since G(x, s ) and ∂sG(x, s )are supported on {s ≤ x}, while x < x j for all x ∈ Ωj . At the lower endpoint s = xj−1,the Green function terms take the form of the homogeneous solutions of Dκ operator over Ω j . Specifically, the above equation can be written as (3.41) uj (x) = uj (xj−1) ˜ uj, +(x) + uj ′(xj−1) ˜ uj, −(x) + 
+
+Z
+
+> Ωj
+
+G(x, s ) vj (s) uj (s) ds, 
+
+where ˜ uj denotes the homogeneous solutions of Dκ ˜uj = 0 with the normalized initial conditions, explicitly given by (3.42) ˜uj, +(x) := cosh  κ(x − xj−1), ˜uj, −(x) := κ−1 sinh  κ(x − xj−1).
+
+If we denote the two independent solutions of Dκuj = vj uj by uj, ±, such that (3.43) uj, +(xj−1) = 1 , u′
+
+> j, +
+
+(xj−1) = 0 , uj, −(xj−1) = 0 , u′
+
+> j, −
+
+(xj−1) = 1 ,
+
+they can be expressed satisfying the following integral equations: (3.44) uj, ± = ˜ uj, ± +
+
+Z
+
+> Ωj
+
+G(x, s ) vj (s) uj, ±(s) ds. 
+
+> 9
+
+Define the normalized solutions as follows: (3.45) wj, ± := (˜ uj, ±)−1uj, ±,
+
+so that wj, ±(xj−1) = 1. Since ρ = Re( κ) > 0, neither cosh( κt ) nor sinh( κt ) vanishes for real t > 0. Hence ˜ uj, ±(x)̸ = 0 on Ω j , and the normalization (3.45) is well-defined. Substituting (3.45) into (3.44) gives (3.46) wj, ± = 1 + 
+
+Z
+
+> Ωj
+
+eG(x, s )j, ± vj (s) wj, ±(s) ds, 
+
+where the normalized Green functions are (3.47) eGj, ±(x, s ) := ˜ uj, ±(x)−1 G(x, s ) ˜ uj, ±(s).
+
+For x, s ∈ Ωj , let us define (3.48) x′ := x − xj−1, s′ := s − xj−1.
+
+Using the explicit form (3.40) and noting that x− s = x′ − s′, the normalized Green functions of (3.47) admit the explicit representation, in terms of the translated vari-ables of (3.48), as follows: (3.49) 
+
+eGj, + = sinh  κ(x′ −s′) cosh( κs ′)
+
+κ cosh( κx ′) 1{s′≤x′}, eGj, − = sinh  κ(x′ −s′) sinh( κs ′)
+
+κ sinh( κx ′) 1{s′≤x′}.
+
+For x > s , the functions eGj, ±(x, s ) are continuously differentiable in x. However, due to the presence of the indicator function in (3.39), these kernels are only piecewise C1
+
+on Ω j × Ωj . Consequently, the derivative with respect to x is interpreted in the weak sense on Ω j × Ωj . Since x′ = x − xj−1 and s′ is independent of x, we have ∂xx′ = 1 and ∂xs′ = 0. Therefore, the weak derivative can be computed explicitly as (3.50) ∂x eGj, + = cosh 2(κs ′)cosh 2(κx ′) 1{s′≤x′}, ∂x eGj, − = sinh 2(κs ′)sinh 2(κx ′) 1{s′≤x′}.
+
+Now, using the explicit form of the normalized Green functions and their deriva-tives, define the following integral operators with f ∈ L∞(Ω j ): 
+
+Pj, ± f := 
+
+Z
+
+> Ωj
+
+eGj, ±(x, s ) vj (s) f (s) ds, (3.51) 
+
+Qj, ± f := 
+
+Z
+
+> Ωj
+
+∂x eGj, ±(x, s ) vj (s) f (s) ds. (3.52) We intend to bound the norm of the above operators, and for that, we start by bound-ing the Green functions. Note that using the definition of the hyperbolic functions for κ ∈ C, ρ := Re( κ) > 0, and t ∈ R+, one readily verifies that (3.53) sinh( ρt ) ≤ | sinh( κt )|, | cosh( κt )| ≤ cosh( ρt ).
+
+Using these inequalities and assuming 0 < s ′ < x ′ < ℓ j , one can replace all numerator factors in (3.49) by cosh terms and denominator factors by the sinh term to get (3.54) | eGj, ±| ≤ cosh  ρ(x′ − s′) cosh( ρs ′)
+
+|κ| sinh( ρx ′) ≤ cosh( ρx ′)
+
+|κ| sinh( ρx ′) = coth( ρx ′)
+
+|κ| .
+
+> 10
+
+where we also used the fact that for x1, x 2 ∈ R+ one has cosh( x1) cosh( x2) ≤ cosh( x1 +
+
+x2). Integration over the subinterval then yields (3.55) 
+
+Z
+
+> Ωj
+
+| eGj, ±| ds =
+
+Z x′
+
+> 0
+
+| eGj, ±| ds ′ ≤ coth( ρx ′)
+
+|κ|
+
+Z x′
+
+> 0
+
+ds ′ = x′ coth( ρx ′)
+
+|κ| .
+
+and consequently (3.56) sup 
+
+> x∈Ωj
+
+Z
+
+> Ωj
+
+| eGj, ±| ds ≤ sup  
+
+> x′∈(0 ,ℓ j)
+
+x′ coth( ρx ′)
+
+|κ| = ℓj coth( ρℓ j )
+
+|κ| .
+
+Let us denote Vj := ∥vj ∥L∞(Ω j ). The operator norm of (3.51) can then be bounded as follows: (3.57) 
+
+∥Pj, ±∥op ≤ sup 
+
+> x∈Ωj
+
+Z
+
+> Ωj
+
+| eGj, ±| | vj (s)| ds ≤ rj = O(κ−1), rj := ℓj Vj coth( ρℓ j )
+
+|κ| .
+
+As for the second operator bound, note the following relationship for the absolute value of the derivatives in (3.50): (3.58) |∂x eGj, ±| = cosh(2 ρs ′) ± cos(2 ζs ′)cosh(2 ρx ′) ± cos(2 ζx ′) 1{s′≤x′}.
+
+where we have used the identities that for x1, x 2 ∈ R one has | cosh( x1 + ix 2)|2 = 
+
+> 12
+
+cosh(2 x1) + 12 cos(2 x2) and | sinh( x1 + ix 2)|2 = 12 cosh(2 x1) − 12 cos(2 x2). Direct integration yields (3.59) 
+
+Z
+
+> Ωj
+
+|∂x eGj, ±| ds =
+
+Z x′
+
+> 0
+
+|∂x eGj, ±| ds ′ = F±(2 ρx ′)2ρ ,
+
+where (3.60) F±(t) := sinh( t) ± ν−1sin( νt )cosh( t) ± cos( νt ) , ν := |ζ|
+
+ρ < 1.
+
+In the case ν = 0, the term ν−1 sin( νt ) is understood in the limiting sense, namely 
+
+ν−1 sin( νt ) → t as ν → 0. To obtain a bound that is uniform with respect to ν ∈ [0 , 1), we introduce the following auxiliary function: (3.61) h1(t) := sinh( t) + t
+
+cosh( t) − 1 , t > 0.
+
+and let t0 ≈ 1.2654 denote the unique solution to equation h1(t) = tan( t) over (0 , π/ 4). Since ν−1 sin( νt ) < t , one can write (3.62) F±(t) ≤ h1(t), t > 0.
+
+However, the function h1(t) is strictly decreasing for t > 0, due to the fact that (3.63) h′
+
+> 1
+
+(t) = − t sinh( t)(cosh( t) − 1) 2 < 0, t > 0.
+
+> 11
+
+Hence (3.64) F±(t) ≤ h1(t0) ≈ 3.172 , t ∈ [t0, 2ρℓ j ).
+
+Now, define (3.65) h2(t) := ν−1tan( νt ) − tanh( t),
+
+Differentiation yields (3.66) h′
+
+> 2
+
+(t) = sec( νt )2 − sech( t)2 > 0, t ∈ (0 , t 0).
+
+which means h2(t) is strictly increasing over the specified range. Given that h2(0) = 0, it follows that ν−1tan( νt ) > tanh( t) for t ∈ (0 , t 0). Writing both sides of this inequality as quotients, noting that the functions sin( νt ) and cos( νt ) are positive over 
+
+t ∈ (0 , t 0), and using the fact that ( t1 + t3)/(t2 + t4) lies between t1/t 2 and t3/t 4 for 
+
+t1, t 2, t 3, t 4 ∈ R+, one obtains (3.67) F−(t) ≤ tanh( t) ≤ F+(t) ≤ ν−1 tan( νt ), t ∈ (0 , t 0).
+
+As a result (3.68) F±(t) ≤ ν−1 tan( νt ) ≤ ν−1 tan( νt 0) ≤ tan( t0) ≈ 3.172 , t ∈ (0 , t 0).
+
+Combining (3.68) and (3.64) yields F±(t) ≤ 3.172 for all t ∈ (0 , 2ρℓ j ). Using this in (3.59) will consequently yield (3.69) sup 
+
+> x∈Ωj
+
+Z
+
+> Ωj
+
+|∂x eGj, ±| ds ≤ sup  
+
+> x′∈(0 ,ℓ j)
+
+n F±(2 ρx ′)2ρ
+
+o
+
+< 1.586 
+
+ρ .
+
+The constants appearing in the estimates are obtained by optimising uniform bounds over a two-regime decomposition of the auxiliary functions, with the splitting pa-rameter t0 chosen to minimise the resulting global constant. This yields the sharp numerical values used in the subsequent operator bounds. Now, the norm of the operator (3.52) can be bounded as follows: (3.70) ∥Qj, ±∥op ≤ sup 
+
+> x∈Ωj
+
+Z
+
+> Ωj
+
+|∂x eGj, ±| | vj (s)| ds ≤ r′ 
+
+> j
+
+= O(κ−1), r′ 
+
+> j
+
+:= 1.586 Vj
+
+ρ .
+
+We would like to ensure that ρ is large enough so that rj , r ′ 
+
+> j
+
+from (3.57) and (3.70) are smaller than one. On each subinterval Ω j , the latter equation gives a simple bound. As for the former one, we can make use of the inequality coth( t) ≤ 1 + 1 /t for t > 0to obtain an explicit lower bound. Combining the two estimates over all subintervals ensures that if (3.71) ρ > max 
+
+> j∈Nm
+
+n 
+
+> 12
+
+ℓj +
+
+q 14 ℓ2 
+
+> j
+
++ V −1
+
+> j
+
+
+
+Vj , 1.586 Vj
+
+o
+
+.
+
+then rj , r ′ 
+
+> j
+
+< 1 for all j ∈ Nm.Now, we proceed by rewriting (3.46) for w± in the operator form 
+
+> 12
+
+(3.72) (I − Pj, ±) wj, ± = 1 ,
+
+where I is the identity operator. Since ρ satisfies (3.71), I − Pj, ± is invertible and can be expressed as a converging Neumann series (3.73) wj, ± = ( I − Pj, ±)−11 = 1 + 
+
+> ∞
+
+X
+
+> n=1
+
+Pnj, ± 1Estimating termwise yields (3.74) ∥wj, ± − 1∥L∞(Ω j ) ≤
+
+> ∞
+
+X
+
+> n=1
+
+rnj = rj
+
+1 − rj
+
+= O(κ−1),
+
+and (3.75) ∥wj, ±∥L∞(Ω j ) ≤ 11 − rj
+
+= 1 + O(κ−1).
+
+Furthermore, differentiating (3.46) under the integral sign gives (3.76) w′ 
+
+> j, ±
+
+= Qj, ±wj, ±
+
+and therefore, (3.77) ∥w′
+
+> j, ±
+
+∥L∞(Ω j ) ≤ ∥ Qj, ±∥op ∥wj, ±∥L∞(Ω j ) ≤ r′
+
+> j
+
+1 − rj
+
+= O(κ−1).
+
+Finally, we justify differentiation under the integral sign in (3.76). For each fixed 
+
+x ∈ Ωj , the kernel eGj, ±(x, ·) is integrable over Ω j , and ∂x eGj, ±(x, s ) exists for almost every ( x, s ) ∈ Ωj ×Ωj . Therefore, it suffices to show that ∂x eGj, ± is uniformly bounded on Ω j × Ωj . The estimates below establish this boundedness, which implies that the operator Qj, ± in (3.52) is well-defined and justifies the interchange of differentiation and integration [28]. To prove boundedness, it suffices to consider the case s′ < x ′.Let t′ 
+
+> 0
+
+≈ 1.2558 denote the solution to the equation sec( t) = coth 2(t/ 2). Assuming 
+
+x′ ∈ (0 , t0 
+
+> 2ρ
+
+), the trigonometric terms in |∂x eGj, +| from (3.58) are positive and hyperbolic terms are increasing. Hence, one may write (3.78) 
+
+|∂x eGj, +| = cosh(2 ρs ′) + cos(2 ζs ′)cosh(2 ρx ′) + cos(2 ζx ′) ≤ max 
+
+ cosh(2 ρs ′)cosh(2 ρx ′) , cos(2 ζs ′)cos(2 ζx ′)
+
+
+
+≤ max 
+
+
+
+1, 1cos( t′
+
+> 0
+
+)
+
+
+
+,
+
+For |∂x eGj, −|, using an alternative representation, one similarly gets (3.79) 
+
+|∂x eGj, −| = sinh 2(ρs ′) + sin 2(ζs ′)sinh 2(ρx ′) + sin 2(ζx ′) ≤ max 
+
+ sinh 2(ρs ′)sinh 2(ρx ′) , sin 2(ζs ′)sin 2(ζx ′)
+
+
+
+≤ max {1, 1} = 1 .
+
+If x′ ∈ [ t′ 
+
+> 0
+> 2ρ
+
+, ℓ j ), we have for both derivatives 
+
+> 13
+
+(3.80) 
+
+|∂x eGj, ±| = cosh(2 ρs ′) ± cos(2 ζs ′)cosh(2 ρx ′) ± cos(2 ζx ′) ≤ cosh(2 ρx ′) + 1 cosh(2 ρx ′) − 1 = coth 2(ρx ′) ≤ coth 2(t′
+
+> 0
+
+/2) .
+
+Combining the two bounds yields that |∂x eGj, ±| ≤ sec( t′
+
+> 0
+
+) ≈ 3.2278, i.e., the derivatives are bounded and (3.76) is valid. 
+
+Asymptotic monodromy analysis. To assess the monodromy matrix of (3.32) asymptotically, we need to evaluate the solutions of (3.37) at the right endpoint, i.e, at x = xj . First, note from (3.74) and (3.77), one can write (3.81) wj, ±(xj ) = 1 + O(κ−1), w′
+
+> j, ±
+
+(xj ) = O(κ−1).
+
+Homogeneous solutions of (3.42) and their derivatives have the following asymptotic form: ˜uj, +(xj ) = 12 eκℓ j + O(e−κℓ j ), ˜u′
+
+> j, +
+
+(xj ) = 12 κe κℓ j + O(κe −κℓ j ),(3.82) ˜uj, −(xj ) = 12 κ−1eκℓ j + O(κ−1e−κℓ j ), ˜u′
+
+> j, −
+
+(xj ) = 12 eκℓ j + O(e−κℓ j ).(3.83) Using (3.81)–(3.83) with the fact that uj, ± = ˜ uj, ±wj, ± and u′ 
+
+> j, ±
+
+= ˜ u′
+
+> j, ±
+
+wj, ± + ˜ uj, ±w′
+
+> j, ±
+
+gives the asymptotic value of uj, ± and u′ 
+
+> j, ±
+
+at the right endpoint 
+
+uj, +(xj ) = 12 eκℓ j  1 + O(κ−1), u′
+
+> j, +
+
+(xj ) = 12 κe κℓ j  1 + O(κ−1),(3.84) 
+
+uj, −(xj ) = 12 κ−1eκℓ j  1 + O(κ−1), u′
+
+> j, −
+
+(xj ) = 12 eκℓ j  1 + O(κ−1).(3.85) Using the above relationships in (3.25) and the asymptotic definition (3.3), the transfer matrix Tj can now be expressed in the following form: (3.86) Tj = eκℓ j
+
+
+
+S + κ−1O(S)
+
+
+
+, S := 12
+
+1 κ−1
+
+κ 1
+
+
+
+Note that, the asymptotic matrix class O(S), is closed under addition and multi-plication, i.e., if M1 = O(S) and M2 = O(S) are two matrices in this class, then 
+
+M1 + M2 = O(S), M1 M2 = O(S), and M2 M1 = O(S). Moreover, if g(κ) = O(κc) is a scalar function for c ∈ R, then g M i = κc O(S) for i = 1 , 2. We can sum up these properties as follows: (3.87) O(S) + O(S) = O(S), O(S)2 = O(S), O(κc) O(S) = κc O(S).
+
+Moreover, define Sz for z ∈ C\{ 0}
+
+(3.88) Sz := diag( z, z −1)S, 
+
+noting that S1 = S and Sz = O(S). Also note for z, w ∈ C\{ 0}
+
+(3.89) Sw Sz = γz Sw, γz := tr Sz = 12 (z + z−1).
+
+Given the above properties and recalling that αj̸ = 0 in (3.31), we evaluate the product of Jj from (3.30), by Tj from (3.86). Noting that Jj S = Sαj + κ−1O(S) and 
+
+Jj O(S) = O(S), one obtains (3.90) Jj Tj = eκℓ j
+
+
+
+Sαj + κ−1O(S)
+
+
+
+.
+
+> 14
+
+Now, we can compute the monodromy matrix of (3.32) asymptotically for m ≥ 2using Jj Tj terms obtained above and (3.87)–(3.89) for simplification. Recalling that 
+
+ℓ = Pmj=1 ℓj and denoting σε := Pmj=1 εj for a sequence {εj }mj=1 , one may write 
+
+e−κℓ M =
+
+> m−1
+
+Y
+
+> j=0
+
+
+
+Sαm−j + κ−1O(S)
+
+
+
+= X 
+
+> εj∈{ 0,1}
+> m−1
+
+Y
+
+> j=0
+
+ Sαm−j
+
+1−εj  κ−1O(S)εj
+
+=
+
+> m−1
+
+Y
+
+> j=0
+
+Sαm−j + X 
+
+> εj∈{ 0,1}
+> σε>0
+> m−1
+
+Y
+
+> j=0
+
+ Sαm−j
+
+1−εj  κ−1O(S)εj
+
+=
+
+> m−1
+
+Y
+
+> j=0
+
+Sαm−j + X 
+
+> εj∈{ 0,1}
+> σε>0
+
+O(S)m−σε κ−σε O(S)σε
+
+=
+
+> m−1
+
+Y
+
+> j=0
+
+Sαm−j +  mκ −1 + O(κ−2) O(S)m
+
+=
+
+ m−1Y
+
+> j=1
+
+γαj
+
+
+
+Sαm + κ−1O(S),(3.91) The final result can be more compactly expressed as (3.92) M = eκℓ 
+
+Γm−1 Sαm + κ−1O(S)
+
+
+
+,
+
+where we define (3.93) Γ0 := 1 , Γk := 
+
+> k
+
+Y
+
+> j=1
+
+γαj , k ∈ Nm.
+
+It follows immediately from (3.92) that tr M = eκℓ 
+
+Γm−1 tr Sαm + O(κ−1)
+
+
+
+= eκℓ 
+
+Γm−1 γαm + O(κ−1)
+
+
+
+= eκℓ 
+
+Γm + O(κ−1)
+
+
+
+,(3.94) We note that Γ m̸ = 0, since γαj = 12 (αj + α−1 
+
+> j
+
+)̸ = 0 for each j ∈ Nm. The latter is followed by the fact that αj̸ = ±i or equivalently s(x+ 
+
+> j
+
+)2 + s(x− 
+
+> j
+
+)2̸ = 0, which is the non-degenerate interface condition (3.11). Now we conclude the argument. It follows from (3.94) that for sufficiently large ρ there exists c > 0 such that (3.95) | tr M | ≥ c e ρℓ .
+
+If ρ is large enough so that | tr M | > 2, then (3.36) yields | cos( φ)| > 1, which is a contradiction. Consequently, ρ must be bounded, provided that |ζ| < ρ . Equivalently, there exists R0 > 0 such that every eigenvalue with Re( λ) < 0 satisfies |λ| ≤ R0. This completes the proof. 
+
+> 15
+
+3.3. Complementary Results. We conclude this section by presenting two additional results following from Theorem (3.1). Corollary (3.2) extends the result to two other boundary conditions, and Remark (3.3) establishes the finiteness of left half-plane eigenvalues in (3.8). 
+
+Corollary 3.2 (Dirichlet and Neumann boundary conditions). Under the as-sumptions of Theorem (3.1) , the left-half-plane eigenvalues remain bounded for Dirich-let and Neumann boundary conditions. Proof. For classical boundary conditions such as Dirichlet or Neumann, the prob-lem is posed on Ω = [ a, b ] without periodic continuation, so only the left trace b− is defined. In this case the non-periodic global transfer matrix is (3.96) fM := Tm Jm−1Tm−1 · · · J1T1, U (b−) = fM U (a+).
+
+Let the general linear boundary conditions be (3.97) A Y (a+) + B Y (b−) = 0 .
+
+where A, B ∈ C2×2 and rank( A|B) = 2. Using the relationship (3.22), the boundary conditions in terms of U become (3.98) A R (a+) U (a+) + B R (b−) U (b−) = 0 .
+
+If we use the facts that fM = J−1 
+
+> m
+
+M with the extended definition Jm = R(a+)−1R(b−), and that det R = 1, then the characteristic equation governing the eigenvalues can be expressed from (3.98) in terms of the extended monodromy matrix M which we have already studied asymptotically (3.99) det   e∆ = 0 , e∆ := A + B M. 
+
+Dirichlet boundary condition. For this case, the endpoint boundary conditions correspond to the matrix coefficients as follows: (3.100) y(a) = y(b) = 0 ⇐⇒ A =
+
+1 00 0
+
+
+
+, B =
+
+0 01 0
+
+
+
+,
+
+Using the above matrix coefficients to obtain e∆ from (3.99), gives (3.101) e∆ = 1 0
+
+c0eκℓ  1 + O(κ−1) c0eκℓ κ−1  1 + O(κ−1)!
+
+where c0 := 12 αmΓm−1. Hence, the characteristic equation becomes (3.102) | det( e∆) | = |c0|eρℓ |κ|−1(1 + O(κ−1)) .
+
+in which the dominant term grows exponentially in size, and hence, the determinant cannot vanish as ρ → +∞.
+
+Neumann boundary condition. Similar to the Dirichlet case, the matrix coeffi-cients are obtained from the endpoint boundary conditions (3.103) y′(a) = y′(b) = 0 ⇐⇒ A =
+
+0 10 0
+
+
+
+, B =
+
+0 00 1
+
+
+
+,
+
+> 16
+
+which yields from (3.99) (3.104) e∆ = 0 1
+
+c′
+
+> 0
+
+eκℓ κ  1 + O(κ−1) c′
+
+> 0
+
+eκℓ  1 + O(κ−1)!
+
+where c′ 
+
+> 0
+
+:= 12 α−1 
+
+> m
+
+Γm−1. Taking the determinant then gives (3.105) | det   e∆| = |c′
+
+> 0
+
+| eρℓ |κ|  1 + O(κ−1).
+
+Similarly, as ρ → +∞, the characteristic determinant cannot vanish due to the ex-istence of an exponential dominant term. This concludes a similar left half-plane boundedness result for these boundary conditions. 
+
+Remark 3.3 (Finiteness of eigenvalues in the left half-plane). The spectral clas-sification of regular two-point Sturm–Liouville boundary value problems given in [97, Lemma 3.2.4] implies that the eigenvalue set is either finite or countably infinite without finite accumulation points in C, except in the degenerate case where every complex number is an eigenvalue. In the present setting, Theorem 3.1 ensures that all eigenvalues with Re( λ) < 0 are contained in a bounded subset of C. Since no finite accumulation points occur in the non-degenerate cases, it follows that only finitely many eigenvalues can lie in the open left half-plane. 
+
+4. Numerical Illustration. We illustrate the Fourier–modal discretization of the TE and TM equations introduced in Section 2. Throughout this section the spatial domain Ω denotes the unit cell of the grating, of length ℓ, over which all periodic coefficients and Bloch–Floquet solutions are defined. 
+
+4.1. Fourier Representation. For a pseudo-periodic field of the form (4.1) f (x, z ) = ˜f (x) e−iβz ,
+
+where ˜f satisfies the Bloch condition with phase kx, 0, we expand (4.2) ˜f (x) = 
+
+> ∞
+
+X
+
+> n=−∞
+
+fn e−ik x,n x, kx,n := kx, 0 + 2πn ℓ .
+
+For a given truncation order N , the associated vector of Fourier coefficients is defined by (4.3) [f ]n := f n−N −1, n = 1 , . . . , 2N + 1 .
+
+In the TE and TM formulations, the field components Ey and Hy are of this form. If g(x) is periodic on Ω, its Fourier series and coefficients are given by (4.4) g(x) = 
+
+> ∞
+
+X
+
+> n=−∞
+
+gn e−inx (2 π/ℓ ), gn = 1
+
+ℓ
+
+Z
+
+> Ω
+
+g(x) e inx (2 π/ℓ ) dx, 
+
+with g = ϵ(x) or g = ϵ(x)−1 in our applications. 
+
+> 17
+
+4.2. Fourier Operators. To convert the differential equations into algebraic ones, we express differentiation and multiplication by periodic coefficients in terms of matrix operators acting on Fourier coefficient vectors. We begin by defining the diagonal matrix K as (4.5) Knn ′ = kx,n 
+
+k0
+
+δnn ′ , k0 = 2πλ0
+
+.
+
+From the Fourier representation and the bracket notation introduced in (4.3), differ-entiation of a pseudo-periodic function satisfies (4.6) 
+
+h d ˜fdx 
+
+i
+
+= − ik 0 K [f ].
+
+Multiplication by a periodic coefficient g(x) is represented by the Toeplitz matrix (4.7) JgKnn ′ = g n−n′ , n, n ′ = 1 , . . . , 2N + 1 ,
+
+which yields the algebraic identity (4.8) [ g ˜f ] = JgK [f ].
+
+4.3. Modal Matrices for TE and TM Equations. The modal matrices fol-low directly from the physical equations in Section 2. For TE polarization, the gov-erning scalar equation (2.2) yields the Fourier–modal eigenvalue problem (4.9)  JϵK − K2 [Ey ] = η 2 [Ey ], η 2 := ( β/k 0)2.
+
+with η denoting the normalized longitudinal propagation constant. Naturally, for truncation order N there are M = 2 N + 1 modes. For TM polarization, the physical equation (2.5) leads to the full Fourier–modal matrix (4.10) JϵK I − K Jϵ−1K K [Hy ] = η 2 [Hy ].
+
+We refer to this formulation as the first truncation scheme .Classical Toeplitz asymptotics yield the approximation Jϵ−1K ≈ JϵK−1 for large truncation order [34], producing the simpler eigenvalue problem—the second scheme —which often yields improved numerical behavior [73, 33]: (4.11) JϵK I − K JϵK−1K [Hy ] = η 2 [Hy ].
+
+The factorization rules of [56] provide a more accurate representation of the TM operator, leading to the third scheme 
+
+(4.12) Jϵ−1K−1 I − K JϵK−1K [Hy ] = η 2 [Hy ].
+
+This will be our standard TM formulation unless otherwise noted.       
+
+> 18 (a) 010 20 30 40 50
+> -900 -700 -500 -300 -100 0100 (b)
+
+Fig. 1: (a) Geometry of a lamellar grating problem under TE/TM incidence. (b) Development of the TE eigenvalue pattern in a dielectric grating for N = 8 ∼ 24. 
+
+4.4. Example: Lamellar Grating. We consider the TM benchmark configu-ration of [78], illustrated in Fig. 1a. The unit cell consists of an air region with ϵ1 = 1 and a lossless metallic region with ϵ2 = −100, with groove width g; in our examples we take g = ℓ/ 2. The Bloch phase is specified by kx, 0/k 0 = sin( θ), and we set θ = 30 ◦.We choose λ0 = 632 .8 nm and ℓ = 500 nm, and compute the eigenvalues η 2. These eigenvalues depend parametrically on ( ϵ1, ϵ 2), the ratios g/ℓ and ℓ/λ 0, and the inci-dence angle θ. For comparison, we also consider a hypothetical dielectric grating of the same geometry, with ϵ1 = 1 and ϵ2 = 100, so that the contrast is of comparable magnitude. Although the full diffraction problem proceeds by matching modal expansions across layers using the stable formulations of [72, 55, 60], our purpose here is only to examine the eigenvalue structure associated with (4.11) and (4.12). Moreover, since the phenomenon of interest manifests most severely in lossless configurations, we restrict attention to real-valued ϵ2; adding a small imaginary part does not change the qualitative behavior relevant to our discussion. Following [26, 25], it is useful for assessment or comparison to sort the eigenvalues according to Re( η2) in descending order and then, in this ordering, to plot their real and corresponding imaginary parts. For geometrically simple and regular configura-tions, the plot of the real parts exhibits a stable pattern with no finite accumulation points, which settles from the left as N → ∞ , while the imaginary parts either vanish or remain negligible. Fig. 1b illustrates the formation of this pattern as N increases, for the lamellar dielectric grating described earlier under TE incidence. Eigenvalues with Re( η2) > 0 correspond to propagating modes and dominate both the physical behaviour and the numerical approximation, as they carry energy. Those with Re( η2) < 0 are evanescent modes. These eigenvalues extend unboundedly toward −∞ and are therefore infinite in number. The modes occupying the far-right tail of each truncated pattern are most sensitive to truncation errors; however, they play little role in the resulting diffraction solution. For discrete dielectric gratings, the eigenvalue pattern consists of several inter-connected curve-like branches, each originating near one of the grating permittivity values. Consequently, the eigenvalues are bounded above by ϵmax , ensuring that only       
+
+> 19 010 20 30 40 50 60
+> -1500 -1000 -500 0100 500
+
+(a) 0 10 20 30 40 50 60  
+
+> -1500 -1000 -500 0100 500
+
+(b) 0 10 20 30 40 50 60 
+
+> -1500 -1000 -500 0500
+
+(c) 0 10 20 30 40 50 60  
+
+> -1500 -1000 -500 0500
+
+(d) 
+
+Fig. 2: Eigenvalue graphs for various lamellar grating settings: (a) TE/dielectric, (b) TM/dielectric, (c) TE/metallic, and (d) TM/metallic. finitely many propagating modes exist. However, metallic gratings under TM inci-dence can support genuine modes that violate this upper bound [90, 29]. Moreover, spurious modes appear precisely in this physically significant region and therefore can-not be distinguished a priori . To facilitate comparison across truncation orders, we index these outlying modes as m = 0 , −1, −2, . . . so that the ordering of the pattern remains consistent as N varies. Fig. 2 displays the eigenvalue graphs for the four cases at truncation order N = 30. Among these, only the metallic TM problem deviates from the expected pattern, as seen in Fig. 2d, where spurious eigenvalues appear. This confirms that the emergence of spurious modes does not arise from the mere presence of a high dielectric contrast. Another distinctive feature occurs in the imaginary parts: for the first three cases they vanish identically, whereas nonzero values may occur in the metallic TM case [29]. However, this effect is not clearly visible in the plots and is not the focus of our study. Unlike the permittivity contrast, the emergence of outlying modes depends sen-sitively on the chosen truncation scheme. Fig. 3 examines how the three schemes             
+
+> 20 -5 -4 -3 -2 -1 01
+> 012345(a) 15 20 25 30 35 40
+> 1.5 22.5 33.5 44.5 (b)
+
+Fig. 3: Comparison of spurious eigenvalue magnitudes across truncation schemes. (a) Spurious eigenvalues at N = 30. (b) Evolution of their magnitudes for N = 16 ∼ 40. introduced earlier affect the behaviour of spurious modes. In Fig. 3a, we plot the magnitude |ηm|2—essentially Re( η 2
+
+> m
+
+)—on a logarithmic scale for N = 30 under each scheme. Physical modes should agree across all schemes as N increases; for example, the mode indexed by m = 1 appears consistently as the dominant physical mode. The first truncation scheme produces the largest number of—presumably—spurious modes, exhibiting extremely large eigenvalues. The second scheme produces only one outlier, but with an exceptionally large value. The third scheme, the modern stan-dard, still produces four spurious eigenvalues, smaller than those of the other schemes but still very large compared with the physical m = 1 eigenvalue. To trace their progression, Fig. 3b shows the evolution of these modes for N = 16 ∼ 40, with each scheme represented by a distinct colour. The qualitative conclusions drawn at N = 30 persist throughout this range. Another observation from Fig. 3a, and the most important one of this section, concerns the growth of spurious modes with the truncation order. Focusing on the standard truncation scheme, Fig. 4a zooms in on the spurious region of the eigenvalue pattern. While the physical part of the pattern converges as N increases from 18 to 42, the spurious modes appear to grow without bound. To examine this over a wider range, Fig. 4b plots the magnitudes of the non-physical eigenvalues, together with three physical modes ( m = 1 , 2, 3), for N = 20 ∼
+
+2000 on a log–log scale. As N crosses certain thresholds, new spurious eigenvalues emerge with increasingly large magnitudes, suggesting that the number of spurious modes is plausibly infinite. Moreover, although the growth of individual spurious eigenvalues may not persist uniformly for all N , the clearly unbounded divergence observed in practice is consistent with expectations for truncations of indefinite op-erators. The scaling suggests a polynomial rate of growth, of order O(N α) for some 
+
+α > 0. This empirical behavior, together with our analytical left half-plane boundedness result, yields a simple and robust rule of thumb for identifying spurious modes in the metallic TM lamellar-grating problem. Since η2 = −λ in the SL formulation,         
+
+> 21 -4 -3 -2 -1 01234
+> 0100 200 300 400 500 600
+
+(a) 1.5 2 2.5 3 
+
+> -1 01234567
+
+(b) 
+
+Fig. 4: Growth of spurious modes with truncation order: (a) zoom on the spurious region for N = 18 ∼ 42; (b) log–log scale evolution of selected physical and spurious modes for N = 20 ∼ 2000. boundedness in the left half-plane implies the existence of R > 0 such that Re( η2) ≤|η|2 < R . The spurious modes, unlike the physical ones, exhibit immediate and sustained divergence as N grows and can therefore be reliably separated from the physical eigenvalues by examining their dependence on the truncation order. 
+
+5. Conclusion. We establish a left half-plane boundedness result for the eigen-values of a class of non-selfadjoint indefinite SL problems. TM diffraction in lamellar gratings provides a physically important instance of this framework. The result im-plies that only finitely many eigenvalues may lie in the open left half-plane, thereby providing a criterion for identifying spurious modes in numerical eigenvalue solvers, particularly in Fourier modal methods. The accompanying numerical examples illus-trate the practical applicability of the result. 
+
+6. Acknowledgment. The author acknowledges the use of ChatGPT (OpenAI, GPT-5.2) for assistance with language polishing, stylistic refinement, and proofreading of the manuscript. Responsibility for all mathematical content, numerical results, and conclusions rests solely with the author. 
+
+REFERENCES [1] N. Abasheeva and S. Pyatkov , Counterexamples in indefinite sturm-liouville problems ,Siberian Advances in Mathematics, 7 (1997), pp. 1–8. [2] T. Antonakakis, F. I. Baida, A. Belkhir, K. Cherednichenko, S. Cooper, R. Craster, G. Dem´ esy, J. Desanto, G. Granet, B. Gralak, et al. , Gratings: Theory and numeric applications , AMU,(PUP), CNRS, ECM, 2014. [3] R. Beals , Indefinite sturm-liouville problems and half-range completeness , Journal of Differ-ential Equations, 56 (1985), pp. 391–407. [4] J. Behrndt, S. Chen, F. Philipp, and J. Qi , Bounds on non-real eigenvalues of indefinite sturm-liouville problems , PAMM, 13 (2013), pp. 525–526. [5] J. Behrndt, S. Chen, F. Philipp, and J. Qi , Estimates on the non-real eigenvalues of regular indefinite sturm–liouville problems , Proceedings of the Royal Society of Edinburgh Section A: Mathematics, 144 (2014), pp. 1113–1126. 22 [6] J. Behrndt, F. Philipp, and C. Trunk , Bounds on the non-real spectrum of differential operators with indefinite weights , Mathematische Annalen, 357 (2013), pp. 185–213. [7] J. Behrndt, P. Schmitz, and C. Trunk , Spectral bounds for singular indefinite sturm-liouville operators with l1–potentials , Proceedings of the American Mathematical Society, 146 (2018), pp. 3935–3942. [8] P. Binding and B. ´Curgus , A counterexample in sturm–liouville completeness theory , Pro-ceedings of the Royal Society of Edinburgh Section A: Mathematics, 134 (2004), pp. 241– 248. [9] G. Birkhoff and G. Rota , Ordinary Differential Equations , Introductions to higher mathe-matics, Wiley, 1989. [10] N. Bonod and J. Neauport , Diffraction gratings: from principles to applications in high-intensity lasers , 2016. [11] I. Botten, M. Craig, R. McPhedran, J. Adams, and J. Andrewartha , The dielectric lamel-lar diffraction grating , Optica Acta: International Journal of Optics, 28 (1981), pp. 413– 428. [12] L. Botten, M. Craig, and R. McPhedran , Highly conducting lamellar diffraction gratings ,Optica Acta: International Journal of Optics, 28 (1981), pp. 1103–1106. [13] L. Botten, M. Craig, R. McPhedran, J. Adams, and J. Andrewartha , The finitely con-ducting lamellar diffraction grating , Optica Acta: International Journal of Optics, 28 (1981), pp. 1087–1102. [14] L. Botten and R. McPhedran , Completeness and modal expansion methods in diffraction theory , Optica Acta: International Journal of Optics, 32 (1985), pp. 1479–1488. [15] C. Burckhardt , Diffraction of a plane wave at a sinusoidally stratified dielectric grating ,Journal of the Optical Society of America, 56 (1966), pp. 1502–1508. [16] C. Chicone , Ordinary differential equations with applications , Springer, 2006. [17] Y.-P. Chiou, W.-L. Yeh, and N.-Y. Shih , Analysis of highly conducting lamellar gratings with multidomain pseudospectral method , 2009. [18] B. ´Curgus, A. Fleige, and A. Kostenko , The riesz basis property of an indefinite sturm– liouville problem with non-separated boundary conditions , Integral Equations and Operator Theory, 77 (2013), pp. 533–557. [19] B. Curgus and H. Langer , A krein space approach to symmetric ordinary differential opera-tors with an indefinite weight function , J. Differential Equations, 79 (1989), pp. 31–61. [20] D. Dudley, I. Antennas, and P. Society , Mathematical Foundations for Electromagnetic Theory , IEEE Electromagnetic waves series, IEEE Press, 1994. [21] K. Edee, I. Fenniche, G. Granet, and B. Guizal , Modal method based on subsectional gegen-bauer polynomial expansion for lamellar gratings: Weighting function, convergence and stability , Progress In Electromagnetics Research, 133 (2013), pp. 17–35. [22] K. Edee and J. Plumey , Numerical scheme for the modal method based on subsectional gegen-bauer polynomial expansion: application to biperiodic binary grating , Journal of the Optical Society of America A, 32 (2015), pp. 402–410. [23] W. N. Everitt , On the transformation theory of ordinary second-order linear symmetric dif-ferential expressions , Czechoslovak Mathematical Journal, 32 (1982), pp. 275–306. [24] E. Faghihifar and M. Akbari , Exclusive robustness of gegenbauer method to truncated con-volution errors , Journal of Computational Physics, 452 (2022), p. 110911. [25] E. Faghihifar, M. Akbari, and S. A. H. Nekuee , Fast estimation of propagation constants in lamellar gratings needless of solving the eigenvalue equation , in 2019 27th Iranian Con-ference on Electrical Engineering (ICEE), IEEE, 2019, pp. 1342–1346. [26] E. Faghihifar, M. Akbari, and S. A. H. Nekuee , Fast estimation of propagation constants in crossed gratings , Journal of Optics, 22 (2020), p. 025001. [27] A. Fleige , A counterexample to completeness properties for indefinite st urm—liouville prob-lems , Mathematische Nachrichten, 190 (1998), pp. 123–128. [28] G. Folland , Real Analysis: Modern Techniques and Their Applications , Pure and Applied Mathematics: A Wiley Series of Texts, Monographs and Tracts, Wiley, 2013. [29] M. Foresti, L. Menez, and A. V. Tishchenko , Modal method in deep metal–dielectric grat-ings: the decisive role of hidden modes , Journal of the Optical Society of America A, 23 (2006), pp. 2501–2509. [30] G. Granet , Reformulation of the lamellar grating problem through the concept of adaptive spatial resolution , Journal of the Optical Society of America A, 16 (1999), pp. 2510–2516. [31] G. Granet , Efficient implementation of b-spline modal method for lamellar gratings , 2014. [32] G. Granet, L. B. Andriamanampisoa, K. Raniriharinosy, A. M. Armeanu, and K. Edee ,
+
+Modal analysis of lamellar gratings using the moment method with subsectional basis and adaptive spatial resolution , Journal of the Optical Society of America A, 27 (2010), 23 pp. 1303–1310. [33] G. Granet and B. Guizal , Efficient implementation of the coupled-wave method for metallic lamellar gratings in tm polarization , Journal of the Optical Society of America A, 13 (1996), pp. 1019–1023. [34] R. M. Gray et al. , Toeplitz and circulant matrices: A review , Foundations and Trends ® in Communications and Information Theory, 2 (2006), pp. 155–239. [35] B. Guizal, H. Yala, and D. Felbacq , Reformulation of the eigenvalue problem in the fourier modal method with spatial adaptive resolution , Optics letters, 34 (2009), pp. 2790–2792. [36] K. M. Gundu and A. Mafi , Constrained least squares fourier modal method for computing scattering from metallic binary gratings , Journal of the Optical Society of America A, 27 (2010), pp. 2375–2380. [37] K. M. Gundu and A. Mafi , Reliable computation of scattering from metallic binary gratings using fourier-based modal methods , Journal of the Optical Society of America A, 27 (2010), pp. 1694–1700. [38] G. Hanson and A. Yakovlev , Operator Theory for Electromagnetics: An Introduction ,Springer New York, 2013. [39] O. Haupt , ¨Uber eine methode zum beweise von oszillationstheoremen , Mathematische Annalen, 76 (1914), pp. 67–104. [40] E. Hilb , ¨Uber reihenentwicklungen nach den eigenfunktionen linearer differentialgleichungen 2ter ordnung , Mathematische Annalen, 71 (1911), pp. 76–87. [41] H. G. Kaper, M. K. Kwong, C. Lekkerkerker, and A. Zettl , Full-and partial-range eigen-function expansions for sturm-liouville problems with indefinite weights , Proceedings of the Royal Society of Edinburgh Section A: Mathematics, 98 (1984), pp. 69–88. [42] F. G. Kaspar , Diffraction by thick, periodically stratified gratings with complex dielectric con-stant , J. Opt. Soc. Am., 63 (1973), pp. 37–45. [43] A. Khavasi and K. Mehrany , Artifact-free analysis of highly conducting binary gratings by using the legendre polynomial expansion method , Journal of the Optical Society of America A, 26 (2009), pp. 1467–1471. [44] A. Khavasi, K. Mehrany, and A. M. Jazayeri , Study of the numerical artifacts in differential analysis of highly conducting gratings , Optics letters, 33 (2008), pp. 159–161. [45] A. Khavasi, K. Mehrany, and B. Rashidian , Three-dimensional diffraction analysis of grat-ings based on legendre expansion of electromagnetic fields , Journal of the Optical Society of America B, 24 (2007), pp. 2676–2685. [46] M. Kikonko and A. B. Mingarelli , Bounds on real and imaginary parts of non-real eigen-values of a non-definite sturm–liouville problem , Journal of Differential Equations, 261 (2016), pp. 6221–6232. [47] H. Kim, G.-W. Park, and C.-S. Kim , Investigation of the convergence behavior with fluctuation features in the fourier modal analysis of a metallic grating , Journal of the Optical Society of Korea, 16 (2012), pp. 196–202. [48] K. Knop , Rigorous diffraction theory for transmission phase gratings with deep rectangular grooves , Journal of the Optical Society of America, 68 (1978), pp. 1206–1210. [49] S¸. E. Kocabas ¸, G. Veronis, D. A. Miller, and S. Fan , Modal analysis and coupling in metal-insulator-metal waveguides , Physical Review B—Condensed Matter and Materials Physics, 79 (2009), p. 035120. [50] H. Kogelnik , Coupled wave theory for thick hologram gratings , Bell System Technical Journal, 48 (1969), pp. 2909–2947. [51] Q. Kong, H. Wu, A. Zettl, and M. M¨ oller , Indefinite sturm–liouville problems , Proceedings of the Royal Society of Edinburgh Section A: Mathematics, 133 (2003), pp. 639–652. [52] P. Lalanne and J.-P. Hugonin , Numerical performance of finite-difference modal methods for the electromagnetic analysis of one-dimensional lamellar gratings , Journal of the Optical Society of America A, 17 (2000), pp. 1033–1042. [53] P. Lalanne and G. M. Morris , Highly improved convergence of the coupled-wave method for tm polarization , Journal of the Optical Society of America A, 13 (1996), pp. 779–784. [54] L. Li , A modal analysis of lamellar diffraction gratings in conical mountings , Journal of Modern Optics, 40 (1993), pp. 553–573. [55] L. Li , Formulation and comparison of two recursive matrix algorithms for modeling layered diffraction gratings , Journal of the Optical Society of America A, 13 (1996), pp. 1024–1035. [56] L. Li , Use of fourier series in the analysis of discontinuous periodic structures , Journal of the Optical Society of America A, 13 (1996), pp. 1870–1876. [57] L. Li , New formulation of the fourier modal method for crossed surface-relief gratings , J. Opt. Soc. Am. A, 14 (1997), pp. 2758–2767. [58] L. Li , Justification of matrix truncation in the modal methods of diffraction gratings , Journal 24 of Optics A: Pure and Applied Optics, 1 (1999), p. 531. [59] L. Li , Mathematical reflections on the fourier modal method in grating theory , in Mathematical modeling in optical science, SIAM, 2001, pp. 111–139. [60] L. Li , Note on the s-matrix propagation algorithm , Journal of the Optical Society of America A, 20 (2003), pp. 655–660. [61] L. Li , Field singularities at lossless metal-dielectric arbitrary-angle edges and their ramifica-tions to the numerical modeling of gratings. , Journal of the Optical Society of America. A, Optics, image science, and vision, 29 (2012), pp. 593–604. [62] L. Li and G. Granet , Field singularities at lossless metal-dielectric right-angle edges and their ramifications to the numerical modeling of gratings , Journal of the Optical Society of America A, 28 (2011), pp. 738–746. [63] L. Li and C. W. Haggans , Convergence of the coupled-wave method for metallic lamellar diffraction gratings , Journal of the Optical Society of America A, 10 (1993), pp. 1184– 1189. [64] N. M. Lyndin, O. Parriaux, and A. V. Tishchenko , Modal analysis and suppression of the fourier modal method instabilities in highly conductive gratings , Journal of the Optical Society of America A, 24 (2007), pp. 3781–3788. [65] R. Magnusson and T. Gaylord , Equivalence of multiwave coupled-wave theory and modal theory for periodic-media diffraction , Journal of the Optical Society of America, 68 (1978), pp. 1777–1779. [66] Y. Mei, H. Liu, and Y. Zhong , Treatment of nonconvergence of fourier modal method arising from irregular field singularities at lossless metal-dielectric right-angle edges , Journal of the Optical Society of America A, 31 (2014), pp. 900–906. [67] A. B. Mingarelli , Indefinite sturm-liouville problems , in Ordinary and Partial Differential Equations: Proceedings of the Seventh Conference Held at Dundee, Scotland, March 29– April 2, 1982, Springer, 2006, pp. 519–528. [68] A. B. Mingarelli , A survey of the regular weighted sturm-liouville problem-the non-definite case , arXiv preprint arXiv:1106.6013, (2011). [69] M. Moharam and T. K. Gaylord , Diffraction analysis of dielectric surface-relief gratings ,Journal of the Optical Society of America, 72 (1982), pp. 1385–1392. [70] M. Moharam and T. K. Gaylord , Three-dimensional vector coupled-wave analysis of planar-grating diffraction , Journal of the Optical Society of America, 73 (1983), pp. 1105–1112. [71] M. Moharam and T. K. Gaylord , Rigorous coupled-wave analysis of metallic surface-relief gratings , Journal of the Optical Society of America A, 3 (1986), pp. 1780–1787. [72] M. Moharam, D. A. Pommet, E. B. Grann, and T. K. Gaylord , Stable implementation of the rigorous coupled-wave analysis for surface-relief gratings: enhanced transmittance matrix approach , Journal of the Optical Society of America A, 12 (1995), pp. 1077–1086. [73] M. G. Moharam, E. B. Grann, D. A. Pommet, and T. K. Gaylord , Formulation for sta-ble and efficient implementation of the rigorous coupled-wave analysis of binary gratings ,Journal of the Optical Society of America A, 12 (1995), pp. 1068–1076. [74] R. Morf , Exponentially convergent and numerically efficient solution of maxwell’s equations for lamellar gratings , Journal of the Optical Society of America A, 12 (1995), pp. 1043– 1056. [75] M. M¨ oller , On the unboundedness below of the sturm—liouville operator , Proceedings of the Royal Society of Edinburgh: Section A Mathematics, 129 (1999), p. 1011–1015. [76] M. A. Naimark , Linear Differential Operators. Vol. II , Ungar, 1968. classic; verify pub-lisher/edition. [77] R. Petit, L. Botten, M. Cadilhac, G. Derrick, D. Maystre, R. McPhedran, M. Neviere, and P. Vincent , Electromagnetic Theory of Gratings , Topics in Current Physics, Springer Berlin Heidelberg, 2013. [78] E. Popov, B. Chernov, M. Nevi` ere, and N. Bonod , Differential theory: application to highly conducting gratings , Journal of the Optical Society of America A, 21 (2004), pp. 199–206. [79] S. G. Pyatkov , Certain properties of eigenfunctions of linear pencils , Mathematical Notes, 51 (1992), pp. 90–95. [80] J. Qi and S. Chen , A priori bounds and existence of non-real eigenvalues of indefinite sturm– liouville problems , Journal of Spectral Theory, 4 (2014), pp. 53–63. [81] J. Qi, B. Xie, and S. Chen , The upper and lower bounds on non-real eigenvalues of indefinite sturm-liouville problems , Proceedings of the American Mathematical Society, 144 (2016), pp. 547–559. [82] M. H. Randriamihaja, G. Granet, K. Edee, and K. Raniriharinosy , Polynomial modal analysis of lamellar diffraction gratings in conical mounting , 2016. [83] R. G. Richardson , Contributions to the study of oscillation properties of the solutions of 
+
+25 linear differential equations of the second order , American Journal of Mathematics, 40 (1918), pp. 283–316. [84] P. Sheng, R. S. Stepleman, and P. N. Sanda , Exact eigenfunctions for square-wave grat-ings: Application to diffraction and surface-plasmon calculations , Phys. Rev. B, 26 (1982), pp. 2907–2916. [85] A. W. Snyder and J. D. Love , Optical Waveguide Theory , Chapman and Hall, London, 1983. [86] D. Song and Y. Y. Lu , Pseudospectral modal method for conical diffraction of gratings , Journal of Modern Optics, 60 (2013), pp. 1729–1734. [87] D. Song, L. Yuan, and Y. Y. Lu , Fourier-matching pseudospectral modal method for diffrac-tion gratings , Journal of the Optical Society of America A, 28 (2011), pp. 613–620. [88] B. Sturman, E. Podivilov, and M. Gorkunov , Eigenmodes for metal-dielectric light-transmitting nanostructures , Physical Review B—Condensed Matter and Materials Physics, 76 (2007), p. 125104. [89] B. Sturman, E. Podivilov, and M. Gorkunov , Eigenmodes for the problem of extraordinary light transmission through subwavelength holes , Europhysics Letters, 80 (2007), p. 24002. [90] A. V. Tishchenko , Phenomenological representation of deep and high contrast lamellar grat-ings by means of the modal method , Optical and Quantum Electronics, 27 (2005), pp. 309– 330. [91] H. Volkmer , Sturm–liouville problems with indefinite weights and everitt’s inequality , Proceed-ings of the Royal Society of Edinburgh Section A: Mathematics, 126 (1996), pp. 1097–1112. [92] K. Watanabe , Study of the differential theory of lamellar gratings made of highly conducting materials , J. Opt. Soc. Am. A, 23 (2006), pp. 69–72. [93] J. Weidmann , Spectral theory of ordinary differential operators , vol. 1258, Springer, 1987. [94] A. Wexler , Solution of waveguide discontinuities by modal analysis , IEEE Transactions on Microwave Theory and Techniques, 15 (1967), pp. 508–517. [95] B. Xie and J. Qi , Non-real eigenvalues of indefinite sturm–liouville problems , Journal of Dif-ferential Equations, 255 (2013), pp. 2291–2301. [96] B. Xie, H. Sun, and X. Guo , Non-real eigenvalues of symmetric sturm–liouville problems with indefinite weight functions , Electron. J. Qual. Theory Differ. Equ, 18 (2017), pp. 1–14. [97] A. Zettl , Sturm-Liouville Theory , Mathematical surveys and monographs, American Mathe-matical Society, 2005. 26
