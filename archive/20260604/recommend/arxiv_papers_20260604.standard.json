@@ -1,0 +1,135 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-04T00:41:40.876662+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 3,
+    "quick_skim_target": 11,
+    "quick_selected": 3
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2606.03774v1",
+      "source": "arxiv",
+      "title": "AmbientEye: A Dataset for Pupil Segmentation under Natural Ambient Infrared Illumination",
+      "abstract": "Eye tracking is essential for smart glasses, as it provides insight into user attention for ambient intelligence applications. However, most existing eye-tracking systems rely on active infrared (IR) illumination, creating practical barriers to all-day outdoor use due to power consumption. In this paper, we investigate whether passive IR cameras alone, without any active IR light source, can enable reliable pupil detection in unconstrained outdoor environments, where ambient sunlight serves as the sole illumination source. To support this investigation, we introduce AmbientEye, a large-scale dataset of 2,606,225 eye images collected from 35 participants from 19 countries. It is captured outdoors under natural sunlight with two off-axis camera configurations and two sun-orientation conditions. We provide high-quality pupil annotation through SAM2 automatic segmentation, followed by refinement by human annotators. We benchmark a state-of-the-art pupil segmentation algorithm on our dataset and compare its performance with that on existing datasets under controlled IR illumination. Results reveal a substantial drop in pupil segmentation performance from 0.928 on controlled IR datasets to 0.767 on AmbientEye. This performance gap highlights the challenge of the ambient-light setting. This positions AmbientEye as a first benchmark for an unexplored and highly practical eye-tracking scenario.",
+      "authors": [
+        "Mingyu Han",
+        "Hyunyoung Han",
+        "Nitheekulawatn Thommakoon",
+        "Gangtae Park",
+        "Jieun Han",
+        "Xucong Zhang",
+        "Ian Oakley"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-02T15:28:21+00:00",
+      "link": "https://arxiv.org/pdf/2606.03774v1",
+      "tags": [
+        "keyword:pwad",
+        "query:pwad"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Provides a large-scale dataset for pupil segmentation under ambient illumination, enabling passive eye tracking on smart glasses; useful for perceived brightness models using pupil diameter and ambient light.",
+      "llm_evidence_cn": "提供自然环境红外光照下的瞳孔分割数据集，支持智能眼镜被动眼动追踪，可用于基于瞳孔直径和环境光的感知亮度模型。",
+      "llm_evidence": "提供自然环境红外光照下的瞳孔分割数据集，支持智能眼镜被动眼动追踪，可用于基于瞳孔直径和环境光的感知亮度模型。",
+      "canonical_evidence": "提供自然环境红外光照下的瞳孔分割数据集，支持智能眼镜被动眼动追踪，可用于基于瞳孔直径和环境光的感知亮度模型。",
+      "llm_tldr_en": "Eye tracking for smart glasses relies on active IR, limiting outdoor use. AmbientEye provides a large dataset of eye images under natural sunlight for passive pupil detection, enabling development of perceived brightness models using pupil diameter and ambient light in AR displays.",
+      "llm_tldr_cn": "针对智能眼镜眼动追踪依赖主动红外照明功耗高、限制户外使用的问题，本文构建了自然环境红外照明下的瞳孔分割数据集AmbientEye，采用两个离轴相机在自然阳光下采集2,606,225张眼部图像。实验证明被动红外瞳孔检测户外可行，该数据集可为利用瞳孔直径和环境光照的感知亮度模型提供基础，助力AR显示设备视觉舒适度研究。",
+      "llm_tldr": "针对智能眼镜眼动追踪依赖主动红外照明功耗高、限制户外使用的问题，本文构建了自然环境红外照明下的瞳孔分割数据集AmbientEye，采用两个离轴相机在自然阳光下采集2,606,225张眼部图像。实验证明被动红外瞳孔检测户外可行，该数据集可为利用瞳孔直径和环境光照的感知亮度模型提供基础，助力AR显示设备视觉舒适度研究。",
+      "llm_tags": [
+        "query:pwad"
+      ],
+      "matched_query_tag": "query:pwad",
+      "matched_query_text": "Find literature on perceived display brightness models using pupil diameter, retinal imaging, ambient illumination, and visual comfort for AR, OLED, or mobile displays.",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2605.28322v1",
+      "source": "arxiv",
+      "title": "Polarimetric Backscattering Setup for Quantitative Scattering Parameters Retrieval",
+      "abstract": "We present two backscattering polarimetric scanning setups based on point-illumination schemes, that are designed to probe the optical properties of subsurface media. We describe their advantages and limitations, characterize their performance in Mueller matrix determination, and demonstrate their ability to retrieve unknown sample parameters (such as the scattering coefficient and anisotropy factor) using a maximum likelihood approach. As an experimental validation, a polystyrene suspension is investigated as a representative case. By applying Fisher information formalism on the theoretical model, we estimate boundaries of the retrieved parameters.",
+      "authors": [
+        "Bhanu P. Singh",
+        "Vladislav Stefanov",
+        "Nadine A. Coorens",
+        "Andre Stefanov"
+      ],
+      "primary_category": "physics.optics",
+      "categories": [
+        "physics.optics"
+      ],
+      "published": "2026-05-27T11:24:59+00:00",
+      "link": "https://arxiv.org/pdf/2605.28322v1",
+      "tags": [
+        "keyword:pwad",
+        "query:pwad"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "polarimetric backscattering scans and maximum likelihood retrieval of scattering parameters",
+      "llm_evidence_cn": "偏振后向散射扫描及最大似然反演散射参数",
+      "llm_evidence": "偏振后向散射扫描及最大似然反演散射参数",
+      "canonical_evidence": "偏振后向散射扫描及最大似然反演散射参数",
+      "llm_tldr_en": "Describes polarimetric backscattering setups to quantitatively retrieve optical scattering coefficients and anisotropy factors, offering a method that could be adapted for characterizing scattering layers in Mini LED backlit LCDs to help assess and suppress halo effects.",
+      "llm_tldr_cn": "针对亚表面介质散射参数定量测量难题，提出两种基于点照明的偏振后向散射扫描装置，通过最大似然反演方法获取散射系数和各向异性因子。以聚苯乙烯悬浊液为样本验证，并利用Fisher信息估计参数边界。该技术可扩展用于表征Mini LED背光LCD中散射层的光学特性，为光晕评价与抑制提供测试手段。",
+      "llm_tldr": "针对亚表面介质散射参数定量测量难题，提出两种基于点照明的偏振后向散射扫描装置，通过最大似然反演方法获取散射系数和各向异性因子。以聚苯乙烯悬浊液为样本验证，并利用Fisher信息估计参数边界。该技术可扩展用于表征Mini LED背光LCD中散射层的光学特性，为光晕评价与抑制提供测试手段。",
+      "llm_tags": [
+        "query:pwad"
+      ],
+      "matched_query_tag": "query:pwad",
+      "matched_query_text": "Search recent studies on Mini LED backlit LCD halo measurement, characterization, dynamic halo visibility, and suppression methods.",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2605.31074v1",
+      "source": "arxiv",
+      "title": "Preventing the Breakdown of Tight-Binding Waveguide Optics by Löwdin Orthogonalization",
+      "abstract": "Many advancements in optics have relied on the tight-binding approximation, which simplifies the description and prediction of complex system behaviors. This approximation describes the dynamics of the total light field by examining the coupling between the guided modes of individual single-mode substructures -- also known as coupled mode theory. However, the underlying assumption, that the guided modes of individual waveguides form an orthogonal basis, breaks down when waveguides are brought into close proximity or when larger arrays are considered. In this work, we systematically analyze the consequences of this non-orthogonality and show that it leads to a generalized eigenvalue problem involving an overlap matrix, causing a fundamental mismatch between the standard TB model and solutions of the paraxial wave equation. To resolve this issue, we introduce a modified TB framework based on the Löwdin orthogonalization, which constructs an orthonormal basis from the non-orthogonal guided modes while minimally altering their physical shape and preserving their symmetry properties. The resulting Löwdin-TB method restores the standard eigenvalue problem and yields excellent agreement with exact beam propagation simulations across a wide range of system sizes and waveguide separations. Furthermore, it captures important physical effects, such as enhanced long-range coupling and nontrivial hopping phases, that are absent in the standard approach.",
+      "authors": [
+        "Konrad Tschernig",
+        "Florian H. Huber",
+        "Janik Wolters",
+        "Jasmin Meinecke"
+      ],
+      "primary_category": "physics.optics",
+      "categories": [
+        "physics.optics",
+        "quant-ph"
+      ],
+      "published": "2026-05-29T09:43:07+00:00",
+      "link": "https://arxiv.org/pdf/2605.31074v1",
+      "tags": [
+        "keyword:pwad",
+        "query:pwad"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "systematic analysis of non-orthogonality in tight-binding waveguide optics and correction method",
+      "llm_evidence_cn": "系统分析紧束缚波导光学中的非正交性并给出校正方法",
+      "llm_evidence": "系统分析紧束缚波导光学中的非正交性并给出校正方法",
+      "canonical_evidence": "系统分析紧束缚波导光学中的非正交性并给出校正方法",
+      "llm_tldr_en": "Proposes a method to correct the breakdown of the tight-binding approximation in waveguide optics by using Loewdin orthogonalization, enabling accurate mode coupling analysis in closely packed waveguide arrays.",
+      "llm_tldr_cn": "针对紧束缚近似在密集波导阵列中因模式非正交性而失效的问题，提出采用Loewdin正交化方法修正耦合模理论。通过引入正交化步骤，解决了重叠矩阵导致的广义本征值问题，恢复了紧束缚方法的适用性，为复杂波导系统（如衍射光学波导）的精确建模提供了新工具。",
+      "llm_tldr": "针对紧束缚近似在密集波导阵列中因模式非正交性而失效的问题，提出采用Loewdin正交化方法修正耦合模理论。通过引入正交化步骤，解决了重叠矩阵导致的广义本征值问题，恢复了紧束缚方法的适用性，为复杂波导系统（如衍射光学波导）的精确建模提供了新工具。",
+      "llm_tags": [
+        "query:pwad"
+      ],
+      "matched_query_tag": "query:pwad",
+      "matched_query_text": "diffractive optical waveguide",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

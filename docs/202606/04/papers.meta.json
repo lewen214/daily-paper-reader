@@ -1,0 +1,54 @@
+{
+  "label": "2026-06-04",
+  "date": "2026-06-04",
+  "generated_at": "2026-06-04T00:44:49",
+  "count": 3,
+  "papers": [
+    {
+      "paper_id": "202606/04/2606.03774v1-ambienteye-a-dataset-for-pupil-segmentation-under-natural-ambient-infrared-illumination",
+      "section": "quick",
+      "title_en": "AmbientEye: A Dataset for Pupil Segmentation under Natural Ambient Infrared Illumination",
+      "authors": "Mingyu Han, Hyunyoung Han, Nitheekulawatn Thommakoon, Gangtae Park, Jieun Han, Xucong Zhang, Ian Oakley",
+      "date": "2026-06-02",
+      "pdf": "https://arxiv.org/pdf/2606.03774v1",
+      "score": "7.0",
+      "evidence": "提供自然环境红外光照下的瞳孔分割数据集，支持智能眼镜被动眼动追踪，可用于基于瞳孔直径和环境光的感知亮度模型。",
+      "tldr": "现有眼动追踪依赖主动红外照明，功耗问题限制户外应用。本研究探索仅用被动红外相机在自然阳光下实现瞳孔检测的可行性。我们构建了AmbientEye数据集，含260万张户外自然光眼部图像，并基准测试发现分割性能从受控红外的0.928降至0.767。该数据集为这一未探索的实用场景提供首个基准，推动全天候智能眼镜发展。",
+      "tags": "query:pwad",
+      "abstract_en": "Eye tracking is essential for smart glasses, as it provides insight into user attention for ambient intelligence applications. However, most existing eye-tracking systems rely on active infrared (IR) illumination, creating practical barriers to all-day outdoor use due to power consumption. In this paper, we investigate whether passive IR cameras alone, without any active IR light source, can enable reliable pupil detection in unconstrained outdoor environments, where ambient sunlight serves as the sole illumination source. To support this investigation, we introduce AmbientEye, a large-scale dataset of 2,606,225 eye images collected from 35 participants from 19 countries. It is captured outdoors under natural sunlight with two off-axis camera configurations and two sun-orientation conditions. We provide high-quality pupil annotation through SAM2 automatic segmentation, followed by refinement by human annotators. We benchmark a state-of-the-art pupil segmentation algorithm on our dataset and compare its performance with that on existing datasets under controlled IR illumination. Results reveal a substantial drop in pupil segmentation performance from 0.928 on controlled IR datasets to 0.767 on AmbientEye. This performance gap highlights the challenge of the ambient-light setting. This positions AmbientEye as a first benchmark for an unexplored and highly practical eye-tracking scenario.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202606/04/2605.28322v1-polarimetric-backscattering-setup-for-quantitative-scattering-parameters-retrieval",
+      "section": "quick",
+      "title_en": "Polarimetric Backscattering Setup for Quantitative Scattering Parameters Retrieval",
+      "authors": "Bhanu P. Singh, Vladislav Stefanov, Nadine A. Coorens, Andre Stefanov",
+      "date": "2026-05-27",
+      "pdf": "https://arxiv.org/pdf/2605.28322v1",
+      "score": "6.0",
+      "evidence": "偏振后向散射扫描及最大似然反演散射参数",
+      "tldr": "针对亚表面介质散射参数定量测量难题，提出两种基于点照明的偏振后向散射扫描装置，通过最大似然反演方法获取散射系数和各向异性因子。以聚苯乙烯悬浊液为样本验证，并利用Fisher信息估计参数边界。该技术可扩展用于表征Mini LED背光LCD中散射层的光学特性，为光晕评价与抑制提供测试手段。",
+      "tags": "query:pwad",
+      "abstract_en": "We present two backscattering polarimetric scanning setups based on point-illumination schemes, that are designed to probe the optical properties of subsurface media. We describe their advantages and limitations, characterize their performance in Mueller matrix determination, and demonstrate their ability to retrieve unknown sample parameters (such as the scattering coefficient and anisotropy factor) using a maximum likelihood approach. As an experimental validation, a polystyrene suspension is investigated as a representative case. By applying Fisher information formalism on the theoretical model, we estimate boundaries of the retrieved parameters.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202606/04/2605.31074v1-preventing-the-breakdown-of-tight-binding-waveguide-optics-by-lwdin-orthogonalization",
+      "section": "quick",
+      "title_en": "Preventing the Breakdown of Tight-Binding Waveguide Optics by Löwdin Orthogonalization",
+      "authors": "Konrad Tschernig, Florian H. Huber, Janik Wolters, Jasmin Meinecke",
+      "date": "2026-05-29",
+      "pdf": "https://arxiv.org/pdf/2605.31074v1",
+      "score": "6.0",
+      "evidence": "系统分析紧束缚波导光学中的非正交性并给出校正方法",
+      "tldr": "针对紧束缚近似在密集波导阵列中因模式非正交性而失效的问题，提出采用Loewdin正交化方法修正耦合模理论。通过引入正交化步骤，解决了重叠矩阵导致的广义本征值问题，恢复了紧束缚方法的适用性，为复杂波导系统（如衍射光学波导）的精确建模提供了新工具。",
+      "tags": "query:pwad",
+      "abstract_en": "Many advancements in optics have relied on the tight-binding approximation, which simplifies the description and prediction of complex system behaviors. This approximation describes the dynamics of the total light field by examining the coupling between the guided modes of individual single-mode substructures -- also known as coupled mode theory. However, the underlying assumption, that the guided modes of individual waveguides form an orthogonal basis, breaks down when waveguides are brought into close proximity or when larger arrays are considered. In this work, we systematically analyze the consequences of this non-orthogonality and show that it leads to a generalized eigenvalue problem involving an overlap matrix, causing a fundamental mismatch between the standard TB model and solutions of the paraxial wave equation. To resolve this issue, we introduce a modified TB framework based on the Löwdin orthogonalization, which constructs an orthonormal basis from the non-orthogonal guided modes while minimally altering their physical shape and preserving their symmetry properties. The resulting Löwdin-TB method restores the standard eigenvalue problem and yields excellent agreement with exact beam propagation simulations across a wide range of system sizes and waveguide separations. Furthermore, it captures important physical effects, such as enhanced long-range coupling and nontrivial hopping phases, that are absent in the standard approach.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
