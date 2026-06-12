@@ -1,0 +1,24 @@
+{
+  "label": "2026-06-12",
+  "date": "2026-06-12",
+  "generated_at": "2026-06-12T20:59:00",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202606/12/biorxiv-10-64898-2026-01-18-700183-v3-pupil-dlc-an-open-source-deep-learning-pipeline-for-scalable-marker-less-tracking-of-pupil-dynamics-across-conscious-and-unconscious-states",
+      "section": "quick",
+      "title_en": "Pupil-DLC: an open-source deep learning pipeline for scalable, marker-less tracking of pupil dynamics across conscious and unconscious states",
+      "authors": "Seyfourian, P., Marks, L. C., Claar, L. D., Nahas, Y., Keating, M., Koch, C., Rembado, I.",
+      "date": "2026-06-10",
+      "pdf": "https://www.biorxiv.org/content/10.64898/2026.01.18.700183v3.full.pdf",
+      "score": "7.0",
+      "evidence": "基于深度学习的瞳孔直径跟踪管道，用于可扩展的无标记瞳孔测量",
+      "tldr": "瞳孔直径是评估脑状态的重要非侵入性指标，但现有工具缺乏跨物种与条件的可扩展性。Pupil-DLC基于DeepLabCut构建开源离线管道，采用通用与个体双模型架构，在多样化小鼠数据上训练。该管道在清醒、麻醉等多种状态下均能高精度追踪瞳孔动态，且优于现有方法，并可泛化至人类。它为跨范式脑状态研究提供了可复现平台，促进小鼠与人类神经科学的转化。",
+      "tags": "query:pwad",
+      "abstract_en": "Background: Pupil diameter is a non-invasive biomarker of brain state, correlating with arousal, attention, cognitive processing, and consciousness. However, existing pupillometry software often lacks scalability and robustness across diverse experimental conditions and species. New method: We introduce Pupil-DLC, an open-source, offline, DeepLabCut-based pipeline for scalable, marker-less pupil tracking, primarily designed for mice. Trained on 21,750 manually annotated frames from over 140 videos of head-fixed mice spanning wakefulness and drug-induced states, including psychedelics and anesthesia, the dataset was deliberately selected to maximize pupil size variability and model generalization. Pupil-DLC implements a dual-model architecture: a General Model (GM) for high-throughput analysis and an Individual Model (IM) for session-specific optimization. Results: Pupil-DLC captures pupil dynamics across awake, psychedelic, and anesthetized conditions with high agreement with ground truth and equal tracking fidelity during active locomotion and quiet rest. Confidence metrics aligned with human frame quality assessments, enabling principled tuning of accuracy-retention trade-offs. As a secondary demonstration, Pupil-DLC extends to unseen human videos across diverse conditions and frame rates, including daylight and smartphone recordings, without retraining. Comparison with existing methods: Pupil-DLC outperforms existing automated methods in accuracy and frame retention while maintaining computational efficiency comparable to real-time tools. These improvements stem from a learned keypoint-based representation robust to pupil shape variability, occlusions, reflections, and imaging artifacts. The GM/IM framework supports a tiered strategy balancing throughput and precision. Conclusions: Pupil-DLC provides a reproducible, adaptable platform for quantifying pupil-linked brain state dynamics across experimental paradigms and species, bridging basic mouse neuroscience and translational human applications.",
+      "source": "biorxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

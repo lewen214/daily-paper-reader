@@ -6,22 +6,24 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-06-11
-- 运行时间：2026-06-11 20:51:34 UTC
+- 最新运行日期：2026-06-12
+- 运行时间：2026-06-12 20:58:54 UTC
 - 运行状态：成功
-- 本次总论文数：0
+- 本次总论文数：1
 - 精读区：0
-- 速读区：0
+- 速读区：1
 
 ### 今日简报（AI）
-> 今日无新推荐，系统未产出可展示论文。
-- 详情：[/202606/11/README](/202606/11/README)
+今日速读了一种无需标记、可跨清醒与无意识状态追踪瞳孔动态的开源深度学习工具。研究展示了 Pupil-DLC 在不同脑状态下的鲁棒性，为神经科学相关眼动分析提供了低门槛、可扩展的方案。若你对意识检测或低成本行为监测感兴趣，不妨关注这项将瞳孔变成多功能生物信号的开放技术。
+- 详情：[/202606/12/README](/202606/12/README)
 
 ### 精读区论文标签
 - 本次无精读推荐。
 
 ### 速读区论文标签
-- 本次无速读推荐。
+1. [Pupil-DLC: an open-source deep learning pipeline for scalable, marker-less tracking of pupil dynamics across conscious and unconscious states](/202606/12/biorxiv-10-64898-2026-01-18-700183-v3-pupil-dlc-an-open-source-deep-learning-pipeline-for-scalable-marker-less-tracking-of-pupil-dynamics-across-conscious-and-unconscious-states)  
+   标签：评分：7.0/10、query:pwad
+   evidence：基于深度学习的瞳孔直径跟踪管道，用于可扩展的无标记瞳孔测量
 
 
 <div class="dpr-home-promo-card">
