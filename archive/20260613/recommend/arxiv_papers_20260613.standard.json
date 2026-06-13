@@ -1,0 +1,58 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-13T21:18:48.208144+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2606.06841v1",
+      "source": "arxiv",
+      "title": "High-Speed Multi-Dimensional Optical Field Measurement via MMF-MCF Spatial-Temporal Mapping Architecture",
+      "abstract": "Wavelength and state of polarization constitute fundamental dimensions of optical fields. While simultaneous quantification of these parameters is critical, existing methodologies often lack the speed required for real-time analysis. Here, we present a compact high-dimensional optical field analyzer employing a discrete spatiotemporal sampling architecture based on multimode and multicore fibers. An optical delay line array maps spatial speckle patterns into serial pulse sequences and facilitates efficient single-pixel detection. Leveraging a residual multilayer perceptron network, the system attains a wavelength mean absolute error of 0.25 pm and a polarization resolution of 0.2015 (in normalized Stokes space). Analysis of the spatial sampling density reveals that 5-6 sampling points are required to balance measurement rate and accuracy. Notably, the system exhibits isotropic fault tolerance against single-core failures. This confirms that optical field information is redundantly encoded across the entire fiber cross-section rather than localized in specific channels. This framework provides a solution for multiparameter decoupling under severe spatial downsampling and useful insights for the design of next generation high-speed and robust all-fiber analysis systems.",
+      "authors": [
+        "Yuxuan Xiong",
+        "Jingze Liu",
+        "Junjie Qiu",
+        "Zhuyixiao Liu",
+        "Zheng Gao",
+        "Hao Wu",
+        "Ming Tang"
+      ],
+      "primary_category": "physics.optics",
+      "categories": [
+        "physics.optics"
+      ],
+      "published": "2026-06-05T02:37:12+00:00",
+      "link": "https://arxiv.org/pdf/2606.06841v1",
+      "tags": [
+        "keyword:pwad",
+        "query:pwad"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "High-speed polarization measurement method applicable to polarization volume grating characterization.",
+      "llm_evidence_cn": "高速偏振测量方法适用于偏振体光栅表征。",
+      "llm_evidence": "高速偏振测量方法适用于偏振体光栅表征。",
+      "canonical_evidence": "高速偏振测量方法适用于偏振体光栅表征。",
+      "llm_tldr_en": "Proposes a compact high-speed multi-dimensional optical field analyzer using MMF-MCF architecture for simultaneous wavelength and polarization measurement, achieving pm-level accuracy. The fast polarization measurement can serve as a metrology tool for polarization volume grating characterization in AR waveguides.",
+      "llm_tldr_cn": "现有光场波长与偏振态同时测量方法速度不足，该研究提出基于多模与多芯光纤的紧凑型高维光场分析仪。利用光延迟线阵列将空间散斑图映射为串行脉冲序列，结合残差多层感知机网络，实现皮米级波长误差和偏振态高分辨率测量。该方法的高速多维测量能力可为偏振体光栅衍射波导的表征提供实用工具，促进AR显示中偏振光学器件的效率评估。",
+      "llm_tldr": "现有光场波长与偏振态同时测量方法速度不足，该研究提出基于多模与多芯光纤的紧凑型高维光场分析仪。利用光延迟线阵列将空间散斑图映射为串行脉冲序列，结合残差多层感知机网络，实现皮米级波长误差和偏振态高分辨率测量。该方法的高速多维测量能力可为偏振体光栅衍射波导的表征提供实用工具，促进AR显示中偏振光学器件的效率评估。",
+      "llm_tags": [
+        "query:pwad"
+      ],
+      "matched_query_tag": "query:pwad",
+      "matched_query_text": "polarization volume grating",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

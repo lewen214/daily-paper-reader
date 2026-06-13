@@ -1,0 +1,24 @@
+{
+  "label": "2026-06-13",
+  "date": "2026-06-13",
+  "generated_at": "2026-06-13T21:19:37",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202606/13/2606.06841v1-high-speed-multi-dimensional-optical-field-measurement-via-mmf-mcf-spatial-temporal-mapping-architecture",
+      "section": "quick",
+      "title_en": "High-Speed Multi-Dimensional Optical Field Measurement via MMF-MCF Spatial-Temporal Mapping Architecture",
+      "authors": "Yuxuan Xiong, Jingze Liu, Junjie Qiu, Zhuyixiao Liu, Zheng Gao, Hao Wu, Ming Tang",
+      "date": "2026-06-05",
+      "pdf": "https://arxiv.org/pdf/2606.06841v1",
+      "score": "6.0",
+      "evidence": "高速偏振测量方法适用于偏振体光栅表征。",
+      "tldr": "波长与偏振态是光场的基本维度，实时同步测量对诸多应用至关重要，但现有方法速度不足。本文提出基于多模-多芯光纤的离散时空采样架构，利用光延迟线阵列将空间散斑转换为串行脉冲，实现单像素高速探测。结合残差多层感知器，波长误差低至0.25 pm，偏振分辨率达0.2015（归一化斯托克斯）。仅需5-6个采样点即可平衡速度与精度，且系统对单芯损坏具有容错力。该研究揭示了光场信息在整个光纤截面冗余编码的特性，为严重空间下采样下的多参数解耦提供了高效方案。",
+      "tags": "query:pwad",
+      "abstract_en": "Wavelength and state of polarization constitute fundamental dimensions of optical fields. While simultaneous quantification of these parameters is critical, existing methodologies often lack the speed required for real-time analysis. Here, we present a compact high-dimensional optical field analyzer employing a discrete spatiotemporal sampling architecture based on multimode and multicore fibers. An optical delay line array maps spatial speckle patterns into serial pulse sequences and facilitates efficient single-pixel detection. Leveraging a residual multilayer perceptron network, the system attains a wavelength mean absolute error of 0.25 pm and a polarization resolution of 0.2015 (in normalized Stokes space). Analysis of the spatial sampling density reveals that 5-6 sampling points are required to balance measurement rate and accuracy. Notably, the system exhibits isotropic fault tolerance against single-core failures. This confirms that optical field information is redundantly encoded across the entire fiber cross-section rather than localized in specific channels. This framework provides a solution for multiparameter decoupling under severe spatial downsampling and useful insights for the design of next generation high-speed and robust all-fiber analysis systems.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
