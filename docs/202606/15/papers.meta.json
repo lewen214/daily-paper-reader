@@ -1,0 +1,39 @@
+{
+  "label": "2026-06-15",
+  "date": "2026-06-15",
+  "generated_at": "2026-06-15T21:40:46",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202606/15/2606.13320v1-learning-light-scattering-from-operator-parameter-spaces-to-galerkin-consistent-solution-spaces",
+      "section": "quick",
+      "title_en": "Learning light scattering from operator parameter spaces to Galerkin-consistent solution spaces",
+      "authors": "Lida Liu, Jingwei Wang, Wei Cao, Yang Zhang, Yuntian Chen",
+      "date": "2026-06-11",
+      "pdf": "https://arxiv.org/pdf/2606.13320v1",
+      "score": "6.0",
+      "evidence": "FEMONet实现纳米光子结构的高效全波仿真，可用于衍射光栅和波导设计。",
+      "tldr": "纳米光子学全波模拟面临计算成本与泛化性矛盾，FEMONet将有限元与算子学习结合，从物理参数空间映射到伽辽金一致解空间，预测有限元展开系数而非直接场值，实现高精度、稳定训练与跨介质、金属、等离子体及三维结构的强泛化，是首个复值散射算子学习框架。",
+      "tags": "query:pwad",
+      "abstract_en": "Efficient and generalizable full-wave simulation is essential for nanophotonic analysis and inverse design, yet existing methods face a tradeoff between the high computational cost of numerical solvers and the limited generalizability of neural operator models for complex optical scattering. Here, we introduce FEMONet, a finite-element-constrained operator-learning framework that learns light scattering from an operator parameter space to a Galerkin-consistent solution space. The operator parameter space encodes the physical entities defining a wave-equation problem, while the variational weak form links this space to the coordinate and physical solution spaces. Integrated with operator-learning networks, FEMONet extends classical solvers from isolated problem instances to parameterized scattering operators. To our knowledge, FEMONet represents the first Galerkin-consistent operator-learning framework for complex-valued optical scattering, grounded in the variational weak form of the governing vector wave equations. Finite-element discretization absorbs spatial derivatives into assembled stiffness matrices and load vectors, removing coordinate-based derivatives of the neural-network output from the physics loss and improving training efficiency. By predicting finite-element expansion coefficients rather than unconstrained field values, the Galerkin-consistent formulation preserves compatible trial and test spaces, achieving high accuracy, stable training, and generalization across dielectric, metallic, arrayed, plasmonic, and three-dimensional nanophotonic structures.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202606/15/biorxiv-10-64898-2026-06-05-730459-v1-subtle-pupil-size-changes-associated-with-exploration-do-not-affect-visual-sensitivity",
+      "section": "quick",
+      "title_en": "Subtle Pupil-Size Changes Associated With Exploration Do Not Affect Visual Sensitivity",
+      "authors": "Claeys, W., Ruuskanen, V., Mathot, S.",
+      "date": "2026-06-09",
+      "pdf": "https://www.biorxiv.org/content/10.64898/2026.06.05.730459v1.full.pdf",
+      "score": "6.0",
+      "evidence": "研究瞳孔大小与视觉敏感度关系，与感知亮度模型相关",
+      "tldr": "探索状态下瞳孔往往放大，但该微小幅度的变化是否增强视觉灵敏度尚不明确。本研究通过四臂老虎机任务诱导探索与利用行为，同时要求被试检测近阈值的周边闪光。结果复制了探索时瞳孔更大、整体瞳孔增大与灵敏度正相关，却未发现探索状态本身提升视觉灵敏度。表明微小瞳孔变化不足以影响知觉表现，需更有效范式检验其功能解释。",
+      "tags": "query:pwad",
+      "abstract_en": "When we feel restless and easily distracted, continuously switching tasks (exploration), our pupils tend to be large. In contrast, when we are calmly focused on a single task (exploitation), our pupils tend to be small. According to the Adaptive Gain Theory (AGT), a switch from exploitation to exploration is associated with an increase in norepinephrine in the locus coeruleus, which in turn triggers pupil dilation. However, the AGT does not provide a functional explanation of why exploration triggers pupil dilation. One possibility is that visual sensitivity, which increases with pupil size, is especially important during exploration. We set out to provide evidence consistent with this functional explanation, as well as to replicate two key previous results. Participants performed a four-armed bandit task, which induces both exploration and exploitation behavior. During the task, participants also needed to detect an occasional and unpredictable near-threshold peripheral flash. We replicated two key results: pupils were larger during exploration than during exploitation; and increased pupil size (overall, independent of exploration status) was associated with increased visual sensitivity. However, most importantly, we did not find that visual sensitivity was higher during exploration than during exploitation; probably, the reliable-yet-tiny increase in pupil size during exploration was too small to affect visual sensitivity. We conclude that key previous results are replicable; however, common experimental paradigms, such as the four-armed bandit task, induce only small changes in exploration behavior. Therefore, more powerful paradigms are required in order to test functional explanations of pupil-size changes during exploration and exploitation.",
+      "source": "biorxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

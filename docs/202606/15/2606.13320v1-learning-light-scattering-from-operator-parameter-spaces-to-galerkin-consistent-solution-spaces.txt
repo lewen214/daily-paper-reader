@@ -1,0 +1,1446 @@
+Title: Learning light scattering from operator parameter spaces to Galerkin-consistent solution spaces
+
+URL Source: https://arxiv.org/pdf/2606.13320v1
+
+Published Time: Fri, 12 Jun 2026 00:57:34 GMT
+
+Number of Pages: 26
+
+Markdown Content:
+# LEARNING LIGHT SCATTERING FROM OPERATOR PARAMETER SPACES TO GALERKIN -CONSISTENT SOLUTION SPACES 
+
+Lida Liu 
+
+School of Optical and Electronic Information Huazhong University of Science and Technology Wuhan 
+
+Jingwei Wang 
+
+School of Electronic Information and Communications Huazhong University of Science and Technology Wuhan 
+
+Wei Cao, Yang Zhang 
+
+School of Optical and Electronic Information Huazhong University of Science and Technology Wuhan 
+
+Yuntian Chen 
+
+School of Optical and Electronic Information Wuhan National Laboratory of Optoelectronics Huazhong University of Science and Technology Optics Valley Laboratory Wuhan 
+
+yuntian@hust.edu.cn 
+
+## ABSTRACT 
+
+Efficient and generalizable full-wave simulation is essential for nanophotonic analysis and inverse design, yet existing methods face a tradeoff between the high computational cost of numerical solvers and the limited generalizability of neural operator models for complex optical scattering. Here, we introduce FEMONet, a finite-element-constrained operator-learning framework that learns light scattering from an operator parameter space to a Galerkin-consistent solution space. The operator parameter space encodes the physical entities defining a wave-equation problem, while the variational weak form links this space to the coordinate and physical solution spaces. Integrated with operator-learning networks, FEMONet extends classical solvers from isolated problem instances to parameterized scattering operators. To our knowledge, FEMONet represents the first Galerkin-consistent operator-learning framework for complex-valued optical scattering, grounded in the variational weak form of the governing vector wave equations. Finite-element discretization absorbs spatial derivatives into assembled stiffness matrices and load vectors, removing coordinate-based derivatives of the neural-network output from the physics loss and improving training efficiency. By predicting finite-element expansion coefficients rather than unconstrained field values, the Galerkin-consistent formulation preserves compatible trial and test spaces, achieving high accuracy, stable training, and generalization across dielectric, metallic, arrayed, plasmonic, and three-dimensional nanophotonic structures. 
+
+Keywords operator parameter space · operator learning · finite elements method · variational principle 
+
+## 1 Introduction 
+
+In nanophotonics, numerical solvers are essential for modeling wave-scale light-matter interactions and engineering of artificial structures[ 1, 2, 3, 4]. These phenomena—including plasmonic field enhancement[ 5], QNM-based resonant scattering[ 6, 7], and metasurface wavefront control[ 8 ]—rely on these solvers to provide full-wave solutions to Maxwell’s equations. Although traditional methods such as the Finite-Difference Time-Domain (FDTD)[ 2], Finite Element Method (FEM)[ 1, 3], and Method of Moments (MoM)[ 4] are established tools for solving Maxwell’s equations, they face severe bottlenecks in modern optimization and inverse design tasks[ 9, 10 ]. Operator solvers in these multi-parameter spaces scenarios demand the repeated assembly and solving of large matrices, leading to prohibitive computational costs. Such overhead significantly hinders design efficiency and rapid prototyping, creating an urgent need for more efficient simulation paradigms to navigate increasingly complex nanophotonic devices. 
+
+> arXiv:2606.13320v1 [physics.optics] 11 Jun 2026
+
+Learning light scattering from operator parameter spaces to Galerkin-consistent solution spaces To circumvent this heavy computational burden, Physics-Informed Neural Networks (PINNs) have emerged as a promising paradigm for solving partial differential equations (PDEs)[ 11 ]. By encoding physical laws into the loss function, PINNs can approximate solutions to Maxwell’s equations without requiring labeled data[ 12 , 13 ]. Meanwhile, driven by the pursuit of better numerical stability and broader generalization, the landscape of physics-informed learning has expanded rapidly. On the one hand, methods such as Variational PINNs (VPINNs) and hp-VPINNs bridge PINNs with classical variational principles, establishing the loss function by integrating the PDEs residual multiplied by a set of basis functions[ 14 , 15 ]. This reduces the order of the differential operator, which can effectively lower the required regularity in the output of the neural network (NN). On the other hand, a more profound shift has occurred from point-to-value learning to infinite-dimensional function-to-function mapping, known as operator learning. Notable frameworks include DeepONet[ 16 ], Physics-Informed DeepONet[ 17 ] and Physics-Informed Fourier Neural Operator[18]. Despite these advances, three fundamental barriers still prevent physics-informed and operator-learning methods from becoming reliable simulation tools for practical nanophotonics. First, many PINN-based methods remain demonstrated mainly on canonical benchmarks or problem-specific simplified structures [ 11 , 12 , 13 ]. The optimization of strong-form PDE residuals is sensitive to loss balancing, hyperparameters, material discontinuities, and high-index or metallic losses, which makes their transfer to realistic plasmonic, metasurface, and multi-scatterer systems challenging [19, 20, 10, 21, 22]. Second, although neural operators provide a powerful framework for learning mappings between function spaces and solution operators of parametric PDEs [ 16 , 17 , 18 , 23 ], their generalization in optical scattering is often difficult to interpret physically. A scattering solution operator is not determined by geometry alone, but by the physical entities that define the wave-equation problem, including wavelength, material distribution, excitation, and boundary conditions. Previous work on photonic crystals has shown that encoding Maxwell-operator structure can enable machine prediction of topological transitions beyond simple parameter interpolation [ 24 ], suggesting the importance of physically structured operator representations. However, a general formulation that defines the physically sufficient domain and boundary of neural-operator generalization for full-wave optical scattering remains lacking. Third, from a numerical-analysis perspective, weak-form neural solvers such as VPINNs and hp-VPINNs are typically formulated in a Petrov-Galerkin setting, where the neural-network trial space and the prescribed test space are constructed separately [ 14 , 15 ]. Although this formulation reduces the differentiation order of the residual, it does not by itself enforce the trial-test compatibility that underlies Galerkin finite-element discretizations or related stability conditions such as the inf-sup condition [ 25 , 26 , 27 , 28 ]. These limitations call for a neural-operator framework that is simultaneously applicable to realistic optical structures, physically interpretable in its generalization domain, and consistent with the discrete variational structure of classical full-wave solvers. To address these challenges, we propose FEMONet, an operator-parameter-space-augmented FEM-constrained operator-learning framework for complex-valued full-wave optical scattering. The central idea is to reformulate optical simulation from solving isolated boundary-value problems into learning a family of wave-equation solution operators defined over an operator parameter space. This space is not merely a larger collection of input variables; it provides a physically sufficient domain on which neural-operator generalization is meaningful, interpretable, and bounded. Each operator-parameter instance is defined by the physical entities that determine the governing differential operator, source term, and boundary condition. Conventional geometry or design parameters can be regarded as local coordinates only when they uniquely determine this operator-defining physical representation. In contrast, representing scatterers through material distributions, together with wavelength, excitation, and invariant physical settings, places diverse geometries and optical conditions within a shared scattering-operator family. FEMONet then connects this operator parameter space to the physical solution space through the variational weak form and FEM discretization. Rather than predicting unconstrained field values, the network predicts finite-element expansion coefficients and is trained by a preconditioned FEM residual assembled from the corresponding stiffness matrix and load vector. This Galerkin-consistent construction preserves the compatible trial-space structure of the underlying FEM discretization, avoids coordinate-based automatic differentiation of the neural-network output, and transfers the weak-form structure of FEM from single-instance solvers to parameterized neural operators. We validate this framework on practical optical scattering problems, including dielectric and metallic scatterers, coupled multi-scatterer configurations, plasmonic nanostructures, and three-dimensional metasurfaces, demonstrating accurate, efficient, and physically bounded generalization across prescribed operator-parameter spaces. 2Learning light scattering from operator parameter spaces to Galerkin-consistent solution spaces 
+
+## 2 Results 
+
+2.1 FEMONet learns optical scattering over an operator parameter space 
+
+Taking the two-dimensional optical scattering problem as an example, under transverse magnetic (TM) polarization, the scattered electric-field component Esz satisfies a wave equation that can be written in differential-operator form as [1] 
+
+Lϕ = f in Ω, (1) where L = ∇ ×  μ−1 
+
+> r
+
+∇×  − k20 εr , ϕ = Esz (r), and f = −∇ × μ−1 
+
+> r
+
+∇ × ˆzEiz (r) + k20 εr ˆzEiz (r). In this work, two related but distinct operators are involved: the wave-equation differential operator L, which governs each boundary-value problem, and the scattering solution operator Gs, which maps the physical entities defining the problem to the scattered field evaluated at a spatial coordinate: 
+
+Esz (r) = Gs(λ, ε r , μ r , E i, B)( r). (2) We define the optical scattering problem in an operator parameter space P, where each point corresponds to a specific wave-equation problem instance, 
+
+p = ( λ, ε r , μ r , E i, B) ∈ P . (3) Here, λ, εr , μr , Ei, and B denote the wavelength, relative permittivity, relative permeability, incident field, and boundary conditions, respectively. These physical entities jointly determine the parameterized differential operator Lp,the source term fp, and the boundary conditions. Therefore, optical scattering is not treated as a set of isolated forward simulations, but as a family of parameterized boundary-value problems, 
+
+Lpϕp = fp in Ω, Bpϕp = gp on ∂Ω, p ∈ P , (4) where ϕp denotes the scattered-field solution associated with the problem instance p. The objective of FEMONet is to learn the parameterized scattering solution operator over P, rather than repeatedly solving each individual operator instance. The variational weak form and FEM discretization provide the bridge between the operator parameter space, the coordinate space, and the physical solution space. For each p ∈ P , the physical parameters are encoded into a stiffness matrix Ap and a load vector bp, while the spatial dependence of the field is represented by FEM basis functions, 
+
+Esz (r) ≈ PNi=1 uiNi(r). The corresponding discrete system is 
+
+Apup = bp. (5) The elements in Ap given by 
+
+Aij =
+
+Z
+
+> Ω
+
+[∇ × ˆzN i · μr −1∇ × ˆzN j − k20 εr ˆzN i · ˆzN j ]dS +
+
+Z
+
+> δΩ
+
+[ˆ zN i · jk 0n × ˆzN j × n]dl, 
+
+and the elements in b given by 
+
+bi =
+
+Z
+
+> δΩ
+
+[ˆ zN i · n × ∇ × ˆzE iz ]dl −
+
+Z
+
+> Ω
+
+[∇ × ˆzN i · μr −1∇ × ˆzE iz − k20 εr ˆzN i · ˆzE iz ]dS. 
+
+In classical FEM, this linear system is assembled and solved independently for each p. We have included the complete variational derivation process in the SI Appendix. In FEMONet, the neural network instead predicts the FEM expansion coefficients, Esz (r) ≈ PNi=1 up,θ,i Ni(r), and is trained by minimizing the FEM residual over sampled operator instances, 
+
+min  
+
+> θ
+
+L(θ) = 1
+
+NsNsX
+
+> s=1
+
+1
+
+Nps
+
+|| M −1 
+
+> ps
+
+(Aps ups,θ − bps ) || 22, (6) where θ represents the network hyperparameters and M −1 
+
+> ps
+
+denotes the preconditioner used to improve the conditioning of the residual minimization, || · || 2 represents the L2 norm. This formulation combines operator learning with Galerkin-consistent physical constraints and extends classical operator solving from individual problem instances to the operator parameter space. Considering the scattering solution operator defined in Eq. (2), we design an operator-parameter-space-augmented MIONet framework, as illustrated in Fig. 1. MIONet is selected as the operator-learning architecture because its multi-input formulation is naturally compatible with the structure of the operator parameter space. Instead of representing the 3Learning light scattering from operator parameter spaces to Galerkin-consistent solution spaces 32                    
+
+> 128
+> 32
+> 128
+> 64
+> 64  128
+> 32
+> 1
+> 128
+> 1
+> q
+> Conv1 Conv2 Resblock1 Resblock2 Pool Linear Output
+> (a) (b) (c) (d)
+> FFT
+> q12IR UV
+> FNN Fourier Space Output
+> VUH
+> Linear + Tanh Linear + Activation
+> Gate Z H = ( 1 - Z ) · U + Z · V
+> Gated Fusion Layer
+> L < N false true
+> q12
+> ri= (x, y, z) Output Physical Solution Space
+> ƤλεrƤ
+> EiƤ
+> Operator Parameter Subspace Coordinate Space MIONet: Operator Learning Network Architecture Weak Form Constraint
+> Gs,θ (λ,εr,)(r i) = uiEiE(r) = ∑u N ( ) riii=1 Ns
+> Loss=||M (Au-b )| |/N Minimize θ*
+> 12
+> xy
+> Ω∂Ω
+> Ni
+> ri
+> 2
+
+Figure 1: Operator-parameter-space-augmented MIONet architecture for optical scattering operator learning. (a) The wavelength branch encodes the spectral subspace Pλ using Fourier features and a feed-forward neural network. (b) The material and excitation branches encode the relative permittivity images εr and incident field images Ei, corresponding to Pεr and PEi , respectively. (c) The trunk network encodes each spatial query point ri ∈ Ω corresponding to the basic function Ni and therefore represents the coordinate space. (d) The branch and trunk features are fused to predict the FEM expansion coefficient up,θ,i = Gs,θ (λ, ε r , E i)( ri). The weak-form constraint provides a physics-consistent optimization objective through the preconditioned FEM residual, and the scattered field is reconstructed in the physical solution space as Esz (r) = PNi=1 uiNi(r).scattering problem by a single input function, MIONet learns a solution operator defined on the multiple input-function spaces. This formulation matches the fact that an optical scattering operator is jointly determined by several physical entities, including the wavelength, material distribution, excitation field, and invariant physical settings. For the scattering problems considered in this work, the operator parameter space is decomposed as 
+
+P = Pλ × P εr × P Ei × P I . (7) Here, Pλ, Pεr , and PEi denote the spectral, material, and excitation subspaces, respectively. The invariant subspace PI
+
+contains fixed physical settings, such as the permeability μr and boundary condition B. Since these quantities remain unchanged within the operator family considered in this work, they are not assigned to an additional branch network, but are incorporated as fixed conditions through the overall network setting and the FEM-constrained loss. Under this decomposition, each branch network can be interpreted as an encoder for a projected subspace of P.Specifically, the input-function spaces of the branch networks, denoted by Vλ, Vεr , and VEi , provide functional representations of the projected operator-parameter subspaces Pλ, Pεr , and PEi , respectively. In contrast, the trunk network takes the spatial query point r ∈ Ω as input and therefore represents the coordinate space. The branch and trunk features are then fused to predict the FEM expansion coefficient, up,θ,i = Gs,θ (λ, ε r , E i)( ri), which reconstructs 4Learning light scattering from operator parameter spaces to Galerkin-consistent solution spaces Table 1: Operator-parameter-space map Case Psub Network Architecture Validation Dimensions 1.Basic scatterers Pεr
+
+Branch net 2 & Trunk net Performance comparison, Extrapolation capability 2.Metal scatterers Pλ, Pεr , PEi
+
+Branch net 1,2,3 & Trunk net Architectural efficiency 3.Multiple metal scatterers Pεr , PEi
+
+Branch net 2,3 & Trunk net Hyperparameter sensitivity 4.Plasmonic nanostructure Pλ, Pεr
+
+Branch net 1,2 & Trunk net Sparse-sample learning 5.3D metasurface Pλ, Pεr
+
+Branch net 1,2 & Trunk net Dimensional expansion    
+
+> The listed Psub are the active operator projections subspaces for each problem family. Omitted subspaces are invariant and are incorporated through fixed physical settings and the FEM residual, rather than being ignored.
+
+the scattered field in the physical solution space through the FEM basis expansion. In this way, the MIONet architecture provides a direct network realization of the proposed theoretical framework: branch networks encode projections of the operator parameter space, the trunk network encodes the coordinate space, the weak-form constraint provides a physics-consistent optimization objective through the preconditioned FEM residual and the scattered field is reconstructed in the physical solution space. We next validate this operator-parameter-space framework across five representative optical scattering problems, as summarized in Table 1. These cases are organized according to the active projections of the operator parameter space, including the spectral subspace Pλ, material subspace Pεr , and excitation subspace PEi . Each case activates a different combination of branch-network inputs and is designed to test a distinct aspect of FEMONet, including accuracy, efficiency, extrapolation, architectural efficiency, hyperparameter robustness, sparse-sample learning, and extension from two-dimensional scatterers to three-dimensional metasurface structures. 
+
+2.2 Galerkin-consistent learning and bounded generalization 
+
+We first evaluate FEMONet on basic lossless scatterers, for which the active projection of the operator parameter space is the material subspace Pεr . This setting provides a controlled benchmark to isolate the effect of the FEM-constrained residual, because the wavelength, excitation field, permeability, and boundary conditions are fixed while the material geometry varies. Five representative dielectric scatterers with a refractive index of 1.45 are placed in a 2 μm × 2 μm
+
+computational domain and excited by a TM-polarized plane wave at λ = 1 .55 μm. The sample set contains 1, 558 
+
+unlabeled operator instances, divided into 1, 246 training and 312 testing samples. To ensure a stringent and fair comparison, we construct an enhanced VPINN baseline, in which the scattering boundary condition is incorporated directly into the weak-form residual instead of being imposed as a separate boundary penalty. FEMONet is compared with enhanced VPINN baseline using the identical DeepONet configuration. Thus, the performance difference mainly reflects the role of the physical constraint rather than the network architecture. The efficiency gain can be understood from the differentiation order imposed on the neural network. For wave equations, PINNs minimize the strong-form residual and require second-order coordinate derivatives of the network output. VPINNs use integration by parts in the weak form to reduce this requirement to first-order derivatives[ 11 , 14 , 15 ]. In contrast, FEMONet applies the differentiation to the basis cunctions by FEM discretization and matrix assembly which further reduce this requirement to zero-order, while the predicted coefficients remain constrained by the Galerkin-consistent FEM system. As shown in Fig. 2(b,c), FEMONet converges faster and achieves an order-of-magnitude lower MSE than the enhanced VPINN. The gaussian fitting parameters for all cases in SI Appendix. On a single NVIDIA RTX 4090 GPU, FEMONet completes 1, 000 training epochs in 2 h 11 min 31 s , while enhanced VPINN requires 
+
+17 h 27 min 41 s . The field maps in Fig. 2(d) further show that FEMONet reproduces both the real and imaginary parts of the scattered field with substantially smaller residuals. Furthermore, the maximum errors of FEMONet are localized 5Learning light scattering from operator parameter spaces to Galerkin-consistent solution spaces                                         
+
+>   
+>        
+>                             
+> (a) (b) (c)
+> (d) (e) l1l1
+> l2
+> l1
+> l2
+> l1
+> l2
+> l1
+> l2
+> l3
+> 0.2 -0.6
+> 2-2 4-4 0.4 -0.8
+> 2-2 10 + -2 1-1
+> Epre,r sEref,r sEres,r sEv-pre,r sEv-res,r s
+> 0.2 -0.3 0.2 -0.6
+> Epre,r sEref,r s
+> 4-4 4-4
+> Eres,r sEpre,i sEref,i sEres,i sEv-pre,i sEv-res,i sEpre,i sEref,i sEres,i s
+> 10 + -1 10 + -2 10 + -2 10 + -2 10 + -2
+
+Figure 2: Comparative ablation and generalization study on basic lossless scatterers. (a) Geometric structures of the scatterers. (b) MSE convergence curves. (c) MSE histograms with corresponding Gaussian fits. (d) Scattering field distributions for representative lossless scatterer. Columns (left to right): FEM reference Esref , VPINN prediction 
+
+Esv−pre , FEMONet prediction Espre , and their respective errors Esv−res and Esres . (e) Bounded generalization within a shared operator parameter space of FEMONet evaluated on unseen scatterer geometry (left to right: FEM reference 
+
+Esref , FEMONet prediction Espre , and errors Esres ). Rows indicate the real and imaginary parts. within specific regions, in contrast to the globalized error distribution exhibited by VPINN. A detailed description of the enhanced VPINN baseline settings, together with an analysis of the sources of the FEMONet efficiency advantage over VPINN in SI Appendix. We further examine whether the learned scattering operator can transfer across geometry families within the prescribed operator parameter space. From the viewpoint of conventional design parameter space, this task corresponds to generalization across unseen topological or shape classes, because different scatterer families are usually described by different local design parameters, such as g = ( r, l, w, . . . ). Such parameters can be effective within a fixed geometry parameter space, but they do not provide a common parameterization across different shapes and topologies. In the operator parameter spaces view, these local design parameters are lifted to an operator-defining physical entities, 
+
+g = ( r, l, w, ... ) Ψ
+
+−→ p = ( λ, ε r , μ r , E i, B ) FEM 
+
+−−−→ (Ap, b p),
+
+where Ψ represents sufficient and single-valued conditions. In this situation, the material distribution εr (r) uniformly represents different geometries within a operator parameter subspace Pεr . As shown in Fig. 2(e), FEMONet accurately predicts the scattered fields for scatterer shapes that are not included in the training set. Across 320 unseen parameter instances from five additional geometries, the model achieves a test MSE of 1.4 × 10 −3. This result should not be interpreted as unrestricted extrapolation to arbitrary optical structures. Rather, it shows that what appears as cross-topology generalization in conventional design-parameter space can be understood, in the operator-parameter-space formulation, as transfer within a shared operator parameter space. Thus, conventional design parameters act as local coordinates when they sufficiently determine the scattering operator, whereas the operator parameter space provides the common physical space in which different coordinates, geometries, and topologies can be represented uniformly. More details of the performance on unseen samples are provided in the SI Appendix. 
+
+2.3 Coupled parameter-subspaces learning in metallic scatterers 
+
+We next evaluate FEMONet on single metallic scatterers, where the scattering operator depends jointly on the spectral, material, and excitation subspaces, Pλ × P εr × P Ei . This case tests whether the MIONet architecture can efficiently represent a higher-dimensional operator parameter space in which wavelength-dependent material dispersion, complex-valued permittivity, and incident direction are simultaneously varied. 6Learning light scattering from operator parameter spaces to Galerkin-consistent solution spaces                                                              
+
+>         
+>         
+> (a) (b) (c) (d)
+> 0.4
+> -0.8 0.8 -0.4 0.4
+> -0.8 0.8 -0.4
+> 1-1
+> 1-1
+> 8-8
+> 8-8
+> 1-1
+> 1-1
+> 0.5 -1
+> 0.8 -0.4
+> 0.5 -1
+> 0.8 -0.4
+> 4-4
+> 1-1 l1l4
+> l3l2
+> Epre,r sEref,r sEres,r sEriEpre,i sEref,i sEres,i sEiiEpre,r sEref,r sEres,r sEriEpre,i sEref,i sEres,i sEii
+> (e) 10 + -2 10 + -2 10 + -2 10 + -2
+
+Figure 3: (a) Geometric structures of the scatterers. (b) Loss convergence curves. (c) MSE histograms with correspond-ing Gaussian fits. (d, e) Scattering fields for two metallic scatterers. Columns (left to right): Incident field Ei, FEM reference Esref , FEMONet prediction Espre and error Esres . Rows indicate the real and imaginary parts. Seven gold scatterers with characteristic lengths ranging from 320 to 620 nm are considered, as shown in Fig. 3(a). The wavelength spans 1.5 ∼ 2 μm, and the incident TM-polarized plane wave is sampled over angles from 0◦ to 315 ◦ with a 45 ◦ step. Gold dispersion is described by the Drude model. The resulting operator-parameter sample set contains 
+
+50 , 688 unlabeled instances, with 40 , 550 used for training and 10 , 138 used for testing. The loss curves in Fig. 3(b) show that the training and testing errors converge consistently and stabilize around 
+
+1.5 × 10 −3. The MSE distributions in Fig. 3(c) remain closely aligned between training and testing sets, indicating that FEMONet does not overfit despite the enlarged parameter space. Representative field predictions in Fig. 3(d,e) further confirm that the model accurately captures metallic scattering responses under different incident conditions. This case also demonstrates architectural efficiency. Moving from the dielectric benchmark to the metallic scattering task increases the number of trainable parameters from 0.43 M to 2.57 M, a 5.98 × increase. In contrast, the number of operator-parameter configurations increases from 1, 558 to 50 , 688 , approximately 32 .5×. Moreover, the input representation expands from a single real-valued material map to wavelength, complex-valued permittivity, and complex-valued incident fields. Therefore, the increase in model size is moderate relative to the expansion of the operator parameter space, supporting the scalability of the multi-branch MIONet architecture. 
+
+2.4 Robustness under hyperparameter variation 
+
+We then examine multiple metallic scatterers to evaluate the numerical robustness of FEMONet under more strongly coupled scattering conditions. In this case, the active operator-parameter projections are the material and excitation subspaces, Pεr × P Ei . Compared with isolated scatterers, arrayed metallic structures introduce stronger near-field coupling and more complex interference patterns, making them a stringent test of the stability of the learned operator. As shown in Fig. 4(a), the structure is a 1×3 array assembled from two metallic scatterer units. Each scatterer undergoes random rotation and scaling around its center, with an adjacent spacing of 1 μm in a 4 μm square computational domain. A total of 3, 456 operator instances are generated, including 2, 765 training samples and 691 testing samples. The convergence curves and MSE distributions in Fig. 4(b,c) show stable training and consistent test performance. The representative fields in Fig. 4(d,e) confirm that FEMONet accurately predicts the real and imaginary parts of the scattered fields even in the presence of multi-scatterer coupling. To further assess whether this performance depends on a carefully tuned network configuration, we perform a hyper-parameter sensitivity analysis. As shown in Fig. 5, nine architectural combinations are tested by varying the output dimension in {64 , 128 , 256 } and the hidden-channel number in {128 , 256 , 512 }, together with seven initial learning rates from 10 −4 to 10 −2. The heatmap of log 10 (MSE) reveals a broad and contiguous low-error region rather than a 7Learning light scattering from operator parameter spaces to Galerkin-consistent solution spaces               
+
+>   
+>          
+>     
+
+                      
+
+(a) (b) (c) (d) 
+
+> 1-1
+> 1-1
+> -1
+> 1-1
+> 1-1
+> 2-2
+> 1-1
+> 1-1
+
+E pre,r sE ref,r s E res,r sE pre,i sE ref,i s E res,i sE riE ii
+
+> 1μm1μmArrays 1
+> 1-1
+> 1-1
+> 1-1
+> 1-1
+> 1-1
+> 1-1
+> 1-1
+> 8-8
+
+(e) 10 + -2 10 + -2 10 + -2 10 + -2 
+
+E pre,r sE ref,r s E res,r sE pre,i sE ref,i s E res,i sE riE ii
+
+Figure 4: (a) Geometric structures of the scatterers. (b) Loss convergence curves. (c) MSE histograms with corre-sponding Gaussian fits. (d, e) Scattering fields for two representative multi-scatterer configurations. Columns (left to right): Incident field Ei, FEM reference Esref , FEMONet prediction Espre and error Esres . Rows indicate the real and imaginary parts. Learning rate (64, 128) (64, 256) (64, 512) (128, 128) (128, 256) (128, 512) (256, 128) (256, 256) (256, 512) Network parameters Parameter Sensitivity heatmap -2.58 -2.83 -3.02 -3.24 -2.81 -2.99 -3.02 -2.85 -3.02 -3.03 -2.92 -3.03 -3.03 -2.94 -3.01 -2.97 -2.84 -2.87 -2.86 -2.40 -2.22 -2.28 -2.84 -2.48 -2.46 -2.90 -2.54 -2.58 -3.65 -3.86 -3.63 -4.06 -4.40 -3.55 -3.90 -4.08 -3.94 -4.49 -4.73 -3.69 -3.97 -4.07 -4.12 -4.62 -4.79 -3.78 -4.01 -4.05 -4.20 -4.67 -4.75 -3.77 -3.92 -3.96 -4.11 -4.41 -4.49 -3.65 -3.69 -3.70 -3.98 -4.09 -4.10 -5 -4 -3 -2 10 + -4 1 10 + -4 3 10 + -4 5 10 + -3 1 10 + -3 3 10 + -3 5 10 + -2 1
+
+Figure 5: Heatmap analysis of log 10 (MSE ) for different network hyperparameters. single isolated optimum. This indicates that FEMONet is not highly sensitive to a narrowly selected hyperparameter setting. The combination of stable convergence, accurate field reconstruction, and a broad low-MSE region demonstrates the numerical robustness of the FEM-constrained operator-learning framework. 
+
+2.5 Sparse-sample learning of plasmonic responses 
+
+We next examine whether FEMONet can learn plasmonic responses from sparse-samples in the operator parameter space. The benchmark structure is adapted from a previously reported surface-plasmon-polariton device [ 29 ], which has been validated by both numerical simulations and experimental measurements. This experimentally grounded configuration provides a more stringent test than idealized toy models. To ensure that these findings are not merely an isolated case, we provide another sparse-sample simulation of a practical device in SI Appendix[30]. The nanowire-on-mirror structure in Fig. 6(a) consists of an Au nanowire with a pentagonal cross-section placed above a 200 nm Au mirror, separated by a 5 nm Al 2O3 spacer and covered by a 5 nm Al 2O3 capping layer. The wavelength range is 500 ∼ 800 nm , and the Au permittivity is described by the Drude model. Because the material response varies with wavelength, each sampled configuration corresponds to a coupled spectral-material state in Pλ × P εr . We use only 
+
+41 wavelength-permittivity paired samples with a 5 nm interval, including 33 samples for training and 8 for testing. 8Learning light scattering from operator parameter spaces to Galerkin-consistent solution spaces                                                   
+
+>                 
+> (a) (b) (c) (d) (e) AuNW Al 2O3
+> Au film
+> SiO2
+> tghd
+>   
+>   
+>   
+> 10 + -2
+> λ=535nm
+> Epre,n sEref,n sEres,n s
+> 
+> 
+>   
+> 10 + -2
+> λ=655nm
+> Epre,n sEref,n sEres,n s
+
+Figure 6: (a) Geometric structures of the scatterers. (b) Loss convergence curves. (c) MSE histograms with correspond-ing Gaussian fits. (d, e) Electric field norm distributions of the two resonant modes. Columns (left to right): FEM reference Esref , FEMONet prediction Espre and error Esres .Despite the limited number of samples, the training and testing losses in Fig. 6(b) stabilize at 1.5 × 10 −3 and 1.7 × 10 −3,respectively, and the MSE distributions in Fig. 6(c) remain well concentrated. The moderate increase in absolute MSE is primarily attributable to two factors: first, the statistical constraints inherent to low-sample learning, and second, the strong localized plasmonic enhancement within the nanostructure. Thus, field-pattern fidelity provides an essential complementary measure for evaluating the learned operator in this resonant nanophotonic system. The field maps in Fig. 6(d,e) show that FEMONet accurately reproduces the electric-field norm at λ = 535 nm and 
+
+λ = 655 nm , corresponding to the transverse dipole mode and the lowest-order cavity plasmon mode, respectively. This case demonstrates the ability of FEMONet to accurately simulate the complex optical scattering characteristics of practical optical devices from sparse-samples of the coupled spectral-material operator parameter space. 
+
+2.6 Three-dimensional metasurface operator learning 
+
+Finally, we extend FEMONet to a three-dimensional metasurface unit cell[ 31 ] to demonstrate dimensional scalability. This case activates the spectral and material subspaces, Pλ × P εr , while replacing the two-dimensional basis representa-tion with three-dimensional basis representation. It therefore tests whether the proposed framework can be generalized from two-dimensional scattering benchmarks to practical three-dimensional nanophotonic structures. The unit cell in Fig. 7(a) has a period of Px = Py = 250 nm and consists of TiO 2 nanofins on an Ag mirror. The TiO 2
+
+nanofin has L = 190 nm , W = 90 nm , and h1 = 600 nm , while the Ag mirror thickness is h2 = 150 nm . Material dispersion over 540 − 800 nm is described using literature-based models for TiO 2, Si, and Ag. The dataset contains 
+
+261 wavelength configurations, split into 209 training samples and 52 testing samples. The loss curves in Fig. 7(b) show that both training and testing errors stabilize around 2 × 10 −3, and the MSE distributions in Fig. 7(c) confirm generalization under the three-dimensional setting. Fig. 7(d) compares the electric-field maps at the incident and metal-dielectric surfaces, showing close agreement between FEM reference fields and FEMONet predictions. More importantly, because FEMONet predicts the field distribution rather than directly fitting spectral coefficients, the predicted fields can be used with the Poynting theorem to compute reflection, transmission, and absorption spectra. As shown in Fig. 7(e), the spectra derived from FEMONet agree with FEM reference results and satisfy the energy-conservation relation R + A + T = 1 . This demonstrates that FEMONet provides not only accurate field-level prediction, but also physically consistent optical-response estimation for practical 3D metasurfaces. 
+
+2.7 Computational acceleration across optical scattering tasks 
+
+After validating the accuracy and generality of FEMONet, we quantified its online computational efficiency against conventional FEM solvers across the five scattering problems. For the FEM baseline, the discrete linear system in Eq. (5) was solved using the BiCGSTAB solver in SciPy, with the stopping criterion adjusted to match the accuracy 9Learning light scattering from operator parameter spaces to Galerkin-consistent solution spaces                           
+
+>                                
+
+(a) (b) (c) (d) Ag Ti O2  
+
+> Si h2h1PxPy
+
+(e) R ref T ref Aref R pre T pre Apre 1.0 0.8 0.6 0.4 0.2 0 0.55 0.60 0.65 0.70 0.75 0.8 
+
+λ(μm) T/R/A spectra 
+
+> 1.46 1.42
+> 1.99 0.33
+> 1.45 1.42
+> 1.98 0.33
+
+E pre,n sE ref,n s
+
+Figure 7: (a) Geometric structures of the scatterers. (b) Loss convergence curves. (c) MSE histograms with corre-sponding Gaussian fits.(d) Electric field maps at the incident and metal-dielectric surfaces. (left: FEM reference; right: predicted solution). (e) Transmittance, reflectance, and absorption spectra. Table 2: Online computational performance across validation cases Case Method Average Unknowns MSE Solve Time /Inference Time, Relative Percentage Training Time 1.Basic scatterers FEM 383 - 3.54 ×10 −3s -Enhanced VPINN 5.29 × 10 −4 - 17h 28min FEMONet 4.39 × 10 −5 1.37 ×10 −4s, 3.87 %
+
+1.02 ×10 −4s, 2.88 % 2h 12min 2.Metal scatterers FEM 532 - 2.90 ×10 −3s -FEMONet 1.35 × 10 −3 1.74 ×10 −4s, 6.00 %
+
+8.20 ×10 −5s, 2.83 % 170h 42min 3.Multiple metal scatterers FEM 1451 - 2.14 ×10 −2s -FEMONet 1.57 × 10 −5 7.40 ×10 −4s, 3.46 %
+
+3.71 ×10 −4s, 1.73 % 27h 23min 4.Plasmonic nanostructure FEM 3491 - 1.61 ×10 −2s -FEMONet 1.70 × 10 −4 7.18 ×10 −4s, 4.46 %
+
+4.36 ×10 −4s, 2.71 % 12min 5.3D metasurface FEM 20209 - 7.19s -FEMONet 1.33 × 10 −5 2.29 ×10 −2s, 0.32 %
+
+1.32 ×10 −2s, 0.18 % 5h 38min 
+
+The percentages denote the ratio of FEMONet inference time to FEM solve time. For each FEMONet row, the first and second inference time correspond to FP32 and FP16 inference, respectively. Cases 2 and 5 use four GPUs for parallel inference. FEM solve time excludes matrix assembly 
+
+10 Learning light scattering from operator parameter spaces to Galerkin-consistent solution spaces level achieved by FEMONet. The FEM timings were measured on an Intel Xeon Platinum 8352V CPU, whereas FEMONet inference was measured on NVIDIA GeForce RTX 4090 GPUs. This comparison is intended to reflect a deployment-oriented online simulation setting rather than a hardware-normalized theoretical comparison of numerical algorithms. To provide a conservative estimate of acceleration, the FEM timing includes only the linear-system solution time and excludes matrix assembly. Table 2 summarizes the average number of unknown coefficients, prediction accuracy, online solve or inference time, and offline training time for all validation cases. FEMONet consistently reduces the online computational cost relative to FEM. Across the two-dimensional examples, the inference time is only 1.73% ∼ 6.00% of the FEM solve time, depending on the case and inference precision. The acceleration becomes more pronounced in the three-dimensional metasurface example, where FEMONet requires only 0.18% ∼ 0.32% of the FEM solve time. These results indicate that the benefit of operator learning increases as the electromagnetic problem size grows. The offline training stage requires an upfront computational investment, especially for large operator-parameter spaces such as the metallic-scatterer case. However, once trained, FEMONet provides near-instantaneous predictions for new parameter instances within the prescribed operator parameter space. This offline-online trade-off is particularly advantageous for design, optimization, and repeated-query simulations, where a trained model can be reused many times. The results in Table 2 therefore show that FEMONet not only preserves accuracy across diverse scattering problems, but also transforms repeated full-wave simulations into a GPU-compatible inference task with substantial online acceleration. 
+
+## 3 Discussion 
+
+We have introduced FEMONet, an operator-parameter-space-augmented FEM-constrained operator-learning framework for optical scattering. The central idea is to reformulate full-wave simulation from repeatedly solving isolated forward problems into learning a family of parameterized scattering operators. In this framework, the operator parameter space is defined by the physical entities that specify the wave-equation problem, including wavelength, material distribution, incident field, and boundary conditions. Through the variational weak form and FEM discretization, these entities are encoded into the stiffness matrix and load vector, thereby linking the operator parameter space, coordinate space, and physical solution space. Rather than simply enlarging the input space, the operator parameter space defines a physically sufficient domain on which neural-operator generalization is meaningful, interpretable, and bounded. In FEMONet, a physical quantity is treated as an active operator-parameter subspace only when it changes the scattering operator by entering the differential operator, source term, boundary condition, and consequently the assembled stiffness matrix A and load vector b,ultimately altering the solution space. Quantities that remain fixed are instead incorporated into the invariant operator family rather than introduced as learnable inputs. This construction provides a physical criterion for selecting the input function spaces of operator learning and clarifies the scope of generalization: the trained model transfers among problem instances within the prescribed operator parameter space, rather than extrapolating indefinitely across arbitrary geometries, materials, or excitation. This framework also clarifies why the network architecture and the physical constraint act coherently. MIONet provides a natural representation of the projected operator-parameter subspaces through multiple branch networks, while the trunk network represents the coordinate dependence. By predicting FEM expansion coefficients rather than unconstrained field values, FEMONet inherits the trial-space structure of the Galerkin finite-element formulation. The FEM residual then supplies a weak-form physical constraint that is consistent with the underlying numerical discretization. This distinguishes FEMONet from variational neural networks that use separately prescribed test spaces without explicitly enforcing Galerkin-compatible trial-space representations. The numerical results demonstrate the effectiveness of this framework across dielectric scatterers, dispersive metallic scatterers, multiple-scattering configurations, experimentally grounded plasmonic nanostructures, and three-dimensional metasurfaces. The ablation study shows that the Galerkin-consistent FEM constraint improves both accuracy and training efficiency compared with the enhanced VPINN baseline. The multi-branch framework further allows the learned operator to cover coupled spectral, material, and excitation subspaces. Sparse-sample tests in plasmonic structures and field prediction in a three-dimensional metasurface show that the framework can preserve physically meaningful resonant and optical-response information. The computational benchmark highlights the practical value of this offline-online framework. Although training requires an upfront cost, the trained model provides fast online inference for new parameter instances within the same operator parameter space. This property is particularly useful for repeated-query electromagnetic simulations, including parametric sweeps, device optimization, and inverse design. Because the output is a field distribution rather than only 11 Learning light scattering from operator parameter spaces to Galerkin-consistent solution spaces Table 3: Various numerical methods based on different loss functions Methods Loss functions PINNs 1
+
+> Nu
+> Nu
+
+P
+
+> i=1
+
+|L uθ,i − f |2 + λb 1
+
+> Nb
+> Nb
+
+P
+
+> i=1
+
+|uθ,i − h|2
+
+VPINNs 1
+
+> Ne
+> Ne
+
+P
+
+> i=1
+
+|(( Luθ − f ), v i)Ω|2 + λb 1
+
+> Nb
+> Nb
+
+P
+
+> i=1
+
+|(( Buθ − h), v i)∂Ω|2
+
+FEMONet 1
+
+> Ns
+> Ns
+
+P
+
+> s=1 1
+> Nps
+
+|| M −1 
+
+> ps
+
+(Aps ups,θ − bps ) || 22            
+
+> uθdenotes a continuous neural-network approximation of the field; ups,θ denotes the FEM coefficient vector predicted by FEMONet for the sampled operator instance
+> ps.videnotes a test function, Apsand bpsare the FEM stiffness matrix and load vector, and M−1
+> psis the preconditioner.
+
+an end-to-end optical spectrum, physical quantities such as reflection, transmission, and absorption can be computed using physical laws, improving interpretability relative to purely data-driven response predictors. Future work may extend this framework toward broader optical settings, including anisotropic, nonlinear, or multi-physics materials, adaptive sampling of high-error regions in the operator parameter space, and integration with inverse-design loops. On the computational side, lightweight inference architectures, reduced-precision deployment, pruning, and knowledge distillation could further reduce the online cost. These directions would expand FEMONet from a forward surrogate for optical scattering into a general physics-consistent operator-learning platform for accelerated nanophotonic modeling and design. 
+
+## 4 Methods and Materials 
+
+4.1 Loss Function 
+
+Table 3 compares the loss functions used in several representative physics-constrained numerical methods. Classical PINNs enforce the governing equation in its strong form at collocation points, together with a boundary penalty term. From the perspective of the weighted-residual method, this pointwise residual can be interpreted as using Dirac delta functions centered at the collocation points as test functions [ 11 , 14 , 15 ]. This mesh-free formulation is flexible, but it requires coordinate-based automatic differentiation of the neural-network output and can be difficult to optimize for oscillatory, high-frequency, or multi-scale PDEs [11, 19, 20]. VPINNs generalize this collocation-based residual by replacing the delta-type test functions with regular polynomial or element-wise test functions, leading to a weak residual in a Petrov-Galerkin sense. Through integration by parts, derivatives are transferred from the neural-network trial function to the test functions, thereby reducing the required differentiation order of the neural-network approximation [ 14 , 15 ]. However, weak-form enforcement alone does not automatically imply numerical stability. In standard VPINN-type formulations, the trial function is represented by a continuous neural network, whereas the test space is prescribed separately. Unless the resulting trial-test pairing satisfies a suitable stability condition, such as the inf-sup condition in Petrov-Galerkin methods, the weak residual may fail to control unresolved components of the neural-network approximation [25, 26, 27]. The potential limitation of a separately prescribed test space can be illustrated by a simple weak-residual example[ 32 ]. Consider the trivial problem u(x) = 0 on [−1, 1] . If Legendre polynomials Pj (x), j = 0 , . . . , K , are selected as test functions, the VPINNs residual can be written as 
+
+L(θ) = 
+
+> K
+
+X
+
+> j=0
+
+Z 1
+
+> −1
+
+uθ (x)Pj (x) d x
+
+> 2
+
+.
+
+Now suppose the neural-network approximation contains a component in the unresolved high-order subspace, for example uθ (x) = PK+Mℓ=K+1 aℓPℓ(x). By the orthogonality of Legendre polynomials, L(θ) = 0 even though uθ (x)̸ = 0 .This example shows that VPINNs can be blind to components outside the span of the selected test functions. Meanwhile, the example highlights that weak-form neural residuals do not automatically provide Galerkin-type discrete stability unless the trial and test spaces are made compatible. Classical conforming FEM avoids this mismatch by constructing the trial and test spaces from the same finite-dimensional basis, leading to the discrete system Au = b. The derivatives of the basis functions, material parameters, 12 Learning light scattering from operator parameter spaces to Galerkin-consistent solution spaces source terms, and boundary contributions are assembled into the stiffness matrix and load vector. Thus, the weak-form constraint is enforced in a discrete space whose stability properties can be analyzed by finite-element theory. FEMONet transfers this Galerkin-consistent constraint into operator learning. Instead of directly approximating the continuous field by an unconstrained neural function, the network predicts the FEM expansion coefficients associated with a prescribed finite-element basis, i.e., Esz (r; ps) ≈ PNps  
+
+> i=1
+
+ups,θ,i Ni(r) and ups,θ,i = Gs,θ (λ, ε r , E i)( ri).For each sampled operator instance ps, the physical entities in the operator parameter space are encoded by the FEM matrix Aps and load vector bps . The training objective is therefore defined by the preconditioned FEM residual, 
+
+L(θ) = 1
+
+NsNsX
+
+> s=1
+
+1
+
+Nps
+
+M −1 
+
+> ps
+
+(Aps ups,θ − bps ) 22 . (8) This construction explains the advantage of FEMONet. First, the neural-network output belongs to the FEM trial space by construction, so the learned solution is constrained by the same Galerkin discretization used in classical FEM. Second, the physics loss avoids coordinate-based automatic differentiation because the spatial derivatives of the basis functions have already been evaluated during FEM assembly and stored in Aps . Third, the loss is evaluated over sampled operator instances ps ∈ P , which extends the FEM weak-form constraint from a single linear system to a family of parameterized scattering operators. Finally, the preconditioner M −1 
+
+> ps
+
+improves the condition number of the residual minimization for the sparse, complex-valued, and non-positive definite systems arising in optical scattering problems. Detailed derivations of the residual representation in complex-valued system and sparse form residual evaluation are provided in the SI Appendix. 
+
+4.2 Network Architecture 
+
+DeepONet was developed to learn nonlinear operators between function spaces. Given an input function v : D ∋ x 7 →
+
+v(x) ∈ R and an output function u : D′ ∋ r 7 → u(r) ∈ R, the target operator can be written as 
+
+G : V ∋ v 7 → u ∈ U , (9) where V and U denote the input and output function spaces, respectively. DeepONet represents G through a branch-trunk architecture: the branch network encodes the sampled values of v at sensor points ξ1, ξ 2, . . . , ξ m, whereas the trunk network encodes the query coordinate r. The operator output is obtained by combining the branch and trunk features, 
+
+G(v)( r) = 
+
+> q
+
+X
+
+> k=1
+
+bk(v)tk(r) + b0, (10) where b0 is a bias term, and q is the latent dimension. This branch-trunk decomposition is well suited for optical scattering, because the branch network represents the physical inputs defining a scattering problem, while the trunk network represents the coordinate dependence of the field. MIONet extends this construction to operators defined on the Cartesian product of multiple input-function spaces. For input functions vi : Di ∋ x 7 → vi(x) ∈ R, the multi-input operator is 
+
+G : V1 × ... × V n 7 → U , (11) where Vi denotes the function space of the ith input and U denotes the function space of the output. MIONet uses one branch network for each input function and a shared trunk network for the output coordinate. Its operator approximation is written as 
+
+G(v1, ..., v n)( r) = 
+
+> q
+
+X
+
+> k=1
+
+(
+
+> n
+
+Y
+
+> i=1
+
+bik(vi)) tk(r) + b0, (12) This multi-branch structure is naturally compatible with the operator parameter space in FEMONet, because different branches can encode different projected subspaces of P, such as the spectral, material, and excitation subspaces. Based on this formulation, FEMONet uses a MIONet architecture to learn the parameterized scattering operator over (P), as shown in Fig. 1. The key advantage of this multi-branch formulation is that each physical input can be encoded by a neural architecture matched to its characteristic. In optical scattering, the wavelength is a global spectral variable, the material and excitation fields are spatially distributed physical quantities, and the test point coordinates provide continuous spatial query. FEMONet therefore uses different encoders for these different physical quantities while retaining a unified MIONet fusion rule. The wavelength branch encodes the normalized spectral input λ, or equivalently the free-space wavenumber k0. In light scattering, k0 enters the governing equation through phase factors eik 0r and equation term k20 εr , thereby controlling 13 Learning light scattering from operator parameter spaces to Galerkin-consistent solution spaces the oscillatory behavior and spectral resonances of the electromagnetic field. To represent this spectral dependence efficiently, the wavelength input is mapped into a Fourier-feature space[ 33 , 34 ] and then processed by a feed-forward neural network to produce a (q)-dimensional latent representation. The material and excitation branches share the same convolutional-residual architecture[35, 36] and extract spatial features from the relative permittivity distribution 
+
+εr and the incident electric field Ei, respectively. In the two-dimensional cases, these inputs are represented as 
+
+128 × 128 image-like tensors, with real and imaginary components stored as separate channels when applicable; In three-dimensional cases, the material and excitation inputs are represented as 128 × 128 × 128 volumetric tensors and processed by a three-dimensional convolutional neural network[ 37 ]. The corresponding branch input spaces can be regarded as functional representations of projected operator-parameter subspaces. The trunk network encodes the coordinate descriptor associated with the ith FEM degree of freedom. For scalar-basis problems, ri denotes the vertex coordinate associated with the ith nodal degree of freedom, e.g., ri = ( xi, y i) in two-dimensional cases. For vector-basis problems, ri denotes the endpoint-coordinate descriptor of the edge associated with the ith vector-basis degree of freedom, for example ri = ( r(1)  
+
+> i
+
+, r(2)  
+
+> i
+
+). Unlike the material and excitation inputs, 
+
+ri is not an image-like field but a continuous spatial query. Therefore, FEMONet encodes it using a gated MLP architecutres[ 38 , 39 , 19 ]. The gated structure adaptively blends two coordinate-dependent feature embeddings through a learned gate, allowing the trunk network to represent both smooth global coordinate dependence and localized variations associated with the coordinate space Ω.As shown in Fig. 1(d), the latent representations from the branch and trunk networks are fused through the MIONet inner product to predict the FEM expansion coefficient up,θ,i = Gs,θ (λ, ε r , E i)( ri). For complex-valued optical scattering problems, FEMONet adopts a two-channel output representation. The latent dimension is divided into two groups: the inner-product result from the first half of the latent channels gives the real part of the FEM coefficient, while that from the second half gives the imaginary part. Thus, the network prediction for the ith degree of freedom is written as 
+
+up,θ,i = u(r) 
+
+> p,θ,i
+
++ i u(i)
+
+> p,θ,i
+
+. This representation allows the real-valued MIONet architecture to predict the complex-valued coefficient vector used in the FEM residual. The predicted coefficient vector is then passed to the FEM-constrained residual loss defined in the preceding subsection. Therefore, this architecture provides the network realization of the proposed framework: branch networks encode the operator parameter space, the trunk network encodes the coordinate space, and the output corresponds to the FEM coefficient space. In the branch networks, input functions can be represented by either aligned or unaligned sensors. We adopt the unaligned representation. For example, the sensor grid used to represent εr and Ei does not need to coincide with the FEM degree-of-freedom coordinates used as trunk inputs. 
+
+4.3 Training Samples Generation 
+
+The sample sets were generated by processing parameterized COMSOL Multiphysics project files with MATLAB scripts. For each sampled operator instance ps, the scripts updated the corresponding geometry, material distribution, wavelength, incident field, and boundary settings according to the prescribed operator-parameter subspace. The FEM mesh was then generated in COMSOL, and the quantities required for FEMONet training were exported, including the sparse FEM stiffness matrix Aps , load vector bps , degree-of-freedom coordinates, material distribution εr , incident field 
+
+Ei, and wavelength λ. For each validation case, 80% of the generated samples were randomly selected as the training set, and the remaining 20% were used as the testing set. The FEM reference solutions were not used as supervised labels during FEMONet training. They were computed independently only for validation and field-error evaluation. The prediction accuracy was evaluated by the mean squared error MSE = 1
+
+> N
+
+PNi=1 |Eref − Epre |2. The case-specific geometry ranges, wavelength ranges, material models, incident-field settings, and boundary conditions are summarized in the Results section and/or in the SI Appendix. 
+
+4.4 Training and Evaluation Details 
+
+FEMONet was implemented in PyTorch. Unless otherwise specified, the models were trained using the Adam optimizer for 1,000 epochs with a cosine-annealed learning-rate schedule. The initial learning rate was set to 1 × 10 −3 and gradually decays to 1 × 10 −5 during training. The wavelength input was normalized within the sampled spectral range, and the spatial coordinates were normalized according to the computational domain. The material distribution and incident field were represented as image-like tensors; complex-valued quantities were stored using separate real and imaginary channels. For complex-valued optical scattering problems, the network output was represented by two channels corresponding to the real and imaginary parts of the FEM coefficient vector. The predicted coefficient vector was then used to evaluate the preconditioned FEM residual loss. Sparse FEM matrices were not converted into dense matrices during training; 14 Learning light scattering from operator parameter spaces to Galerkin-consistent solution spaces instead, the residual was evaluated through sparse matrix-vector multiplication. Training and evaluation were performed on a computing platform equipped with an Intel Xeon Platinum 8352V CPU and multiple NVIDIA GeForce RTX 4090 GPUs. For the ablation study, we used an enhanced VPINN baseline in which the scattering boundary condition is incorporated into the weak-form residual rather than imposed through a separate boundary penalty. This baseline provides a stronger comparison than the original VPINN formulation while retaining the continuous-field neural-network approximation. Details of the enhanced VPINN formulation and the corresponding computational-efficiency analysis are provided in the SI Appendix. For evaluating inference time, to ensure a reliable baseline, Eq. (5) was solved via the biconjugate gradient stabilized method BiCGSTAB in the SciPy library, with its stopping criterion set to match the MSE achieved by FEMONet. Before timing, the first test sample was run once as a warm-up and was excluded from the timing statistics. After this warm-up run, both BiCGSTAB and FEMONet were evaluated over the complete testing set, and the reported time corresponds to the average per-sample solver time for BiCGSTAB or the average per-sample inference time for FEMONet. Various precisions (e.g., FP32, FP64, FP16, and BF16) can be deployed during inference; here, FP16 and FP32 were considered. Since the minimum positive representable value of FP16 is approximately 5.96 × 10 −8, it provides sufficient dynamic range for our numerical domain without compromising prediction accuracy. Crucially, while standard FEM includes both matrix assembly and system solution times, only the solution time is accounted for here to provide a conservative lower bound for the acceleration of FEMONet. 
+
+## Acknowledgments 
+
+The source code, sample-generation scripts, training and evaluation scripts, and datasets supporting the findings of this study have been deposited in GitHub and are publicly available at: https://github.com/HUST-CPO/FEMONet-Robust-and-universal-Operator-learning-for-optical-scattering-problem-via-MIONet[40]. 
+
+## S1 appendix S2 Variational principle and finite element method 
+
+Taking the two-dimensional optical scattering problem as an example, under transverse magnetic (TM) polarization, the electric field component Ez satisfies the vector wave equation, 
+
+∇ × μr −1∇ × ˆzE z (r) − k20 εr ˆzE z (r) = 0 on Ω, (S1) where ∇× is the curl operator, μr −1 is the relative permeability, εr is the relative permittivity, k0 is the wavenumber in a vacuum, r = [ x, y ]T is the spatial coordinates, Ω is the computational domain. The total field Ez is the sum of incident field Eiz and the scattered field Esz , i.e, Ez = Eiz + Esz . Thus, Eq. (S1) can be written as: 
+
+∇ × μr −1∇ × ˆzE sz (r) − k20 εr ˆzE sz (r) = −∇ × μr −1∇ × ˆzE iz (r) + k20 εr ˆzE iz (r) on Ω. (S2) To simulate the wave propagation without reflection, the boundaries of the computational domain satisfy the scattering boundary condition 
+
+n × ∇ × ˆzE z (r) − ik 0n × ˆzE sz (r) × n = 0 on δ Ω, (S3) where n is the outward unit normal vector of the boundary, δΩ is the outer boundary of Ω. Eq. (S2) and (S3) corresponding to the boundary-value problems represent in Eq. (4). Variational principle can be used to solve this differential equation in the domain Ω:
+
+Lϕ = f, (S4) where L = ∇ ×  μ−1 
+
+> r
+
+∇×  − k20 εr , ϕ = Esz (r), and f = −∇ × μ−1 
+
+> r
+
+∇ × ˆzEiz (r) + k20 εr ˆzEiz (r), together with boundary conditions on the boundary ∂Ω that enclose the domain: 
+
+Bϕ(r) = h(r), r ∈ ∂Ω. (S5) If the operator L is self-adjoint——that is, 
+
+⟨L ϕ, ψ ⟩ = ⟨ϕ, Lψ⟩, (S6) and positive definite–that is, 
+
+⟨L ϕ, ϕ ⟩
+
+> 0 ϕ̸ = 0 = 0 ϕ = 0 , (S7) 15 Learning light scattering from operator parameter spaces to Galerkin-consistent solution spaces then its solution can be obtained by minimizing the functional given by 
+
+F (ϕ) = 12 ⟨L ϕ, ϕ ⟩ − 12 ⟨ϕ, f ⟩ − 12 ⟨f, ϕ ⟩. (S8) In these equations, ψ denotes an arbitrary function satisfying the same boundary conditions as does ϕ. The angular brackets denote the inner product in Hilbert space: 
+
+⟨ϕ, ψ ⟩ =
+
+Z
+
+> Ω
+
+ϕψ ∗dΩ , (S9) where the asterisk denotes complex conjugate operation. Under this definition of the inner product, the conditions for the operator L defined by Eq. (1) to be self-adjoint are (a) εr , μ r are real numbers or functions and (b) the boundary conditions are homogeneous. According to the definition of the inner product in Hilbert space, 
+
+⟨L E, E⟩ =
+
+Z
+
+> V
+
+[ 1
+
+μr
+
+(∇ × E) · (∇ × E)∗ − k20 εr E · E∗]d V, ˆn × E = 0 , at ∂V (S10) which not be positive, and therefore the operator L be non-positive definite. However, notice that the condition that limits self-adjoint operators to real operators is a direct consequence of the definition of the inner product. If we define the inner product as symmetry inner product, 
+
+⟨ϕ, ψ ⟩ =
+
+Z
+
+> Ω
+
+ϕψ dΩ , (S11) then the limitation is lifted immediately. The solution of Eq. (1) can be obtained by finding the stationary point of the functional F (ϕ), which is equivalent to solving 
+
+∂F = 12 ⟨L δϕ, ϕ ⟩ + 12 ⟨L ϕ, δϕ ⟩ − 12 ⟨δϕ, f ⟩ − 12 ⟨f, δϕ ⟩ = 0 . (S12) This distinction is mathematically fundamental for optical scattering; it explicitly precludes the application of traditional physics-informed neural networks (such as the Deep Ritz method) that rely on minimizing energy functionals[ 41 , 42 ]. Since solving this infinite-dimensional variational problem directly is generally intractable, the Ritz-Galerkin method introduces a trial function ˜ϕ in a finite-dimensional subspace to approximate ϕ, which can be approximated by the expansion 
+
+˜ϕ =
+
+> N
+
+X
+
+> i=1
+
+civi, (S13) where vi are the chosen expansion functions and ci are constant coefficients to be determined. In FEM, this finite-dimensional subspace is constructed by discretizing the domain Ω into non-overlapping elements and defining local shape functions over these elements. To find the stationary points of F ( ˜ϕ), we force its partial derivatives with respect to ci to vanish. This yields a set of linear algebraic equations 
+
+∂F ∂c i
+
+= 12
+
+> N
+
+X
+
+> j=1
+
+cj
+
+Z
+
+> Ω
+
+(viLvj + vj Lvi)dΩ −
+
+Z
+
+> Ω
+
+vif d Ω i = 1 , 2, ..., N, (S14) where the test function vj is introduced to enforce the stationary condition, and this equation can be written as a matrix form: 
+
+Au = b. (S15) For the problem described by Eq. (S2) and Eq. (S3), the electric field is expanded using discrete basis functions 
+
+Ezs = Σ Ni=1 uiNi, where ui is the DOF to be solved, Ni is the basis function, and N is the total number of DOFs. The elements in A given by 
+
+Aij = 12
+
+Z
+
+> Ω
+
+(viLvj + vj Lvi)dΩ = 
+
+Z
+
+> Ω
+
+[∇ × ˆzN i · μr −1∇ × ˆzN j − k20 εr ˆzN i · ˆzN j ]dS +
+
+Z
+
+> δΩ
+
+[ˆ zN i · jk 0n × ˆzN j × n]dl, 
+
+(S16) and the elements in b given by 
+
+bi =
+
+Z
+
+> Ω
+
+vif d Ω = 
+
+Z
+
+> δΩ
+
+[ˆ zN i · n × ∇ × ˆzE iz ]dl −
+
+Z
+
+> Ω
+
+[∇ × ˆzN i · μr −1∇ × ˆzE iz − k20 εr ˆzN i · ˆzE iz ]dS. (S17) FEM obtains constant coefficient ui by solving the sparser linear system in Eq.( S15), and then obtains the solution in 
+
+Ω by combining chosen expansion function vi.16 Learning light scattering from operator parameter spaces to Galerkin-consistent solution spaces 
+
+## S3 Deep neural networks for solving linear system 
+
+Since the linear system Eq. (S15) is derived from a physical problem having a smooth unknown function v, it is expected that the grid mapping χ defined by χ(xj , y j ) = uj , j = 1 , ..., N is spatially smooth (it means the data 
+
+{(xj , y j ), u j } can be fit by a function with few high-frequency components). Thanks to the good approximation property for high-dimensional functions (see, e.g., [30, 48, 49, 9, 18, 45, 36, 46, 47]), NNs can be employed to serve as the functioning of χ. Specifically, we introduce an NN Nθ (x, y ) to approximate the mapping χ, such that 
+
+Nθ (x, y ) ≈ uj , j = 1 , ..., N . By this setting, and let 
+
+Nθ := [ Nθ (x1, y 1), Nθ (x2, y 2), ..., Nθ (xN , y N )] T , (S18) the linear system Eq. (S15) can be formulated into 
+
+ANθ = b. (S19) Usually, the system Eq. (S19) does not have an exact solution θ. So we will find the least square solution of Eq. (S19) through the following optimization framework: 
+
+min  
+
+> θ
+
+L(θ) = 1
+
+N || ANθ − b|| 22. (S20) Since the definition of the symmetric inner product in some physical models may lead to a complex-valued linear system, we consider the case that A ∈ CN ×N and b ∈ CN . Thus the residual vector r(θ) := ANθ − b is complex. For a complex vector z ∈ CN , we use the standard Hermitian norm 
+
+∥z∥22 := zH z =
+
+> N
+
+X
+
+> j=1
+
+|zj |2, (S21) where (·)H denotes the conjugate transpose. In order to measure the error in a fair way independent of the vector size, we adopt the scaled ℓ2-norm defined by 
+
+∥z∥2 
+
+> ℓ2
+
+:= 1
+
+N ∥z∥22. (S22) Therefore, the least-squares objective Eq. (S20) can be equivalently written as 
+
+min  
+
+> θ
+
+L(θ) = 1
+
+N ∥ANθ − b∥22 = ∥ANθ − b∥2 
+
+> ℓ2
+
+. (S23) Since common neural network architectures output real numbers, we employ a two-channel representation to approxi-mate the complex solution, i.e., 
+
+Nθ = Nθ,r + i Nθ,i , ∈ CN (S24) where Nθ,r and Nθ,i are two output channels of one network. Accordingly, we define the stacked vectors 
+
+Nθ,r := [ Nθ,r (x1, y 1), ..., Nθ,r (xN , y N )] T , Nθ,i := [ Nθ,i (x1, y 1), ..., Nθ,i (xN , y N )] T . (S25) Let A = Ar + i Ai and b = br + i bi with Ar , A i ∈ RN ×N and br , b i ∈ RN . Then the residual r(θ) = ANθ − b can be decomposed into real and imaginary parts: 
+
+rr (θ) = Ar Nθ,r − AiNθ,i − br , ri(θ) = AiNθ,r + Ar Nθ,i − bi. (S26) Therefore, the loss function Eq. (S23) for the complex system can be equivalently expressed in purely real form: 
+
+L(θ) = ∥rr (θ)∥2 
+
+> ℓ2
+
++ ∥ri(θ)∥2 
+
+> ℓ2
+
+. (S27) From (S27), the partial derivatives with respect to the real and imaginary outputs are 
+
+∂L ∂Nθ,r 
+
+= 2
+
+N
+
+
+
+ATr rr + ATi ri
+
+
+
+, ∂L ∂Nθ,i 
+
+= 2
+
+N
+
+
+
+− ATi rr + ATr ri
+
+
+
+. (S28) Thus, by the chain rule, denote the Jacobian matrices of the real and imaginary network outputs with respect to the trainable parameters by 
+
+Jr (θ) := ∂Nθ,r 
+
+∂θ ∈ RN ×q , Ji(θ) := ∂Nθ,i 
+
+∂θ ∈ RN ×q , (S29) where q is the number of trainable parameters. Then 
+
+∇θ L(θ) = Jr (θ)T ∂L ∂Nθ,r 
+
++ Ji(θ)T ∂L ∂Nθ,i 
+
+. (S30) 17 Learning light scattering from operator parameter spaces to Galerkin-consistent solution spaces Substituting Eq. (S28) into Eq. (S30), we obtain 
+
+∇θ L(θ) = 2
+
+N Jr (θ)T  ATr rr + ATi ri
+
+ + 2
+
+N Ji(θ)T  −ATi rr + ATr ri
+
+ . (S31) Equivalently, define the augmented real-valued quantities 
+
+eNθ := 
+
+Nθ,r 
+
+Nθ,i 
+
+
+
+, eb := 
+
+br
+
+bi
+
+
+
+, eA := 
+
+Ar −Ai
+
+Ai Ar
+
+
+
+. (S32) Then the augmented residual is given by 
+
+er(θ) = eA eNθ − eb =
+
+rr (θ)
+
+ri(θ)
+
+
+
+. (S33) Therefore, the loss function can be written as 
+
+L(θ) = 1
+
+N eA eNθ − eb 22
+
+. (S34) Furthermore, define the augmented Jacobian matrix as 
+
+eJ(θ) := ∂ eNθ
+
+∂θ =
+
+
+
+∂Nθ,r 
+
+∂θ ∂Nθ,i 
+
+∂θ 
+
+ ∈ R2N ×q . (S35) Hence, the gradient of the loss function can be compactly expressed as 
+
+∇θ L(θ) = 2
+
+N eJ(θ)T eAT  eA eNθ − eb
+
+
+
+, (S36) which is a purely real expression and can be directly computed via back-propagation. 
+
+## S4 Enhanced VPINN and computational efficiency of FEMONet 
+
+Before comparing the computational efficiency of FEMONet, we first clarify the enhanced VPINN baseline used in this work. In the original VPINN formulation, a neural network directly approximates the scattered field, 
+
+Esz (r) ≈ ˜uθ (r), (S37) where the input is the spatial coordinate r = ( x, y ), and the outputs are the real and imaginary parts of the scattered field. Given a set of admissible test functions {vk}Kk=1 , the governing equation is multiplied by each test function and integrated over the computational domain, yielding the variational residual 
+
+Rk = ( L˜u, v k)Ω − (f, v k)Ω , k = 1 , 2, . . . , K, (S38) where ˜u denotes the neural-network approximation of the scattered field. The classical VPINN loss consists of the variational residual loss and a separate boundary penalty term, 
+
+LVPINN = LVPINN  
+
+> R
+
++ Lu, (S39) where 
+
+LVPINN  
+
+> R
+
+= 1
+
+K
+
+> K
+
+X
+
+> k=1
+
+|R k|2
+
+= 1
+
+K
+
+> K
+
+X
+
+> k=1
+
+|(L˜u, v k)Ω − (f, v k)Ω|2 ,
+
+(S40) and 
+
+Lu = α 1
+
+NuNuX
+
+> i=1
+
+rb(xui ) 2 . (S41) Here, rb(xui ) denotes the boundary residual evaluated at the boundary points {xui }Nu
+
+> i=1
+
+, and α is the boundary-loss weight. Although the weak-form residual reduces the differential order required by the neural-network output, the 18 Learning light scattering from operator parameter spaces to Galerkin-consistent solution spaces boundary condition is still imposed separately. This may introduce a weight-balancing issue between the domain residual and the boundary residual and requires additional boundary evaluations during training. To construct a stronger and fairer VPINN-type baseline, we adopt a enhanced VPINN formulation in which the scattering boundary condition is directly incorporated into the weak form. For Eq. (S2) and Eq. (S3), multiplying the governing equation by a test function vk and applying integration by parts gives 
+
+Z
+
+> Ω
+
+∇˜u · ∇ vk dΩ −
+
+Z
+
+> ∂Ω
+
+vk
+
+∂ ˜u∂n dΓ −
+
+Z
+
+> Ω
+
+k20 εr vk ˜u dΩ = 
+
+Z
+
+> Ω
+
+k20 (εr − 1) vkuinc dΩ . (S42) As a side remark, the curl–curl term in Eq. (S2) can be rewritten using the vector identity 
+
+∇ × (∇ × E) = ∇(∇ · E) − ∇ 2E. (S43) After integration by parts, the VPINN residual can therefore be expressed in a gradient-based form. In the present scalar formulation, this representation is mathematically equivalent to the curl-based form and is more convenient for component-wise automatic differentiation in neural-network implementation. For the first-order scattering boundary condition, 
+
+ ∂∂n + i k0
+
+
+
+u = 0 on ∂Ω, (S44) we have ∂u ∂n = −ik0u. (S45) Substituting this relation into the boundary term yields 
+
+Z
+
+> Ω
+
+∇˜u · ∇ vk dΩ + 
+
+Z
+
+> ∂Ω
+
+ik0vk ˜u dΓ −
+
+Z
+
+> Ω
+
+k20 εr vk ˜u dΩ = 
+
+Z
+
+> Ω
+
+k20 (εr − 1) vkuinc dΩ . (S46) Thus, for each test function vk, the enhanced VPINN residual is defined as 
+
+RE-VPINN  
+
+> k
+
+= Lk − Rk, (S47) where 
+
+Lk =
+
+Z
+
+> Ω
+
+∇˜u · ∇ vk dΩ + 
+
+Z
+
+> ∂Ω
+
+ik0vk ˜u dΓ −
+
+Z
+
+> Ω
+
+k20 εr vk ˜u dΩ , (S48) and 
+
+Rk =
+
+Z
+
+> Ω
+
+k20 (εr − 1) vkuinc dΩ . (S49) The enhanced VPINN loss is then written as 
+
+LE-VPINN = 1
+
+K
+
+> K
+
+X
+
+> k=1
+
+RE-VPINN  
+
+> k
+> 2
+
+= 1
+
+K
+
+> K
+
+X
+
+> k=1
+
+|Lk − Rk|2 . (S50) In this formulation, the scattering boundary condition is consistently embedded into the weak-form residual rather than treated as a separate penalty term, resulting in a more compact and physically consistent VPINN baseline. Under the same FNN architecture and single-GPU training environment, enhanced VPINN was evaluated on an isolated problem instance, consistent with the single-instance setting of the original VPINN formulation. Compared with the original VPINN, enhanced VPINN reduces the mean squared error (MSE) from 3.85 × 10 −5 to 3.18 × 10 −5 and shortens the training time from 260 .13 s to 180 .94 s , corresponding to reductions of 17 .4% and 30 .4% , respectively. Since this modification improves the loss construction without altering the continuous-field neural-network approximation, enhanced VPINN is adopted as a stronger baseline for evaluating the computational efficiency of FEMONet. Since A is fixed for a given geometry after FEM assembly, the training process only requires evaluating the sparse matrix-vector product ANθ . For a sparse matrix A, let its nonzero entries be represented by 
+
+SA = {(im, j m, a m}nnz (A) 
+
+> m=1
+
+, (S51) where im is the row index, jm is the column index, and 
+
+am = Aimjm . (S52) The matrix-vector product 
+
+y = ANθ (S53) 19 Learning light scattering from operator parameter spaces to Galerkin-consistent solution spaces has the component form 
+
+yi =
+
+> N
+
+X
+
+> j=1
+
+Aij Nθ,j . (S54) Using only the nonzero entries of A, the same operation can be written as 
+
+yi = X
+
+> m:im=i
+
+amNθ,j . (S55) Therefore, sparse matrix multiplication can be achieved through efficient vector multiplication. The residual is then obtained as 
+
+r(θ) = y − b = ANθ − b. (S56) For mini-batch training, suppose a batch contains B samples. The FEM system of the s-th sample is 
+
+A(s)N (s) 
+
+> θ
+
+= b(s), s = 1 , 2, ..., B, (S57) The batch-level network output and source vector are obtained by concatenation: 
+
+N bat  
+
+> θ
+
+=
+
+
+
+N (1) 
+
+> θ
+
+N (2) 
+
+> θ
+
+...
+
+N (B)
+
+> θ
+
+ , bbat =
+
+
+
+b(1) 
+
+b(2) 
+
+...
+
+b(B)
+
+ . (S58) The corresponding batch matrix can be regarded as an implicit block-diagonal sparse matrix: 
+
+Abat =
+
+
+
+A(1) 0 · · · 00 A(2) · · · 0
+
+... ... . . . ...
+
+0 0 · · · A(B)
+
+ . (S59) Thus, the batch residual is 
+
+rbat (θ) = Abat N bat  
+
+> θ
+
+− bbat . (S60) The batch loss is 
+
+Lbat (θ) = 1
+
+Nbat 
+
+Abat N bat  
+
+> θ
+
+− bbat 22 , (S61) where 
+
+Nbat =
+
+> B
+
+X
+
+> s=1
+
+Ns. (S62) In practice, Abat is not explicitly constructed. Instead, the local sparse indices of each sample are shifted by a cumulative offset. For the s-th sample, define 
+
+os =
+
+> s−1
+
+X
+
+> t=1
+
+Nt. (S63) If a nonzero entry of A(s) is 
+
+A(s) 
+
+> pq
+
+= a(s) 
+
+> pq
+
+, (S64) where p is the local row index and q is the local column index, then its global row and column indices in the batch system are 
+
+i = os + p, j = os + q. (S65) Therefore, the batch-level sparse multiplication satisfies 
+
+yos+p =
+
+> Ns
+
+X
+
+> q=1
+
+A(s) 
+
+> pq
+
+N (s) 
+
+> θ,q
+
+, p = 1 , 2, . . . , N s. (S66) Equivalently, using the nonzero-entry representation, 
+
+yi = X 
+
+> m:im=i
+
+amN bat  
+
+> θ,j m
+
+, (S67) 20 Learning light scattering from operator parameter spaces to Galerkin-consistent solution spaces where 
+
+im = os + pm, jm = os + qm, am = A(s) 
+
+> pmqm
+
+. (S68) is mathematically equivalent to 
+
+y = Abat N bat  
+
+> θ
+
+. (S69) The physics loss in FEMONet is therefore computed as 
+
+Lbat (θ) = 1
+
+Nbat 
+
+> Nbat
+
+X
+
+> i=1
+
+yi − bbat  
+
+> i
+> 2
+
+. (S70) Substitute Eq. (S67) and Eq. (S69) into Eq. (S70),the above loss is equivalent to 
+
+Lbat (θ) = 1
+
+Nbat 
+
+> Nbat
+
+X
+
+> i=1
+> Nbat
+
+X
+
+> j=1
+
+Abat  
+
+> ij
+
+N bat  
+
+> θ,j
+
+− bbat 
+
+> i
+> 2
+
+. (S71) This formulation converts the evaluation of the physical constraint into a sparse vector operation. The computational cost of the residual evaluation scales with the number of nonzero entries, 
+
+O
+
+> B
+
+X
+
+> s=1
+
+nnz( A(s))
+
+!
+
+, (S72) rather than the cost of differentiating the neural-network output with respect to spatial coordinates at all quadrature points. This is fundamentally different from VPINN. In VPINN, the neural network represents the field as a continuous coordinate-dependent function, 
+
+vθ (r) = Nθ (r), (S73) and the weak-form residual is evaluated by directly inserting vθ into the variational equation. For example, a typical weak-form residual contains terms such as Z
+
+> Ω
+
+∇vθ · ∇ wi dΩ, (S74) or, for electromagnetic scattering problems, Z
+
+> Ω
+
+∇ × vθ · μ−1 
+
+> r
+
+∇ × wi dΩ, (S75) where wi is a test function. In this case, the spatial derivatives of the neural-network output, such as 
+
+∇vθ , ∇ × vθ , (S76) must be computed through automatic differentiation. If the neural network is expressed as a composition of L layers, 
+
+Nθ = NL ◦ N L−1 ◦ · · · ◦ N 1, (S77) then the spatial derivative is obtained by the chain rule, 
+
+∂v θ
+
+∂x = ∂NL
+
+∂z L−1
+
+∂NL−1
+
+∂z L−2
+
+· · · ∂N1
+
+∂x . (S78) During backpropagation, the gradient of the VPINN loss with respect to the trainable parameters further involves differentiating these spatial derivative terms with respect to θ. Therefore, the computational graph contains both coordinate derivatives and parameter derivatives, which increases both computational cost and memory usage. In contrast, FEMONet avoids coordinate-based automatic differentiation in the physics loss. The derivatives of finite-element basis functions are evaluated during FEM assembly and stored in the sparse matrix A. During training, the network only predicts the coefficient vector Nθ , and the physical residual is computed as 
+
+ANθ − b. (S79) The gradient of the loss follows the compact form derived as mentioned: 
+
+∇θ L(θ) = 2
+
+N eJ(θ)T eAT  eA eNθ − eb
+
+
+
+, (S80) where eJ(θ) is only the Jacobian of the network output with respect to the trainable parameters. No spatial derivative of the network output is required in the computational graph. 21 Learning light scattering from operator parameter spaces to Galerkin-consistent solution spaces 
+
+## S5 Specific case settings 
+
+This section summarizes the case-specific physical settings used to construct the operator-parameter sample sets. In all cases, the FEM matrices and load vectors were generated from parameterized COMSOL Multiphysics models through MATLAB scripts. Unless otherwise stated, 80% of the generated samples were randomly selected for training and the remaining 20% were used for testing. The FEM reference solutions were computed only for validation and were not used as supervised labels during FEMONet training. Additional implementation details are available in the public GitHub repository[40] 
+
+Basic lossless scatterers 
+
+Five basic lossless scatterers shown in Fig. 2(a) are considered, with geometric lengths ranging from 300 to 650 nm 
+
+and a refractive index of 1.45 . The structures are placed in a 2 μm × 2 μm square domain with scattering boundary condition (SBC) and excited by a TM-polarized plane wave (λ = 1 .55 μm, E 0 = 1 V /m, θ = 0 ◦). The FEM reference solutions of Eq. (5) are obtained using triangular elements with mesh size λ/ 10 and are used only for independent validation. The network architecture is DeepONet consists of Branch net 2 and the Trunk net in Fig. 1, with εr sampled on a 128 × 128 grid and ri denoting the vertex coordinates of scalar basis functions. The samples contains 1,558 unlabeled parametric samples, split into 1,246 training and 312 testing samples. Training is performed for 1,000 epochs using Adam with a cosine-annealed learning rate from 1 × 10 −3 to 1 × 10 −5
+
+Single metallic scatterers 
+
+This case is composed of seven metallic structures ( 320 − 620 nm ) based on QNM theory[ 43 , 44 ], as shown in Fig. 3(a). The model employs the MIONet architecture shown in Fig. 1, where the input λ is the normalized wavelength, εr and 
+
+Ei are processed as 128 × 128 matrices, while ri denotes the basis function vertex coordinates. Gold (Au) properties are determined via the Drude model across 1.5 μm − 2 μm. Excitation involves a TM-polarized plane wave ( |E| = 1 V /m )at incident angles θ ∈ [0 ◦, 315 ◦] with a 45 ◦ step. The computation domain, boundary conditions, mesh length, sample preparation, and training settings are consistent with those in Case 1. A total of 50,688 unlabeled parametric space samples are generated and randomly divided into 40,550 training samples and 10,138 testing samples. 
+
+Multiple metallic scatterers 
+
+This case is composed of arrayed metallic scatterers. As illustrated in Fig. 4(a), the configuration features a 1 × 3 array composed of the third and fifth scatterer structures selected from Fig. 3(a). The scatterers undergo random rotations (θ ∈ [0 ◦, 360 ◦]) and scaling (0.8–1.2 times) around their centers, with a 1 μm adjacent spacing. The computational domain is a 4 μm square. The network architecture consists of Branch net 2,3 and the Trunk net in Fig. 1, where the inputs εr and Ei are processed as 128 × 128 matrices, while ri denotes the basis function vertex coordinates. The boundary conditions, incident field, mesh size, sample preparation, and training settings are consistent with those in the previous cases. Of the 3,456 parameter samples generated, 2,765 were used for training and 691 for testing. 
+
+Plasmonic nanostructure 
+
+This designated nanostructure is derived from a literature-reported device configuration[ 29 ], which has been compre-hensively validated through both numerical simulations and experimental measurements. As illustrated in Fig. 6(a), the NWoM structure consists of an Au nanowire with a pentagonal cross-section (d =62 nm , r = 4 nm) placed on a h = 200 nm Au mirror, separated by a g = 5 nm Al 2O3 spacer and covered by a conformal t = 5 nm Al 2O3 capping layer. The structure is excited by boundary condition of SBC with a normally incident light |E| = 1 V /m and polarization angle θ = 0 ◦. Au dispersion over 500 –800 nm follows the Drude model, while the mesh size, sample preparation, and training settings remain consistent with the previous cases. The network architecture consists of Branch net 1,2 and the Trunk net in Fig. 1, where the input λ is the normalized wavelength, 
+
+εr is processed as 128 × 128 matrices, while ri denotes the endpoint-coordinate descriptor associated with the ith 
+
+vector-basis degree of freedom. The computational samples holds 41 configurations ( 5 nm interval per sample), split into 33 training and 8 testing samples. 
+
+Three-dimensional metasurface 
+
+This case study focuses on a three-dimensional (3D) metasurface unit cell structure, which is derived from a literature-reported device configuration[ 31 ]. The unit cell as shown in Fig. 7(a), possesses a period of Px = Py = 250 nm 
+
+22 Learning light scattering from operator parameter spaces to Galerkin-consistent solution spaces and consists of TiO 2 nanofins ( L = 190 nm , W = 90 nm , h1 = 600 nm , θ = 0 ◦) on an Ag mirror ( h2 = 150 nm ). Material dispersion over 540˘800 nm is defined by the Devore ( TiO 2), Schinke (Si), and Ciesielski (Ag) models. The network architecture consists of Branch net 1,2 and the Trunk net in Fig. 1, where the input λ is the normalized wavelength, εr is processed as 128 × 128 × 128 matrices, while ri denotes the vector basis function center coordinates. The computational samples holds 261 configurations, split into 209 training and 52 testing samples. 
+
+## S6 Gaussian fitting parameters 
+
+Table S1: Mean μ and standard deviation σ of log 10 MSE from Gaussian fitted curves. 
+
+Sample Process μlog 10 (MSE) σlog 10 (MSE) 
+
+1V-Train -3.67 0.59 V-Test -3.65 0.65 Train -4.85 0.60 Test -4.77 0.71 2 Train -2.97 0.18 Test -2.93 0.20 3 Train -5.08 0.11 Test -4.83 0.16 4 Train -3.87 0.21 Test -3.84 0.24 5 Train -4.95 0.46 Test -5.08 0.39 S Train -1.90 0.27 Test -1.63 0.45 
+
+## S7 Comparative ablation study and unseen samples supplementation 
+
+Figs. S1(a) visualize the electric fields predicted by FEMONet for another representative sample randomly selected from the test set. Similarly to the representative sample in the main text, the residual of FEMONet is significantly lower than the enhanced VPINN, and the maximum errors of FEMONet are localized within specific regions, in contrast to the globalized error distribution exhibited by VPINN. In addition to the prediction result of the semi-circular scatterer presented in the main text, the results of the other four unseen samples are shown in Fig. S1(b-e). FEMONet maintains high fidelity to the ground truth. 
+
+## S8 Sparse-sample supplementation experiment 
+
+As illustrated in Fig. S2(a), the structure has a period of 920 nm , a groove depth of g = 55 nm , and a duty cycle of 
+
+w = 0 .2 − 0.9, defined as the ratio between the ridge width and the period. the polymer grating had a thickness of 
+
+300 nm and a refractive index of 1.55. The grating was coated with a 150 nm gold layer. The dispersion of gold was modeled by the Brendel–Bormann model from the material library in COMSOL Multiphysics. We considered a air layer above the gold layer. Since grating is a periodic structure, we modeled it by using periodic condition along the direction of periodicity. The grating structure was illuminated from the top of the model window at a normal incidence. The illumination was a linearly transverse magnetic (TM) polarized plane wave, while the mesh size, sample preparation, and training settings remain consistent with the previous cases. The network architecture consists of Branch net 2 and the Trunk net in Fig. 1, where the input εr is processed as 128 × 128 matrices, while ri denotes the vector basis function center coordinates. The computational samples has 71 configurations ( ∆w = 0 .01 interval per sample), split into 57 training samples and 14 testing samples. Fig. S2(b) illustrates the loss convergence curves, with training and testing error stabilizing at 1.5×10 −2 and 3.7×10 −2,respectively. The corresponding MSE Gaussian fits (Fig. S2(c)) confirms that the model’s good generalization ability under sparse sample settings is not an isolated case. Fig. S2(d,e) shows the electric field norm distributions predicted by FEMONet at w = 0 .6 and w = 0 .83 . This case demonstrates that FEMONet can simulate surface plasmon polariton in plasmonic nanostructures using sparse samples. 23 Learning light scattering from operator parameter spaces to Galerkin-consistent solution spaces (a) (c) 
+
+> 0.1 -0.3 4-4 10 + -3 1-1 10 + -2 0.2 -0.6 4-4 10 + -3 10 + -2 1-1
+
+E pre,r sE ref,r s E res,r sE v-pre,r s E v-res,r s
+
+> 0.1 -0.3
+> 0.3 -0.2
+> 0.3 -0.2
+> 0.1 -0.3
+> 0.1 -0.1
+> 0.1 -0.2
+> 0.2 -0.6
+> 0.2 -0.4
+
+E pre,r sE ref,r sE pre,r sE ref,r s E pre,r sE ref,r s E pre,r sE ref,r sE pre,i sE ref,i sE pre,i sE ref,i s E pre,i sE ref,i s E pre,i sE ref,i sE pre,i sE ref,i s E res,i sE v-pre,i s E v-res,i s
+
+> 4-4 10 + -2
+> 4-4 10 + -2
+> 2-2 10 + -2
+> 2-2 10 + -2
+> 2-2 10 + -2 2-2 10 + -2
+> 2-2 10 + -2 2-2 10 + -2
+
+E res,r sE res,i sE res,r sE res,i sE res,r sE res,i sE res,r sE res,i s
+
+(b) (d) (e) 
+
+Figure S1: (a) Scattering field distributions for another representative lossless scatterer. Columns (left to right): FEM reference Esref , VPINN prediction Esv−pre , FEMONet prediction Espre , and their respective errors Esv−res and Esres .(b-e) Extrapolation capabilities of FEMONet evaluated on unseen scatterer geometries (left to right: FEM reference 
+
+Esref , FEMONet prediction Espre , and errors Esres ). Rows indicate the real and imaginary parts.                    
+
+>      
+
+                        
+
+(a) (b) (c) (d) (e) Au Polymer Air 
+
+> 
+>  
+> 
+> 
+>  
+> 
+
+E pre,n sE ref,n s E res,n s E pre,n sE ref,n s E res,n swg
+
+Figure S2: (a) Geometric structures of the scatterers. (b) Loss convergence curves. (c) MSE histograms with corresponding Gaussian fits. (d, e) Electric field norm distribution. Columns (left to right): FEM reference Esref ,FEMONet prediction Espre and error Esres .24 Learning light scattering from operator parameter spaces to Galerkin-consistent solution spaces 
+
+## References 
+
+[1] Jian-Ming Jin. The finite element method in electromagnetics . John Wiley & Sons, 2015. [2] FL Teixeira, C Sarris, Y Zhang, D-Y Na, J-P Berenger, Y Su, M Okoniewski, WC Chew, V Backman, and Jamesina J Simpson. Finite-difference time-domain methods. Nature Reviews Methods Primers , 3(1):75, 2023. [3] Giuseppe Pelosi, Roberto Coccioli, and Stefano Selleri. Quick finite elements for electromagnetic waves . Artech House, 2009. [4] Roger F Harrington. Field computation by moment methods . Wiley-IEEE Press, 1993. [5] Stefan A Maier et al. Plasmonics: fundamentals and applications , volume 1. Springer, 2007. [6] Philip Trøst Kristensen and Stephen Hughes. Modes and mode volumes of leaky optical cavities and plasmonic nanoresonators. ACS Photonics , 1(1):2–10, 2014. [7] P Lalanne. Theory of the spontaneous optical emission of nanosize photonic and plasmon resonators. Physical Review Letters , 2013. [8] Nanfang Yu, Patrice Genevet, Mikhail A Kats, Francesco Aieta, Jean-Philippe Tetienne, Federico Capasso, and Zeno Gaburro. Light propagation with phase discontinuities: generalized laws of reflection and refraction. science ,334(6054):333–337, 2011. [9] Sean Molesky, Zin Lin, Alexander Y Piggott, Weiliang Jin, Jelena Vuckovi´ c, and Alejandro W Rodriguez. Inverse design in nanophotonics. Nature photonics , 12(11):659–670, 2018. [10] Jiaqi Jiang, Mingkun Chen, and Jonathan A Fan. Deep neural networks for the evaluation and design of photonic devices. Nature Reviews Materials , 6(8):679–700, 2021. [11] Maziar Raissi, Paris Perdikaris, and George E Karniadakis. Physics-informed neural networks: A deep learning framework for solving forward and inverse problems involving nonlinear partial differential equations. Journal of Computational physics , 378:686–707, 2019. [12] Yuyao Chen, Lu Lu, George Em Karniadakis, and Luca Dal Negro. Physics-informed neural networks for inverse problems in nano-optics and metamaterials. Optics express , 28(8):11618–11633, 2020. [13] Joowon Lim and Demetri Psaltis. Maxwellnet: Physics-driven deep neural network training based on maxwell’s equations. Apl Photonics , 7(1), 2022. [14] Ehsan Kharazmi, Zhongqiang Zhang, and George Em Karniadakis. Variational physics-informed neural networks for solving partial differential equations. arXiv preprint arXiv:1912.00873 , 2019. [15] Ehsan Kharazmi, Zhongqiang Zhang, and George Em Karniadakis. hp-vpinns: Variational physics-informed neural networks with domain decomposition. Computer Methods in Applied Mechanics and Engineering , 374:113547, 2021. [16] Lu Lu, Pengzhan Jin, Guofei Pang, Zhongqiang Zhang, and George Em Karniadakis. Learning nonlinear operators via deeponet based on the universal approximation theorem of operators. Nature machine intelligence ,3(3):218–229, 2021. [17] Sifan Wang, Hanwen Wang, and Paris Perdikaris. Learning the solution operator of parametric partial differential equations with physics-informed deeponets. Science advances , 7(40):eabi8605, 2021. [18] Zongyi Li, Nikola Kovachki, Kamyar Azizzadenesheli, Burigede Liu, Kaushik Bhattacharya, Andrew Stuart, and Anima Anandkumar. Fourier neural operator for parametric partial differential equations. arXiv preprint arXiv:2010.08895 , 2020. [19] Sifan Wang, Yujun Teng, and Paris Perdikaris. Understanding and mitigating gradient flow pathologies in physics-informed neural networks. SIAM Journal on Scientific Computing , 43(5):A3055–A3081, 2021. [20] Sifan Wang, Xinling Yu, and Paris Perdikaris. When and why pinns fail to train: A neural tangent kernel perspective. Journal of Computational Physics , 449:110768, 2022. [21] Wei Ma, Zhaocheng Liu, Zhaxylyk A Kudyshev, Alexandra Boltasseva, Wenshan Cai, and Yongmin Liu. Deep learning for the design of photonic structures. Nature photonics , 15(2):77–90, 2021. [22] Peter R Wiecha, Arnaud Arbouet, Christian Girard, and Otto L Muskens. Deep learning in nano-photonics: inverse design and beyond. Photonics research , 9(5):B182–B200, 2021. [23] Nikola Kovachki, Zongyi Li, Burigede Liu, Kamyar Azizzadenesheli, Kaushik Bhattacharya, Andrew Stuart, and Anima Anandkumar. Neural operator: Learning maps between function spaces with applications to pdes. Journal of Machine Learning Research , 24(89):1–97, 2023. 25 Learning light scattering from operator parameter spaces to Galerkin-consistent solution spaces [24] Bei Wu, Kun Ding, Che Ting Chan, and Yuntian Chen. Machine prediction of topological transitions in photonic crystals. Physical Review Applied , 14(4):044032, 2020. [25] Alexandre Ern and Jean-Luc Guermond. Theory and practice of finite elements , volume 159. Springer, 2004. [26] Daniele Boffi, Franco Brezzi, Michel Fortin, et al. Mixed finite element methods and applications , volume 44. Springer, 2013. [27] Klaus-Jürgen Bathe. The inf–sup condition and its evaluation for mixed finite element methods. Computers & structures , 79(2):243–252, 2001. [28] Sergio Rojas, Paweł Maczuga, Judit Muñoz-Matute, David Pardo, and Maciej Paszy´ nski. Robust variational physics-informed neural networks. Computer Methods in Applied Mechanics and Engineering , 425:116904, 2024. [29] Wei Jiang, Huatian Hu, Qian Deng, Shunping Zhang, and Hongxing Xu. Temperature-dependent dark-field scattering of single plasmonic nanocavity. Nanophotonics , 9(10):3347–3356, 2020. [30] Duc Le, Marjut Kreivi, Sanna Aikio, Noora Heinilehto, Teemu Sipola, Jarno Petäjä, Tian-Long Guo, Matthieu Roussey, and Jussi Hiltunen. Surface plasmon polariton–enhanced upconversion luminescence for biosensing applications. Nanophotonics , 13(21):3995–4006, 2024. [31] Qingbin Fan, Pengcheng Huo, Daopeng Wang, Yuzhang Liang, Feng Yan, and Ting Xu. Visible light focusing flat lenses based on hybrid dielectric-metal metasurface reflector-arrays. Scientific reports , 7(1):45044, 2017. [32] Zhiwei Fang. A high-efficient hybrid physics-informed neural networks based on convolutional neural network. 
+
+IEEE Transactions on Neural Networks and Learning Systems , 33(10):5514–5526, 2021. [33] James W Cooley and John W Tukey. An algorithm for the machine calculation of complex fourier series. 
+
+Mathematics of computation , 19(90):297–301, 1965. [34] Matthew Tancik, Pratul Srinivasan, Ben Mildenhall, Sara Fridovich-Keil, Nithin Raghavan, Utkarsh Singhal, Ravi Ramamoorthi, Jonathan Barron, and Ren Ng. Fourier features let networks learn high frequency functions in low dimensional domains. Advances in neural information processing systems , 33:7537–7547, 2020. [35] Yann LeCun, Léon Bottou, Yoshua Bengio, and Patrick Haffner. Gradient-based learning applied to document recognition. Proceedings of the IEEE , 86(11):2278–2324, 1998. [36] Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. Deep residual learning for image recognition. In 
+
+Proceedings of the IEEE conference on computer vision and pattern recognition , pages 770–778, 2016. [37] Du Tran, Lubomir Bourdev, Rob Fergus, Lorenzo Torresani, and Manohar Paluri. Learning spatiotemporal features with 3d convolutional networks. In Proceedings of the IEEE international conference on computer vision ,pages 4489–4497, 2015. [38] Yann N Dauphin, Angela Fan, Michael Auli, and David Grangier. Language modeling with gated convolutional networks. In International conference on machine learning , pages 933–941. PMLR, 2017. [39] Hanxiao Liu, Zihang Dai, David So, and Quoc V Le. Pay attention to mlps. Advances in neural information processing systems , 34:9204–9215, 2021. [40] Lida Liu. Femonet: Robust and universal operator learning for optical scattering problem via mionet. https://github.com/HUST-CPO/FEMONet-Robust-and-universal-Operator-learning-for-optical-scattering-problem-via-MIONet, 2026. [41] Yu B EW. The deep ritz method: A deep learning-based numerical algorithm for solving variational problems. 
+
+Commun Math Stat , 6(1):1–12, 2018. [42] Shahed Rezaei, Reza Najian Asl, Shirko Faroughi, Mahdi Asgharzadeh, Ali Harandi, Rasoul Najafi Koopas, Gottfried Laschet, Stefanie Reese, and Markus Apel. A finite operator learning technique for mapping the elastic properties of microstructures to their mechanical deformations. International Journal for Numerical Methods in Engineering , 126(1):e7637, 2025. [43] Weijin Chen, Qingdong Yang, Yuntian Chen, and Wei Liu. Scattering activities bounded by reciprocity and parity conservation. Physical Review Research , 2(1):013277, 2020. [44] Weijin Chen, Qingdong Yang, Yuntian Chen, and Wei Liu. Arbitrary polarization-independent backscattering or reflection by rotationally symmetric reciprocal structures. Physical Review B , 103(4):045422, 2021. 26

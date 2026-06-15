@@ -1,0 +1,93 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-06-15T21:39:23.090849+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2606.13320v1",
+      "source": "arxiv",
+      "title": "Learning light scattering from operator parameter spaces to Galerkin-consistent solution spaces",
+      "abstract": "Efficient and generalizable full-wave simulation is essential for nanophotonic analysis and inverse design, yet existing methods face a tradeoff between the high computational cost of numerical solvers and the limited generalizability of neural operator models for complex optical scattering. Here, we introduce FEMONet, a finite-element-constrained operator-learning framework that learns light scattering from an operator parameter space to a Galerkin-consistent solution space. The operator parameter space encodes the physical entities defining a wave-equation problem, while the variational weak form links this space to the coordinate and physical solution spaces. Integrated with operator-learning networks, FEMONet extends classical solvers from isolated problem instances to parameterized scattering operators. To our knowledge, FEMONet represents the first Galerkin-consistent operator-learning framework for complex-valued optical scattering, grounded in the variational weak form of the governing vector wave equations. Finite-element discretization absorbs spatial derivatives into assembled stiffness matrices and load vectors, removing coordinate-based derivatives of the neural-network output from the physics loss and improving training efficiency. By predicting finite-element expansion coefficients rather than unconstrained field values, the Galerkin-consistent formulation preserves compatible trial and test spaces, achieving high accuracy, stable training, and generalization across dielectric, metallic, arrayed, plasmonic, and three-dimensional nanophotonic structures.",
+      "authors": [
+        "Lida Liu",
+        "Jingwei Wang",
+        "Wei Cao",
+        "Yang Zhang",
+        "Yuntian Chen"
+      ],
+      "primary_category": "physics.optics",
+      "categories": [
+        "physics.optics"
+      ],
+      "published": "2026-06-11T13:13:57+00:00",
+      "link": "https://arxiv.org/pdf/2606.13320v1",
+      "tags": [
+        "keyword:pwad",
+        "query:pwad"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "FEMONet enables efficient full-wave simulation of nanophotonic structures, applicable to diffractive grating and waveguide design.",
+      "llm_evidence_cn": "FEMONet实现纳米光子结构的高效全波仿真，可用于衍射光栅和波导设计。",
+      "llm_evidence": "FEMONet实现纳米光子结构的高效全波仿真，可用于衍射光栅和波导设计。",
+      "canonical_evidence": "FEMONet实现纳米光子结构的高效全波仿真，可用于衍射光栅和波导设计。",
+      "llm_tldr_en": "FEMONet proposes a finite-element-constrained neural operator framework to learn light scattering for efficient nanophotonic simulation, addressing the cost-generalization tradeoff in optical inverse design. It maps from operator parameter space to a Galerkin-consistent solution space, enabling rapid analysis of complex structures. This tool can be applied to design diffractive optical elements like polarization volume gratings for AR waveguides.",
+      "llm_tldr_cn": "针对全波电磁仿真高计算成本与神经算子模型泛化性不足的问题，本文提出FEMONet框架，将有限元方法与算子学习网络结合，从物理参数空间映射到Galerkin一致的光散射解空间。实验表明该方法在多种纳米光子结构中预测精准，实现高效仿真与逆设计，为设计偏振体光栅等衍射光学元件提供了可行途径，有望加速AR波导的研发。",
+      "llm_tldr": "针对全波电磁仿真高计算成本与神经算子模型泛化性不足的问题，本文提出FEMONet框架，将有限元方法与算子学习网络结合，从物理参数空间映射到Galerkin一致的光散射解空间。实验表明该方法在多种纳米光子结构中预测精准，实现高效仿真与逆设计，为设计偏振体光栅等衍射光学元件提供了可行途径，有望加速AR波导的研发。",
+      "llm_tags": [
+        "query:pwad"
+      ],
+      "matched_query_tag": "query:pwad",
+      "matched_query_text": "Find recent papers on polarization volume grating based diffractive waveguides for augmented reality near eye displays, focusing on field of view, efficiency, and exit pupil expansion.",
+      "matched_requirement_id": "req-10",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "biorxiv-10-64898-2026-06-05-730459-v1",
+      "source": "biorxiv",
+      "title": "Subtle Pupil-Size Changes Associated With Exploration Do Not Affect Visual Sensitivity",
+      "abstract": "When we feel restless and easily distracted, continuously switching tasks (exploration), our pupils tend to be large. In contrast, when we are calmly focused on a single task (exploitation), our pupils tend to be small. According to the Adaptive Gain Theory (AGT), a switch from exploitation to exploration is associated with an increase in norepinephrine in the locus coeruleus, which in turn triggers pupil dilation. However, the AGT does not provide a functional explanation of why exploration triggers pupil dilation. One possibility is that visual sensitivity, which increases with pupil size, is especially important during exploration. We set out to provide evidence consistent with this functional explanation, as well as to replicate two key previous results. Participants performed a four-armed bandit task, which induces both exploration and exploitation behavior. During the task, participants also needed to detect an occasional and unpredictable near-threshold peripheral flash. We replicated two key results: pupils were larger during exploration than during exploitation; and increased pupil size (overall, independent of exploration status) was associated with increased visual sensitivity. However, most importantly, we did not find that visual sensitivity was higher during exploration than during exploitation; probably, the reliable-yet-tiny increase in pupil size during exploration was too small to affect visual sensitivity. We conclude that key previous results are replicable; however, common experimental paradigms, such as the four-armed bandit task, induce only small changes in exploration behavior. Therefore, more powerful paradigms are required in order to test functional explanations of pupil-size changes during exploration and exploitation.",
+      "authors": [
+        "Claeys, W.",
+        "Ruuskanen, V.",
+        "Mathot, S."
+      ],
+      "primary_category": "animal behavior and cognition",
+      "categories": [
+        "animal behavior and cognition"
+      ],
+      "published": "2026-06-09T00:00:00+00:00",
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.05.730459v1.full.pdf",
+      "tags": [
+        "keyword:pwad",
+        "query:pwad"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "investigates relationship between pupil size and visual sensitivity, relevant to perceived brightness models",
+      "llm_evidence_cn": "研究瞳孔大小与视觉敏感度关系，与感知亮度模型相关",
+      "llm_evidence": "研究瞳孔大小与视觉敏感度关系，与感知亮度模型相关",
+      "canonical_evidence": "研究瞳孔大小与视觉敏感度关系，与感知亮度模型相关",
+      "llm_tldr_en": "Examines whether pupil dilation during exploration enhances visual sensitivity; finds that subtle pupil-size changes do not affect visual sensitivity, challenging the functional explanation of the adaptive gain theory.",
+      "llm_tldr_cn": "自适应增益理论认为探索行为伴随瞳孔放大和去甲肾上腺素增加，但未解释其功能。一种假说认为瞳孔放大可能提升视觉敏感度以利于探索。本研究通过实验检验这一假说，同时复制了之前的瞳孔-任务关联发现。结果表明，探索引起的轻微瞳孔大小变化并不影响视觉敏感度，提示瞳孔大小的调节可能并非直接为增强视觉敏感度服务，对基于瞳孔直径的感知亮度模型构建具有参考价值。",
+      "llm_tldr": "自适应增益理论认为探索行为伴随瞳孔放大和去甲肾上腺素增加，但未解释其功能。一种假说认为瞳孔放大可能提升视觉敏感度以利于探索。本研究通过实验检验这一假说，同时复制了之前的瞳孔-任务关联发现。结果表明，探索引起的轻微瞳孔大小变化并不影响视觉敏感度，提示瞳孔大小的调节可能并非直接为增强视觉敏感度服务，对基于瞳孔直径的感知亮度模型构建具有参考价值。",
+      "llm_tags": [
+        "query:pwad"
+      ],
+      "matched_query_tag": "query:pwad",
+      "matched_query_text": "Find literature on perceived display brightness models using pupil diameter, retinal imaging, ambient illumination, and visual comfort for AR, OLED, or mobile displays.",
+      "matched_requirement_id": "req-8",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}
