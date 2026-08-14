@@ -6,22 +6,26 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-08-13
-- 运行时间：2026-08-13 20:33:25 UTC
+- 最新运行日期：2026-08-14
+- 运行时间：2026-08-14 21:24:13 UTC
 - 运行状态：成功
-- 本次总论文数：0
+- 本次总论文数：1
 - 精读区：0
-- 速读区：0
+- 速读区：1
 
 ### 今日简报（AI）
-> 今日无新推荐，系统未产出可展示论文。
-- 详情：[/202608/13/README](/202608/13/README)
+- 今日共生成 1 篇推荐（精读 0 篇，速读 1 篇）
+- 速读：《Differentiable eigendecomposition-free rigorous coupled-wave analysis for general photonic structures》（7.0/10）
+- 这些结果覆盖了当下较热的方向，建议先看精读区论文的关键问题与方法。
+- 详情：[/202608/14/README](/202608/14/README)
 
 ### 精读区论文标签
 - 本次无精读推荐。
 
 ### 速读区论文标签
-- 本次无速读推荐。
+1. [Differentiable eigendecomposition-free rigorous coupled-wave analysis for general photonic structures](/202608/14/2608.06185v1-differentiable-eigendecomposition-free-rigorous-coupled-wave-analysis-for-general-photonic-structures)  
+   标签：评分：7.0/10、query:pwad
+   evidence：适用于偏振体光栅仿真的可微分各向异性严格耦合波分析
 
 
 <div class="dpr-home-promo-card">

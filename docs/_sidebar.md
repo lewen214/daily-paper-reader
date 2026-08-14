@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-08-14 <!--dpr-date:20260814-->
+    * 速读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202608/14/2608.06185v1-differentiable-eigendecomposition-free-rigorous-coupled-wave-analysis-for-general-photonic-structures" data-sidebar-item="{&quot;title&quot;: &quot;Differentiable eigendecomposition-free rigorous coupled-wave analysis for general photonic structures&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2608.06185v1-differentiable-eigendecomposition-free-rigorous-coupled-wave-analysis-for-general-photonic-structures&quot;, &quot;score&quot;: &quot;7.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;pwad&quot;}], &quot;evidence&quot;: &quot;适用于偏振体光栅仿真的可微分各向异性严格耦合波分析&quot;}">Differentiable eigendecomposition-free rigorous coupled-wave analysis for general photonic structures</a>
   * 2026-06-15 <!--dpr-date:20260615-->
     * 速读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202606/15/2606.13320v1-learning-light-scattering-from-operator-parameter-spaces-to-galerkin-consistent-solution-spaces" data-sidebar-item="{&quot;title&quot;: &quot;Learning light scattering from operator parameter spaces to Galerkin-consistent solution spaces&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2606.13320v1-learning-light-scattering-from-operator-parameter-spaces-to-galerkin-consistent-solution-spaces&quot;, &quot;score&quot;: &quot;6.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;pwad&quot;}], &quot;evidence&quot;: &quot;FEMONet实现纳米光子结构的高效全波仿真，可用于衍射光栅和波导设计。&quot;}">Learning light scattering from operator parameter spaces to Galerkin-consistent solution spaces</a>

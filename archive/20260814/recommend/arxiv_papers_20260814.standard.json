@@ -1,0 +1,54 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-14T21:23:15.359409+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2608.06185v1",
+      "source": "arxiv",
+      "title": "Differentiable eigendecomposition-free rigorous coupled-wave analysis for general photonic structures",
+      "abstract": "For periodic photonic structures with full permittivity and permeability tensors and arbitrarily oriented optical axes, we present, to the best of our knowledge, the first anisotropic rigorous coupled-wave analysis framework that supports automatic differentiation and efficient GPU acceleration. The method formulates intralayer propagation as a boundary-value problem and directly constructs the scattering matrix using the precise integration method, thereby avoiding eigendecomposition of large non-Hermitian matrices. At comparable accuracy, the proposed method achieves a 25-fold speedup over the eigendecomposition-based approach. Its compatibility with automatic differentiation further demonstrates strong potential for topology optimization of anisotropic photonic structures. This framework provides an efficient computational tool for both forward analysis and inverse design of complex anisotropic devices.",
+      "authors": [
+        "Enbo Yang",
+        "Qiang Song",
+        "Weiwei Cai"
+      ],
+      "primary_category": "physics.optics",
+      "categories": [
+        "physics.optics"
+      ],
+      "published": "2026-08-06T15:45:18+00:00",
+      "link": "https://arxiv.org/pdf/2608.06185v1",
+      "tags": [
+        "keyword:pwad",
+        "query:pwad"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "differentiable anisotropic RCWA for periodic photonic structures applicable to polarization volume grating simulation",
+      "llm_evidence_cn": "适用于偏振体光栅仿真的可微分各向异性严格耦合波分析",
+      "llm_evidence": "适用于偏振体光栅仿真的可微分各向异性严格耦合波分析",
+      "canonical_evidence": "适用于偏振体光栅仿真的可微分各向异性严格耦合波分析",
+      "llm_tldr_en": "This paper presents a differentiable eigendecomposition-free rigorous coupled-wave analysis for anisotropic periodic photonic structures, achieving 25x speedup with GPU acceleration. It enables efficient inverse design of polarization volume gratings for AR waveguides.",
+      "llm_tldr_cn": "针对各向异性周期光子结构仿真中特征分解计算量大且难以自动微分的问题，该论文提出一种免特征分解的严格耦合波分析框架，利用边界值问题与精细积分法构造散射矩阵，支持自动微分和GPU加速。在相同精度下实现25倍加速，并可通过自动微分进行逆向设计优化。这一工具可用于偏振体光栅等衍射元件的仿真与优化，支撑AR波导显示设计。",
+      "llm_tldr": "针对各向异性周期光子结构仿真中特征分解计算量大且难以自动微分的问题，该论文提出一种免特征分解的严格耦合波分析框架，利用边界值问题与精细积分法构造散射矩阵，支持自动微分和GPU加速。在相同精度下实现25倍加速，并可通过自动微分进行逆向设计优化。这一工具可用于偏振体光栅等衍射元件的仿真与优化，支撑AR波导显示设计。",
+      "llm_tags": [
+        "query:pwad"
+      ],
+      "matched_query_tag": "query:pwad",
+      "matched_query_text": "polarization volume grating",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "label": "2026-08-14",
+  "date": "2026-08-14",
+  "generated_at": "2026-08-14T21:24:36",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202608/14/2608.06185v1-differentiable-eigendecomposition-free-rigorous-coupled-wave-analysis-for-general-photonic-structures",
+      "section": "quick",
+      "title_en": "Differentiable eigendecomposition-free rigorous coupled-wave analysis for general photonic structures",
+      "authors": "Enbo Yang, Qiang Song, Weiwei Cai",
+      "date": "2026-08-06",
+      "pdf": "https://arxiv.org/pdf/2608.06185v1",
+      "score": "7.0",
+      "evidence": "适用于偏振体光栅仿真的可微分各向异性严格耦合波分析",
+      "tldr": "针对具有全介电常数和磁导率张量且光轴任意取向的周期光子结构，传统严格耦合波分析需对大非厄米矩阵做特征分解，计算负担重且难以集成自动微分。本文提出首个各向异性严格耦合波分析框架，将层内传播视为边值问题并用精细积分法直接构造散射矩阵，规避特征分解，同时支持自动微分与高效GPU加速。在同等精度下，该方法相比特征分解法实现25倍提速，并展示出在拓扑优化中的强大潜力。该框架为复杂各向异性器件的前向分析和逆向设计提供了高效计算手段。",
+      "tags": "query:pwad",
+      "abstract_en": "For periodic photonic structures with full permittivity and permeability tensors and arbitrarily oriented optical axes, we present, to the best of our knowledge, the first anisotropic rigorous coupled-wave analysis framework that supports automatic differentiation and efficient GPU acceleration. The method formulates intralayer propagation as a boundary-value problem and directly constructs the scattering matrix using the precise integration method, thereby avoiding eigendecomposition of large non-Hermitian matrices. At comparable accuracy, the proposed method achieves a 25-fold speedup over the eigendecomposition-based approach. Its compatibility with automatic differentiation further demonstrates strong potential for topology optimization of anisotropic photonic structures. This framework provides an efficient computational tool for both forward analysis and inverse design of complex anisotropic devices.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
