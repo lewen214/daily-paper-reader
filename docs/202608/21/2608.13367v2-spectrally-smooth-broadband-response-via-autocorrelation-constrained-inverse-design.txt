@@ -1,0 +1,272 @@
+Title: Spectrally smooth broadband response via autocorrelation-constrained inverse design
+
+URL Source: https://arxiv.org/pdf/2608.13367v2
+
+Published Time: Mon, 17 Aug 2026 00:41:26 GMT
+
+Number of Pages: 6
+
+Markdown Content:
+> IEEE TRANSACTIONS ON ANTENNAS AND PROPAGATION 1
+
+# Spectrally smooth broadband response via autocorrelation-constrained inverse design 
+
+# Johannes Gedeon, Rasmus E. Christiansen, and Ole Sigmund 
+
+Abstract —Time-domain inverse design in photonics is known to be suitable for maximizing the efficiency of optical devices over broad frequency ranges. Objectives commonly used in this context include time-integrated field quantities derived from Poynting’s theorem, such as energy, flux, or dissipated power, which can be directly linked to integrated frequency-domain responses via Parseval’s theorem. While computationally efficient, these objectives measure only the total response over the targeted bandwidth and, as we demonstrate, are insufficient to capture undesired in-band ripple, narrow spectral features, or sidelobes. We overcome this limitation by introducing a time-domain metric quantifying such spectral variations based on the weighted long-lag autocorrelation energy of the optical response. We incorporate this metric into an FDTD-based topology-optimization framework and demonstrate its beneficial effect on the example of inverse designing one-dimensional dielectric Bragg mirrors via the time-domain adjoint method. 
+
+Index Terms —Autocorrelation, adjoint method, Bragg grating, broad-band, dielectric mirror, FDTD method, inverse design, reflectance, time domain, topology optimization 
+
+I. I NTRODUCTION 
+
+# OPTICAL devices designed to operate across broad frequency ranges are important for a variety of applications, including solar energy harvesting, broadband absorbers, dielectric mirrors, and achromatic imaging [1]–[4]. Therefore, there is strong interest in de-veloping advanced inverse design techniques to maximize broadband performance. The development of gradient-based optimization algo-rithms that rely on Maxwell’s equations for electromagnetics in the time domain has proven efficient for tackling the broadband response, as the time-domain gradient captures the sensitivities across the full range of frequencies contained in a tailored excitation pulse [5]. One possible approach to define a time-domain objective is to prescribe an explicit target signal and minimize the difference between the simulated response and the reference, integrated over time [6]. While this can provide precise control over the temporal response, it requires prior knowledge of the desired waveform and can make the inverse-design problem restrictive and challenging. A simpler approach is to optimize time-integrated quantities of the simulated response field directly, such as the electric-energy density 12 ε|E|2 or the dissipated-power density σ|E|2 [5], [7]–[9], which are natural objectives for broadband field confinement, reflection, or absorption. By Parseval’s theorem [10], such quadratic time-integrated quantities are directly related to corresponding frequency-integrated field responses. The main trade-off is the loss of phase information and the limited control over how the response is distributed across the target bandwidth, which can lead to undesired spectral variations. To address this, Park et al. [5] recently proposed an adaptive spectral-weighting strategy based on dynamically tuning the incident pulse and demonstrated 
+
+This work was supported by VILLUM FONDEN through the Villum Investigator Project AMSTRAD (VIL54487). J. Gedeon, R. E. Christiansen, and O. Sigmund are with the Department of Civil and Mechanical Engineering, Technical University of Denmark, Nils Koppels All´ e 404, DK-2800 Kgs. Lyngby, Denmark (e-mail: joged@dtu.dk; raelch@dtu.dk; olsi@dtu.dk). R. E. Christiansen and O. Sigmund are with NanoPhoton – Center for Nanophotonics, Technical University of Denmark, Ørsteds Plads 345A, DK-2800 Kgs. Lyngby, Denmark. 
+
+improved spectral uniformity. However, it requires explicit identifi-cation of underperforming spectral regions and modification of the excitation pulse during the iterative optimization process. We propose an alternative approach to tackle this problem without the need to adapt the excitation pulse, specifically aimed at sup-pressing sharp and localized spectral features. It relies on a time-domain metric that measures the weighted long-lag tail energy of a signal’s autocorrelation function and is related to the weighted integrated sidelobe level (WISL) used in signal processing [11]. Since the autocorrelation and the energy spectral density form a Fourier-transform pair [10], the metric provides an additional time-domain measure of these spectral features over a broad band of frequencies. It thereby addresses a central limitation of integrated time-domain objectives by providing direct sensitivity to localized spectral defects that may otherwise remain effectively invisible to the optimizer. We demonstrate this capability on the example of maximizing broadband reflectance of 1D dielectric gratings, incorporating the metric as either a constraint or a penalization term. Bragg gratings are among the most well-studied structures in the photonics literature and are predominantly used in fiber-optic engineering [12]. Different non-trivial designs have been proposed to achieve efficiency across a wide range of frequencies (chirped gratings) or suppress undesirable sidelobes in the reflection response (apodized gratings), cf. Fig. 1. Therefore, they serve as an ideal test case for studying the effect of our metric in optimizations targeting broadband efficiency and a smooth broadband response. As the inverse design method, we choose density-based topology optimization (TopOpt) [13], which allows us to explore the full design space and allows us to converge to structures exhibiting a continuous modulation of the refractive index. As a time-domain solver, we choose the Finite-difference time-domain (FDTD) method, which is a popular numerical method for solving Maxwell’s equations in time and also allows evaluating the time-harmonic responses over a desired bandwidth [14]. The code underlying the results presented in the following is openly available as a GitHub repository [16]. Uniform Apodised Chirped Reflectivity 
+
+Fig. 1. Schematic illustration of different index modulations in Bragg gratings and their resulting reflectance spectra. The figure is adapted from Ref. [15]. arXiv:2608.13367v2 [physics.optics] 14 Aug 2026 IEEE TRANSACTIONS ON ANTENNAS AND PROPAGATION 2              
+
+> Fig. 2. Illustration of the Fourier correspondence between a narrow spectral feature in a broadband spectrum and a long-delay oscillatory tail in its autocorrelation (AC) signal, modeled by Gaussian functions. The top panels show a broad reference spectrum S0and a modified spectrum S0−Sd,with spectral widths σ0≫σd; the bottom panels show the corresponding normalized autocorrelations. The shaded region marks delays |τ|> τ min
+> for which the broad Gaussian autocorrelation envelope has decayed to less than 1% of its amplitude.
+
+II. A TIME -DOMAIN METRIC FOR SPECTRAL SMOOTHNESS 
+
+Consider a finite, real-valued continuous signal s(t) with Fourier transform ˆs(f ). By the Parseval–Plancherel theorem [10], the signal energy can be computed equivalently in time and frequency, 
+
+Z ∞−∞ 
+
+|s(t)|2 dt =
+
+Z ∞−∞ 
+
+|ˆs(f )|2 df. (1) This makes it attractive as a time-domain objective for broadband efficiency. However, it only measures the total spectral energy and does not constrain how this energy is distributed as a function of frequency. In particular, narrow spectral minima (e.g., of π-shifted gratings [17]) may contribute little to the integrated energy while still compromising the |ˆs(f )|-profile over broadband. We can identify such spectral features in the time domain using the Fourier transform relation between the autocorrelation function and the energy spectral density, known as the Wiener–Khinchin theorem [10], [18]. Defining the spectrum as S(f ) = |ˆs(f )|2, the autocorrelation 
+
+C(τ ) = 
+
+Z ∞−∞ 
+
+s(t)s(t + τ ) d t, c(τ ) = C(τ )
+
+C(0) (2) forms a Fourier pair with S(f ). Thus, localized spectral features correspond to slowly decaying oscillatory contributions in the au-tocorrelation. This relationship is illustrated schematically in Fig. 2. We start from a broad reference spectrum S0, which gives a rapidly decaying autocorrelation C0 and is therefore characterized by a short coherence time. We then introduce a narrow spectral minimum by subtracting a localized component Sd, resulting in the modified spectrum S0 − Sd. This spectral feature produces a long-lasting oscillatory tail in the autocorrelation function as a consequence. To isolate this tail contribution, we define a reference delay τmin 
+
+from the broad spectrum S0 as the first lag at which the envelope of the normalized autocorrelation has decayed below 1% of its peak value. Delays |τ | > τ min therefore lie outside the central autocorrela-tion lobe of the broadband reference. Given a time signal s0(t) with spectrum S0, we can compare the weighted long-lag autocorrelation energy of another signal s(t) to this broadband reference as 
+
+TAC [s; s0] := EAC [s]
+
+EAC [s0] , (3) with EAC [s] := 2 
+
+Z ∞
+
+> τmin
+
+ ττmin 
+
+2
+
+|cs(τ )|2 dτ. 
+
+The prefactor “ 2” accounts for the symmetry cs(τ ) = cs(−τ ).The quadratic lag weight ∝ τ 2 increases the penalty on late-time autocorrelation tails and is used to suppress delayed ringing. Since 
+
+∂f S(f ) and −i2πτ C s(τ ) form a Fourier-transform pair, Parseval’s theorem gives R |∂f S(f )|2 df ∝ R τ 2|Cs(τ )|2 dτ . Thus, EAC can be interpreted as a time-domain measure sensitive to sharp spectral features and spectral ripples. For a signal s(t) with spectrum S0 − Sd, as in Fig. 2, the spectral feature increases EAC [s] relative to the broadband reference and thus gives TAC > 1. The condition TAC = 1 includes, but is not limited to, the case in which s(t) and s0(t) have identical spectra. We use the derived metric TAC below for penalizing dips in the reflectance spectra using time-domain inverse design. III. O PTIMIZATION RESULTS 
+
+We include TAC in the inverse design of a dielectric grating for broadband reflectance. By choosing a sufficiently large material contrast and grating length, Bragg gratings can achieve nearly unity reflectance over a desired bandwidth [12]. We therefore choose a configuration of relatively weak gratings that makes the optimization challenging, and the broadband response remains sensitive to the detailed grating profile. The setup is shown in Fig. 3. The design region has length L = 7 .2λ0 (7.2 μm), where λ0 = c/f 0 = 1 μm
+
+is the free-space wavelength at the center frequency f0 = 300 THz ,and is parameterized by a density ρ(x) ∈ [0 , 1] , which represents the design field in the topology optimization. This density is mapped linearly to the grating permittivity, as indicated in Fig. 3, where ρ = 1 
+
+corresponds to the presence of the design material with εd, and ρ = 0 
+
+corresponds to the background medium with εb. Throughout this study, we use εd = 1 .5 and εb = 1 , corresponding to a refractive-index contrast of ∆n ≈ 0.22 .  
+
+> Fig. 3. Setup of the optimization problem. The short pulse marked in red represents the broadband source, while the design region represents the Bragg grating and consists of the design field ρ(x). The simulation domain is terminated at both ends by absorbing boundary conditions to model an unbounded domain.
+
+We inject a propagating pulse Einc (t) toward the grating and record the back-reflected field Er(t) from the structure as the response we use to define the figure of merit to be optimized. The pulse is a Hann-windowed sinc function modulated by a cosine carrier at the center frequency f0, such that its spectrum approximates a rectangular band of width 2∆ f = 105 THz centered at f0. This imposes a spectral weighting in the optimization problem across the frequencies and models a near-unity spectrum such that the energy fraction 
+
+ηr := 
+
+R E2r (t) d t
+
+R E2inc (t) d t ≈ 12∆ f
+
+Z f0+∆ ff0−∆f
+
+R(f ) d f, (4) IEEE TRANSACTIONS ON ANTENNAS AND PROPAGATION 3
+
+approximates the reflectance averaged over the target bandwidth. We employ topology optimization to search for an ideal distribution ρ(x)
+
+that maximizes the expression in Eq. (4). Since R(f ) = |r(f )|2,where r(f ) is the complex reflection coefficient, it does not require phase preservation across the frequencies with respect to the incident pulse. For the post-evaluation, showing the broadband behaviour, we illustrate the reflection R(f ) over the target bandwidth. To quantify whether the optimized design converged to a binary grating or tended to have a continuous variation of material index, we measure the “non-discreteness” of the final design using [19] 
+
+Mnd = 4
+
+L
+
+Z L
+
+> 0
+
+ρ(x) (1 − ρ(x)) d x × 100% , (5) which is 100% if ρ(x) = 0 .5, ∀x, and 0% if the density only consists of the values 0 or 1 (binary). For details on the gradient-based optimization employed to itera-tively update ρ, as well as the TopOpt and FDTD settings used in this work, we refer the reader to Appendix A. 
+
+A. Autocorrelation metric as a constraint 
+
+To study the effect using the autocorrelation energy metric from Eq. (3) imposed as a constraint to reduce long-tail ringing and thus smooth the reflectance response, we compare two inverse design problems: 
+
+Puc : max  
+
+> ρ
+
+ηr (6a) 
+
+Pc : max  
+
+> ρ
+
+ηr
+
+s.t. TAC [Er; Einc ] ≤ 1. (6b) Here, Puc denotes the unconstrained maximization problem of the energy fraction ηr from Eq. (4), whereas Pc additionally includes a constraint on the autocorrelation metric TAC , introduced in Eq. (3). We choose the value 1 as an upper bound, in reference to aperfect reflector, for which ηr = 1 and TAC = 1 . We solve the two inverse-design problems in Eqs. (6a) and (6b). The optimized designs obtained by topology optimization are shown in Fig. 4(a) together with their corresponding reflectance spectra, starting from the same random initial density illustrated in Fig. 3. The (normalized) incident spectrum is shown as the red dashed line for reference. Without the constraint, the reflectance spectrum exhibits a prominent narrow spectral feature, similar to a phase-defect resonance known from π-shifted gratings [17], and attains a relatively high value of 
+
+TAC = 8 .628 . Enforcing the constraint penalizes the associated long-lag autocorrelation tail and produces a smoother broadband response. This example supports our statement that maximizing Parseval’s energy alone is insufficient to capture and remove sharp spectral features, even if the objective reached a (local) optimum. This first example compared only two optimizations and might thus not be representative of the success of including the autocorrelation metric, as most inverse design problems are known to be non-convex and thus have several local extrema. We therefore performed a statistical evaluation for 100 different initial densities, with and without the constraint on TAC , summarized in Fig. 4(b). From the broadband reflectance statistics in Fig. 4(b.1), we observe that enforcing the constraint leads to a consistent removal of sharp spectral features in the reflectance spectra compared to the case where the optimization is driven only by maximizing ηr. The distributions of the time-domain metrics in Fig. 4(b.2) further show that including the constraint does not statistically reduce the optimized reflectance performance ηr: the median values are 0.8096 and 0.8093 for the unconstrained and constrained problems, respectively. This indicates (a) Time metrics 
+
+(b.2) (b.1)            
+
+> Opt. spectra Opt. spectra
+> Fig. 4. Optimization results comparing the unconstrained Puc and constrained
+> Pcformulations from Eqs. (6). (a) Two representative optimized gratings and reflectance spectra; the dashed red line denotes the incident spectrum and the vertical gray lines mark f0and the half-maximum bounds defining the target bandwidth. (b) Statistics over 100 topology-optimization runs initialized with different densities: (b.1) optimized reflectance spectra, with the best-performing design highlighted in yellow, and the pointwise median Q50 and interquartile range Q25 –Q75 ; (b.2) distributions of ηrand TAC .
+
+that the constraint has a regularizing effect rather than directly op-posing high objective values. This is further supported by evaluating the distribution of TAC . For the unconstrained ensemble, TAC is broadly distributed, with a median value of 1.854 . However, the best design in terms of ηr gives TAC = 1 .371 , approaching the prescribed 
+
+TAC = 1 bound imposed in the constrained optimizations. Thus, high reflectance is compatible with comparatively low autocorrelation tails, and the constraint mainly guides the optimization toward such designs more consistently. We further computed the measure of non-discreteness Mnd from Eq. (5) for both ensembles, which yields a median of 0.04% vs 0.30 % IEEE TRANSACTIONS ON ANTENNAS AND PROPAGATION 4
+
+for unconstrained vs constrained optimization. In both cases, the designs tend to converge to a nearly binary grating, and post-binarization of the designs (by thresholding at 0.5) did not signif-icantly change their performance: After thresholding, the maximum paired changes in the unconstrained ensemble were max |∆ηr| =3.58 × 10 −5 and max |∆TAC | = 4.16 × 10 −2. For the con-strained ensemble, the corresponding maxima were 1.92 × 10 −3 and 
+
+3.92 × 10 −2, respectively. 
+
+B. Autocorrelation metric as a penalization term 
+
+To better understand the interplay between forcing high ηr and low 
+
+TAC , and its impact on the convergence to a binary grating ( Mnd −→
+
+0), we now study the optimization problem 
+
+max  
+
+> ρ
+
+J := (1 − α) ηr − α TAC , (7) using a linear combination of both quantities with a weighting parameter α ∈ [0 , 1] . For α = 0 , it reduces to the problem Puc from Eq. (6a), whereas for α = 1 , the objective reduces to minimizing 
+
+TAC alone. We performed single optimizations for different values of α, starting from the same random initial density shown in Fig. 3. For all values of α, the objective approached a plateau within a fixed (optimization-) iteration budget (App. A). For α ≥ 0.2, we note that the density iterates retained a small persistent oscillation rather than settling to a unique fixed design; the neighboring designs nevertheless differed little in objective value and did not affect the overall performance trade-off. The results are summarized in Fig. 5 in the form of a Pareto plot and three different representative designs shown below together with their respective reflectance spectra. We observe that even a small value of α leads to designs with higher ηr, and that a maximum is reached at α = 10 −2, for which TAC approaches 1. The designs obtained for α = 0 and α = 10 −3, which combine lower ηr with substantially higher TAC , represent suboptimal local solutions of the non-convex design problem. Penalizing the partial objective TAC even further leads to a decrease of ηr and an increase in Mnd , where the designs tend to favor an apodized grating profile, cf. Fig. 1. Apodized Bragg gratings are known to reduce abrupt boundary scattering by smoothly varying the grating strength along the propagation direction, and are commonly used to suppress oscillatory sidelobes in the reflectance spectrum [12]. The Pareto plot together with the evaluation of the spectral performance indicates that a weak penalty on TAC can guide the optimizer toward a better local optimum with higher ηr, whereas stronger prioritization of spectral smoothness comes at the cost of high reflectance over the target bandwidth. 
+
+C. Discovering a chirped grating by topology optimization 
+
+Finally, we demonstrate the potential for achieving nearly uniform reflectance with our TAC -penalized formulation and observe a char-acteristic spatial pattern in the optimized grating, thereby confirming what we have shown in one of our previous works: namely, that TopOpt can serve not only as an efficient design tool, but also as a source of physical insight [9]. We perform a TopOpt run with an extended design length of 
+
+L = 17 .2 μm, and use the weighted objective formulation from Eq. (7) with α = 10 −2, and starting from a random initial density. The optimized, (post-)binarized structure is shown in Fig. 6(a), top row. To obtain deeper insight into the evolved spatial pattern, we ex-tracted a local period Λ( xi) at positions xi by measuring the distance between neighboring grating edges with the same orientation. The corresponding local grating vector defined as G(xi) = 2 π/ Λ( xi) is (a) (b) (c)                    
+
+> 0.01 0.001 0.1
+> Fig. 5. (a) Pareto plot of ηrvs. TAC for different weighting parameters αfor the designs evolved under TopOpt problem from Eq. (7) starting from the same initial density as in Fig. 3. The inset plot shows the Mnd vs. TAC . (b) Op-timized grating structures for three representative α-values, where α= 0
+> emphasizes the maximization of ηrexclusively, while α= 1 emphasizes the minimization of TAC ; (c) shows their corresponding reflectance response over the target bandwidth.
+
+illustrated in Fig. 6(a) over the entire grating length. Its profile shows an overall decrease from the left to the right design edge and appears approximately antisymmetric with respect to the grating center. We model this dependence by a simple linear function 
+
+Gfit (x) = a1 − (a1 − a2) xL , x ∈ [0 , L ], (8) with positive fitting parameters a1 and a2, minimizing the sum of squared residuals. The values are listed in Table I, together with the source-reference values obtained from the target band f0 ± ∆f by evaluating the first-order Bragg estimate G(f ) = 4 πn eff f /c , with 
+
+neff = (√εb + √εd)/2. From this, we observe that the fitting values a1 and a2 closely match the Bragg vectors associated with the spectral bounds of the incident pulse. We found that our grating has, in fact, converged to a chirped-like grating, cf. Fig. 1. Chirped gratings are well known for enabling broadband reflection via a gradual spatial variation in period, where the Bragg condition is satisfied at different spatial positions [20]. We can use our parametric modeling of the TopOpt design to reconstruct a chirped one. A grating with a spatially varying period can be described through the accumulated local phase [21], 
+
+ϕ(x) = ϕ0 +
+
+Z x
+
+> 0
+
+G(s) ds, (9) IEEE TRANSACTIONS ON ANTENNAS AND PROPAGATION 5(a) (b)                                  
+
+> Fig. 6. Emergence and parametric reconstruction of a chirped grating from topology optimization. (a) Top: thresholded TopOpt design obtained with the weighted objective in Eq. (7) using α= 10 −2and L= 17 .2μm.Middle: local grating vectors G(xi) = 2 π/ Λ( xi)extracted from the binary design, with the linear fit Gfit (x)shown as a purple solid line. Bottom: binary grating reconstructed from the fitted linear chirp using Eq. (10). (b) Broadband responses of the TopOpt design and the reconstructed grating, showing comparable near-unity reflectance over the target bandwidth. TABLE I COMPARISON BETWEEN SOURCE -REFERENCE GRATING VECTORS AND THE FITTED PARAMETERS OF THE LINEAR -CHIRP RECONSTRUCTION .Quantity Source spectrum Linear fit Unit High edge Ghi = 16 .425 a1= 16 .23 rad /μ m
+> Low edge Glo = 11 .532 a2= 11 .18 rad /μ m
+
+where ϕ0 accounts for a spatial shift of the grating pattern. A binary grating with local duty cycle D(x) can then be obtained by the rule 
+
+ρbin (x) = 
+
+(
+
+1, mod( ϕ(x), 2π) < 2πD (x),
+
+0, otherwise . (10) We reconstruct a linear-chirped grating by inserting Gfit (x) into Eq. (9), with the phase offset ϕ0 chosen by pixel-wise alignment with the TopOpt design. The binary pattern is then obtained from Eq. (10) using a fitted duty cycle, which was observed to be approximately constant, D(x) ≈ D0 = 0 .46 . The result is shown in the bottom row of Fig. 6(a). The simulated time metrics of the TopOpt design are 
+
+ηr = 0 .978 and TAC = 1 .0467 , while the reconstructed grating yields slightly lower but comparable values of ηr = 0.973 and 
+
+TAC = 1 .043 . The broadband responses shown in Fig. 6(b) confirm that both designs achieve an almost flat, near-unity reflectance across the entire target bandwidth. IV. C ONCLUSION 
+
+We addressed a key limitation of broadband time-domain inverse design, where localized spectral features can contribute little to com-monly used time-integrated objectives and their spectrally integrated counterparts, by introducing a time-domain metric TAC that quantifies long-lag autocorrelation energy as a measure of delayed ringing and spectral non-uniformity relative to a broadband reference pulse. Using dielectric Bragg-grating mirrors as an example, we showed that incorporating this metric into a time-domain inverse design scheme can suppress sharp spectral variations in the reflectance spectrum, which may otherwise remain effectively invisible to the optimizer. We found that a weak penalty on the metric does not come at the expense of high reflectance efficiency, and can instead guide the optimizer toward a better local optimum. Strong penalization, however, yields the expected trade-off between spectral uniformity and reflectance ef-ficiency. By enforcing suppression of delayed ringing while targeting broadband reflectance, our optimized structures recovered apodized and chirped designs that are well-known in the field of fiber grating optics [12]. Our approach can be related to the pulse-shaping method intro-duced in Ref. [22], where the Hilbert envelope of the output signal is optimized to match a prescribed target envelope. In contrast, penalizing TAC imposes a weaker constraint: it does not prescribe a specific envelope, leaving the detailed temporal shape, delay, and spreading to the optimizer. We believe that the metric can serve as an efficient time-domain measure for assessing and suppressing broadband spectral fluctuations and localized spectral features in inverse-designed optical devices. It can be used either as a weighted objective or constraint, or for post-evaluation by quantifying broadband performance from the autocorrelation signature. Beyond the grating optimization used here as a demonstration case, the metric can also be directly incorporated into other, more challenging inverse-design problems, such as wide-band near-field coupling [23], achromatic focusing [5], or broadband absorption [24]. APPENDIX AFDTD AND ADJOINT METHOD 
+
+In the simulations, we solve the one-dimensional Maxwell equa-tions for the field components Ey and Hz in time, 
+
+∂xHz + ε0εr(ρ) ∂tEy = Sy ,μ0 ∂tHz + ∂xEy = 0 .
+
+(11a) (11b) Here, Sy represents the source term injecting a forward-propagating wave at position xinc , and ε0 and μ0 are the vacuum permittivity and permeability, respectively. The relative permittivity εr(ρ) is linked to the density profile ρ(x) through the linear interpolation between the background and design media introduced in Sec. III; see Fig. 3. This density represents the design field in our topology optimiza-tion (TopOpt). We solve Eq. (11) using the finite-difference time-domain (FDTD) method, in which Ey , Hz are sampled on a staggered Yee grid and updated using a leapfrog algorithm [14]. First-order Mur absorbing boundary conditions are applied at both ends of the computational domain. The density ρ and the corresponding relative permittivity εr are then discretized accordingly and are collocated with Ey on the numerical grid. The spatial and temporal step sizes, 
+
+∆x and ∆t, are chosen to both satisfy the Courant-Friedrichs-Lewy (CFL) stability condition and limit numerical dispersion. We choose a sufficiently long simulation time TSim = Time steps × ∆t
+
+for the fields to decay and thereby set the frequency resolution δf ∝
+
+1/T Sim of the Fourier-transformed fields presented in our spectral plots. To compute the gradients of the objective and constraint with respect to the density ρ(x), we employ the adjoint method in time [9]. We first solve Eq. (11) using the FDTD method and evaluate the objective (and constraint function) from the reflected field recorded at a monitor point xR < x inc from the excitation of a broadband injected pulse; see Fig. 3. The incident field Einc is launched at t = 0 
+
+using a source signal s0 that approximates a rectangular frequency IEEE TRANSACTIONS ON ANTENNAS AND PROPAGATION 6
+
+TABLE II FDTD AND TOP OPT PARAMETERS USED IN THE OPTIMIZATIONS .Parameter Fig. 4 Fig. 5 Fig. 6 
+
+FDTD 
+
+∆x (nm) 20 20 5∆t (as) 63 .38 63 .38 15 .84 
+
+Grid points, full domain 701 701 4804 
+
+Grid points, design domain 360 360 3440 
+
+Time steps 25 000 25 000 400 000 
+
+TopOpt 
+
+Filter radius (cells) 2 2 4
+
+Filtered stage iterations 160 160 250 
+
+Total MMA iterations 460 2000 650 
+
+spectrum with half-bandwidth ∆f through a finite-duration, Hann-windowed sinc pulse modulated by a cosine carrier at the center frequency f0,
+
+s0(˜ t) = 
+
+
+
+sinc(2∆ f ˜t) 12
+
+
+
+1 + cos 
+
+ π˜tTp
+
+ 
+
+cos(2 πf 0 ˜t), |˜t| ≤ Tp,
+
+0, |˜t| > T p,
+
+(12) where ˜t = t − t0, t0 is the pulse-center time, and 2Tp = Nlobes /∆f
+
+is the total pulse duration. Increasing Nlobes increases the pulse duration and sharpens the spectral edges, thereby making the time-domain objective in Eq. (4) a more accurate approximation of the band-averaged reflectance. However, this comes at the cost of a longer FDTD simulation time. For the signal used in Sec. III, with 
+
+f0 = 300 THz and 2∆ f = 105 THz , we chose Nlobes = 6 . For this signal, the common lower integration bound used to compute TAC 
+
+is τmin ≈ 10 .14 fs . We extracted this value from the incident pulse by applying a Hilbert transform to its autocorrelation function and selecting the lag at which the Hilbert envelope has decayed to 1% 
+
+of its peak value, cf. Sec. II. The autocorrelation is evaluated by a zero-padded, FFT-based convolution of the time-domain signal with its time-reversed copy using NumPy ’s real FFT and inverse real FFT. After this forward simulation, we solve the corresponding adjoint system backward in time, with the source term Sy replaced by the time-reversed derivative of the objective (and constraint function) with respect to the electric field Ey [9]. The sensitivities are ob-tained from an overlap integral between the forward and adjoint electric fields over time. This gradient information is then passed to a gradient-based optimizer to update ρ(x), and the procedure is repeated until the density field and objective value have converged. As the gradient-based optimizer, we used the Python implementa-tion mmapy of the method of moving asymptotes (MMA) [25], [26]. We additionally applied density filtering with a fixed filter radius [19], and used a two-stage continuation strategy consisting of an initial filtered-density stage followed by unfiltered polishing iterations. This strategy was observed to improve convergence, particularly for the constrained optimization problem in Eq. (6b). Details on the chosen MMA parameters and convergence histories are provided in our GitHub repository and dataset [16], [27]. Table II summarizes the FDTD and TopOpt configuration settings used for our simulations and optimizations presented in Sec. III. REFERENCES 
+
+[1] L. Mascaretti, Y. Chen, O. Henrotte, O. Yesilyurt, V. M. Shalaev, A. Naldoni, and A. Boltasseva, “Designing metasurfaces for efficient solar energy conversion,” ACS Photonics , vol. 10, no. 12, p. 4079–4103, Dec. 2023. [2] P. Yu, L. V. Besteiro, Y. Huang, J. Wu, L. Fu, H. H. Tan, C. Jagadish, G. P. Wiederrecht, A. O. Govorov, and Z. Wang, “Broadband metama-terial absorbers,” Adv. Opt. Mater. , vol. 7, no. 3, p. 1800995, Feb. 2019. [3] J. Chang, W. Ji, X. Yao, A. J. van Run, and S. Gr¨ oblacher, “Broadband, high-reflectivity dielectric mirrors at wafer scale: Combining photonic crystal and metasurface architectures for advanced lightsails,” Nano Lett. ,vol. 24, no. 22, pp. 6689–6695, May 2024. [4] W. T. Chen, A. Y. Zhu, V. Sanjeev, M. Khorasaninejad, Z. Shi, E. Lee, and F. Capasso, “A broadband achromatic metalens for focusing and imaging in the visible,” Nat. Nanotechnol. , vol. 13, no. 3, pp. 220–226, Jan. 2018. [5] M. Park, H. Chung, and K.-Y. Jung, “Time-domain adjoint optimization for metalens design toward enhanced broadband efficiency and unifor-mity,” iScience , vol. 28, no. 7, p. 112739, Jul. 2025. [6] L. Yang, A. V. Lavrinenko, J. M. Hvam, and O. Sigmund, “Design of one-dimensional optical pulse-shaping filters by time-domain topology optimization,” Appl. Phys. Lett. , vol. 95, no. 26, p. 261101, Dec. 2009. [7] T. Nomura, K. Sato, K. Taguchi, T. Kashiwa, and S. Nishiwaki, “Structural topology optimization for the design of broadband dielectric resonator antennas using the finite difference time domain technique,” 
+
+Int. J. Numer. Methods Eng. , vol. 71, no. 11, pp. 1261–1296, Feb. 2007. [8] E. Hassan, E. Wadbro, and M. Berggren, “Topology optimization of metallic antennas,” IEEE Trans. Antennas Propag. , vol. 62, no. 5, pp. 2488–2500, Feb. 2014. [9] J. Gedeon, I. Allayarov, A. Cal` a Lesina, and E. Hassan, “Time-domain topology optimization of power dissipation in dispersive dielectric and plasmonic nanostructures,” IEEE Trans. Antennas Propag. , vol. 73, no. 5, pp. 3079–3094, May 2025. [10] R. N. Bracewell, The Fourier Transform and Its Applications , 3rd ed. Boston, MA: McGraw-Hill, 2000, see Ch. 6, pp. 120–122. [11] J. Song, P. Babu, and D. P. Palomar, “Sequence design to minimize the weighted integrated and peak sidelobe levels,” IEEE Trans. Signal Process. , vol. 64, no. 8, pp. 2051–2064, Apr. 2016. [12] A. Othonos, “Fiber bragg gratings,” Rev. Sci. Instrum. , vol. 68, no. 12, p. 4309–4341, Dec. 1997. [13] R. E. Christiansen and O. Sigmund, “Inverse design in photonics by topology optimization: tutorial,” J. Opt. Soc. Am. B , vol. 38, no. 2, pp. 496–509, Feb. 2021. [14] A. Taflove and S. C. Hagness, Computational electrodynamics: the finite-difference time-domain method , 3rd ed. Norwood: Artech House, 2005. [15] M. Ams, P. Dekker, S. Gross, and M. J. Withford, “Fabricating waveg-uide bragg gratings (wbgs) in bulk materials using ultrashort laser pulses,” Nanophotonics , vol. 6, no. 5, pp. 743–763, Jan. 2017. [16] J. Gedeon, “Grating-TimeOpt: A Python Framework for Time-Domain Topology Optimization of Bragg Gratings,” GitHub repository, 2026, accessed: Aug. 5, 2026. [Online]. Available: https://github.com/JoGed/ grating-time-opt [17] G. Agrawal and S. Radic, “Phase-shifted fiber bragg gratings and their application for wavelength demultiplexing,” IEEE Photonics Technol. Lett. , vol. 6, no. 8, pp. 995–997, Aug. 1994. [18] N. Wiener, “Generalized harmonic analysis,” Acta Math. , vol. 55, pp. 117–258, Dec. 1930. [19] O. Sigmund, “Morphology-based black and white filters for topology optimization,” Struct. Multidiscip. Optim. , vol. 33, pp. 401–424, Jan. 2007. [20] D. Tosi, “Review of chirped fiber bragg grating (cfbg) fiber-optic sensors and their applications,” Sensors , vol. 18, no. 7, Jul. 2018. [21] J. ´ A. Praena and A. Carballar, “Chirped integrated bragg grating design,” 
+
+Photonics , vol. 11, no. 5, May 2024. [22] B. S. Lazarov, R. Matzen, and Y. Elesin, “Topology optimization of pulse shaping filters using the hilbert transform envelope extraction,” Struct. Multidiscip. Optim. , vol. 44, no. 3, p. 409–419, Apr. 2011. [23] E. Hassan, D. Noreland, R. Augustine, E. Wadbro, and M. Berggren, “Topology optimization of planar antennas for wideband near-field coupling,” IEEE Trans. Antennas Propag. , vol. 63, no. 9, pp. 4208– 4213, Sep. 2015. [24] J. Gedeon, I. Allayarov, E. Hassan, and A. Cal` a Lesina, “Topology optimization of a superabsorbing thin-film semiconductor metasurface,” 
+
+IEEE Trans. Antennas Propag. , vol. 73, no. 10, pp. 7932–7942, Jul. 2025. [25] A. Deetman, “Gcmma-mma-python: Python implementation of the method of moving asymptotes,” May 2025. [Online]. Available: https://doi.org/10.5281/zenodo.15459165 [26] K. Svanberg, “The method of moving asymptotes—a new method for structural optimization,” Int. J. Numer. Methods Eng. , vol. 24, no. 2, pp. 359–373, Feb. 1987. [27] J. Gedeon, “Topology-optimized bragg gratings,” 2026, dataset. [Online]. Available: https://doi.org/10.5281/zenodo.21808739

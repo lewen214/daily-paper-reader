@@ -1,0 +1,39 @@
+{
+  "label": "2026-08-21",
+  "date": "2026-08-21",
+  "generated_at": "2026-08-21T20:11:15",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202608/21/2608.13367v1-spectrally-smooth-broadband-response-via-autocorrelation-constrained-inverse-design",
+      "section": "quick",
+      "title_en": "Spectrally smooth broadband response via autocorrelation-constrained inverse design",
+      "authors": "Johannes Gedeon, Rasmus E. Christiansen, Ole Sigmund",
+      "date": "2026-08-13",
+      "pdf": "https://arxiv.org/pdf/2608.13367v1",
+      "score": "6.0",
+      "evidence": "基于自相关约束的逆向设计实现光谱平滑宽带响应，可用于AR波导光栅优化",
+      "tldr": "时间域逆设计通常采用时间积分场量作为目标，虽能最大化宽带总响应，却无法抑制带内纹波、窄特征或旁瓣。本文提出一种基于加权长滞后自相关能量的时域度量，将其作为自相关约束引入目标函数，以量化并惩罚光谱变化。该方法嵌入FDTD拓扑优化框架，在一维介质布拉格镜逆设计中验证，有效获得光谱平滑的宽带响应。",
+      "tags": "query:pwad",
+      "abstract_en": "Time-domain inverse design in photonics is known to be suitable for maximizing the efficiency of optical devices over broad frequency ranges. Objectives commonly used in this context include time-integrated field quantities derived from Poynting's theorem, such as energy, flux, or dissipated power, which can be directly linked to integrated frequency-domain responses via Parseval's theorem. While computationally efficient, these objectives measure only the total response over the targeted bandwidth and, as we demonstrate, are insufficient to capture undesired in-band ripple, narrow spectral features, or sidelobes. We overcome this limitation by introducing a time-domain metric quantifying such spectral variations based on the weighted long-lag autocorrelation energy of the optical response. We incorporate this metric into an FDTD-based topology-optimization framework and demonstrate its beneficial effect on the example of inverse designing one-dimensional dielectric Bragg mirrors via the time-domain adjoint method.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202608/21/2608.13367v2-spectrally-smooth-broadband-response-via-autocorrelation-constrained-inverse-design",
+      "section": "quick",
+      "title_en": "Spectrally smooth broadband response via autocorrelation-constrained inverse design",
+      "authors": "Johannes Gedeon, Rasmus Ellebæk Christiansen, Ole Sigmund",
+      "date": "2026-08-13",
+      "pdf": "https://arxiv.org/pdf/2608.13367v2",
+      "score": "6.0",
+      "evidence": "基于自相关约束的逆向设计实现光谱平滑宽带响应，可用于AR波导光栅优化",
+      "tldr": "时域逆设计在宽频光子器件优化中具有计算优势，但常用目标函数仅度量总响应，无法捕捉带内波纹、窄谱特征和旁瓣等光谱缺陷。针对这一问题，本文提出一种基于加权长滞后自相关能量的时域度量，用于量化光谱变化，并将其集成到基于 FDTD 的拓扑优化框架中。在一维介电布拉格镜的逆设计实例中，该方法成功抑制了不期望的光谱起伏，实现了平滑的宽带响应。该工作扩展了时域逆设计对光谱细节的控制能力，为高性能宽带光子器件设计提供了新途径。",
+      "tags": "query:pwad",
+      "abstract_en": "Time-domain inverse design in photonics is known to be suitable for maximizing the efficiency of optical devices over broad frequency ranges. Objectives commonly used in this context include time-integrated field quantities derived from Poynting's theorem, such as energy, flux, or dissipated power, which can be directly linked to integrated frequency-domain responses via Parseval's theorem. While computationally efficient, these objectives measure only the total response over the targeted bandwidth and, as we demonstrate, are insufficient to capture undesired in-band ripple, narrow spectral features, or sidelobes. We overcome this limitation by introducing a time-domain metric quantifying such spectral variations based on the weighted long-lag autocorrelation energy of the optical response. We incorporate this metric into an FDTD-based topology-optimization framework and demonstrate its beneficial effect on the example of inverse designing one-dimensional dielectric Bragg mirrors via the time-domain adjoint method.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
