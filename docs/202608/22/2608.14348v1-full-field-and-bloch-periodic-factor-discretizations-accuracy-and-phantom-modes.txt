@@ -1,0 +1,342 @@
+Title: Full-field and Bloch-periodic-factor discretizations: Accuracy and phantom modes
+
+URL Source: https://arxiv.org/pdf/2608.14348v1
+
+Published Time: Mon, 17 Aug 2026 00:53:43 GMT
+
+Number of Pages: 9
+
+Markdown Content:
+# Full-field and Bloch-periodic-factor discretizations: Accuracy and phantom modes 
+
+## Igor Tsukerman 
+
+Department of Electrical and Computer Engineering, The University of Akron, Akron, Ohio 44325-3904, USA 
+
+igor@uakron.edu 
+
+August 17, 2026 
+
+# Abstract 
+
+One can distinguish four major formulations of the Bloch-mode problem in linear periodic media. First, there are two common complementary ways of slicing the Bloch variety (Bloch wave vectors paired with the corresponding frequencies): frequency vs. wave vector or, conversely, wave vector vs. frequency. This paper deals exclusively with the latter option, directly applicable to lossy media, evanescent waves, and complex band structures. A separate crossroads is the full field (FF) vs. the lattice-periodic Bloch factor (PF) formulations. These are fully equiv-alent on the continuous level, but common discretization tech-niques may break this equivalence not just approximately but qualitatively. In the FF problem, the primary unknown eigen-value is the Bloch phase factor (not the wavenumber), which enters only through opposite-boundary coupling. The PF for-mulation, on the other hand, injects the Bloch wavenumber into the differential operator and leads to a volume quadratic pencil. Consequently, standard PF discretizations of the type consid-ered here, in contrast with the corresponding FF discretizations, violate the reciprocal-lattice (Brillouin-zone-shift) covariance – which, as the theory and numerical examples in the paper show, may lead to inaccurate or even nonphysical modes. From the mathematical perspective, the paper highlights the role of structure-preserving algorithms. The practical importance of the results and recommendations stems from the wide adoption of PF formulations in optics, photonics, and beyond – such as the computation of propagating and evanescent Bloch modes in photonic and acoustic structures, topological photonics, effective-mass and topological insulator band theories. 
+
+# 1 Introduction 
+
+## 1.1 Bloch modes – exact and numerical 
+
+Bloch modes, the cornerstone of wave analysis in periodic media, can be written, at a given frequency 𝜔 , in phasor form as a lattice-periodic factor times a complex exponential with a Bloch wave vector q. In general, the frequency – wave-vector pairs (𝜔, q)
+
+form a multidimensional complex Bloch variety [9, 10, 24]. In practice, this variety can be sampled as 𝜔 (q), with q in the first Brillouin zone (FBZ) [19], or as q(𝜔 ). The 𝜔 -vs.-q
+
+formulation is Hermitian for simple lossless media, but becomes nonlinear for frequency-dispersive media and, moreover, is not naturally adapted to evanescent modes in band gaps, for which q is complex. For rational Drude–Lorentz dispersion, the nonlinear frequency dependence can instead be eliminated by augmenting Maxwell’s equations with auxiliary polarization variables. This auxiliary-field construction has a long history in time-domain treatments of dispersive media [21, 23] and was subsequently developed in Hamiltonian formulations of dispersive and absorptive electrodynamics [2, 39]. Using these ideas, the photonic-band problem for lossless dispersive periodic media can be cast in Hermitian form [32]. 
+
+The present paper deals exclusively with the q(𝜔 ) problem ,which is non-Hermitian and directly applicable to lossy media, leaky modes, and evanescent waves [9, 10, 17, 24, 30]. This problem admits two natural formulations (Section 2.1): in terms of either the full field (FF) subject to Bloch boundary conditions or, alternatively, the lattice-periodic factor (PF). The latter is arguably more common. The periodic factors themselves are central in topological photonics [42, 45] and condensed-matter theories [11, 22, 26]. At the continuous level, the two formulations are equivalent. Consider the 1D case to start with. If the lattice period is 𝑎 and the reciprocal-lattice constant is 𝜅 = 2𝜋 /𝑎 , values of 𝑞 that differ by an integer multiple of 𝜅 are aliases corresponding to exactly the same Bloch mode. We shall refer to this as exact reciprocal (or Brillouin-zone) covariance. However, common fixed-grid discretizations, such as the finite-difference (FD) and finite-element (FE) PF schemes considered here, can break this covariance; it is one of the central issues of the paper . Indeed, these PF schemes inject the wavenum-ber 𝑞 (or, more generally, the wave vector) into the differential operator. As a result, discretization produces a volume poly-nomial pencil (Sections 2.3 and 4.1). FF schemes are quite different in that regard: the primary unknown eigenvalue is not the wavenumber but the Bloch phase multiplier 𝑧 = exp (i𝑞𝑎 ).This multiplier enters only through the boundary coupling, while the interior operator is independent of 𝑞 . Thus, the standard FF discretizations considered here preserve reciprocal covariance by construction, whereas their PF counterparts do not. A specially designed structure-preserving PF discretization is not excluded by this argument. Importantly, this is not a purely academic matter; as the paper shows, the computed PF eigenmodes can become highly inaccurate or even nonphysical, even though the 1arXiv:2608.14348v1 [physics.optics] 14 Aug 2026 underlying numerical schemes are well-established and solid. The remainder of the paper is organized as follows. Section 2 introduces a 1D toy problem, for which the appearance and causes of the phantom numerical modes can be investigated fully. Section 3 enhances the 1D model with a lossy dispersive layer in the lattice cell; an exact solution is still available for analysis and verification. Section 4 examines a 2D periodic structure with dispersive lossy bars in the lattice cell. The findings, conclusions and recommendations appear in Section 5. 
+
+## 1.2 Existing analyses and simulations 
+
+The following survey, while short and not exhaustive, helps to put this paper’s analysis in proper context. A scalar PF quadratic eigenproblem discretized by finite elements is examined in [10]. The computations target selected eigenvalues near prescribed Krylov shifts; additional physical filters are applied. Convergence of isolated eigenvalues under appropriate hypotheses is established in the follow-up study [9]. The present paper is not in conflict with [9, 10]; its focus is on the pollution of the spectrum with inaccurate or nonphysical modes and the principal difference between the discretized FF and PF formulations. A PF finite-element 𝑞 (𝜔 ) formulation for complex bands of a dispersive plasmonic crystal is presented in [8]. The authors report duplicate out-of-FBZ eigensolutions whose Re 𝑞 differs from that of an FBZ root by a reciprocal lattice vector while Im 𝑞 
+
+is identical. Thus their published second-order FEM spectra resolve low-order reciprocal copies well enough to be recogniz-able as aliases. The published results do not establish whether higher-order reciprocal copies were computed or retained. Part of the same complex-band diagram was subsequently reproduced with the Flexible Local Approximation Method (FLAME) [41], which by construction utilizes the FF formulation. A 3D staggered-grid simulation [17] is also selective with respect to the eigensolutions it yields. Namely, its shift-and-invert iteration returns roots near prescribed shifts or near the unit circle, rather than the entire raw spectrum. A 𝑞 (𝜔 ) finite-difference formulation for selected radiative waveguide and grating modes is presented in [30]. These are open systems whose legitimate leaky and evanescent states already populate the complex plane and are not in a one-to-one correspondence with the spectra considered in this paper. The phantom modes discussed here are distinct from the classi-cal spurious modes of vector finite-element electromagnetics. In the latter case, the mechanism is associated with violation of the zero-divergence condition in nodal element approximations [4], while rigorous mathematical theories revolve around discrete compactness [3, 28]. Effects considered in the present paper are much more down-to-earth. 
+
+# 2 A toy problem: 1D empty cell 
+
+## 2.1 Continuous formulations 
+
+As noted in the introduction, the breaking of reciprocal covariance and the appearance of phantom modes can be exposed already in the toy model of a 1D homogeneous lattice cell. Gaussian units and the phasor convention exp (− i𝜔𝑡 ) are used throughout. Consider the Bloch problem in a homogeneous cell 0 ≤ 𝑥 ≤ 𝑎 :
+
+𝐸 ′′ (𝑥 ) + 𝑘 2 𝐸 (𝑥 ) = 0, 𝑘 = const > 0 (1) 
+
+𝐸 (𝑎 ) = 𝑧𝐸 (0), 𝐸 ′ (𝑎 ) = 𝑧𝐸 ′ (0), 𝑧 = exp (i𝑞𝑎 ) (2) In this trivial case, the phase multipliers 𝑧 are 
+
+𝑧 ± = exp (± i𝑘𝑎 ), 𝑞 ± = ±𝑘 (mod 𝜅 ). (3) Writing 
+
+𝐸 (𝑥 ) = e𝐸 (𝑥 ) exp (i𝑞𝑥 ) (4) gives 
+
+𝐿 (𝑞 ) e𝐸 := e𝐸 ′′ + 2i 𝑞 e𝐸 ′ + ( 𝑘 2 −𝑞 2) e𝐸 = 0, e𝐸 (𝑥 +𝑎 ) = e𝐸 (𝑥 ).
+
+(5) The set of aliased unit-amplitude solutions is 
+
+e𝐸 𝑚 (𝑥 ) = exp (i𝑚𝜅𝑥 ), 𝑞 𝑚, ± = ±𝑘 − 𝑚𝜅, 𝑚 ∈ Z (6) All integers 𝑚 produce the same two full fields. Formally, 
+
+𝐿 (𝑞 + 𝑚𝜅 ) = 𝑇 −1 
+
+> 𝑚
+
+𝐿 (𝑞 )𝑇 𝑚 ∀𝑚 ∈ Z (7) where 
+
+𝑇 𝑚 𝑓 = exp (i𝑚𝜅𝑥 ) 𝑓 (8) for 𝑎 -periodic functions f. This reciprocal covariance is a feature worth preserving in numerical models and is one of the central issues of the paper. 
+
+## 2.2 Discretization 
+
+Discretization may alter the aliasing structure qualitatively. As will become clear in the remainder, the consequences can be significant for many discretization techniques, such as standard FD schemes or classical FEM. For concreteness and simplicity, consider central-difference schemes. Divide the cell into 𝑁 intervals, ℎ = 𝑎 /𝑁 . There are 
+
+𝑁 +2 grid nodes 𝑥 𝑗 = ( 𝑗 −1)ℎ, 𝑗 = 1, . . . , 𝑁 +2: 𝐸 1, . . . , 𝐸 𝑁 are master values, while 𝐸 𝑁 +1 and 𝐸 𝑁 +2 are slave values introduced to impose the Bloch boundary conditions. The scheme for the FF equation (1) is 
+
+𝐸 𝑗 +1 − 2𝐸 𝑗 + 𝐸 𝑗 −1
+
+ℎ2 + 𝑘 2 𝐸 𝑗 = 0, 𝑗 = 2, . . . , 𝑁 + 1, (9) with the boundary conditions 
+
+𝐸 𝑁 +1 = 𝑧𝐸 1, 𝐸 𝑁 +2 = 𝑧𝐸 2, 𝑧 = exp (i𝑞𝑎 ) (10) where 𝑧 and 𝑞 are the Bloch multiplier and wavenumber, respec-tively. The standard characteristic equation for the central-difference recurrence [7, 34] corresponding to (9) is 
+
+𝜌 2 − ( 2 − 𝑘 2 ℎ2)𝜌 + 1 = 0, roots 𝜌 1,2 (11) Equivalently, setting 𝜌 = exp (i𝜉ℎ ) gives the familiar centered-second-difference Fourier symbol −4ℎ−2 sin 2 (𝜉ℎ /2).2This leads to exactly one numerical multiplier pair 
+
+𝑧 ℎ1,2 = 𝜌 𝑁  
+
+> 1,2
+
+:= exp (i𝑞 ℎ±𝑎 ) (12) For 𝑘 ℎ < 2, direct algebra gives 
+
+𝑞 ℎ, ± = ±
+
+
+
+𝑘 + 𝑘 3 ℎ2
+
+24 + O  ℎ4
+
+. (13) Now, let us contrast this with the central discretization of the PF problem (5): 
+
+e𝐸 𝑗 +1 − 2 e𝐸 𝑗 + e𝐸 𝑗 −1
+
+ℎ2 + i𝑞 ℎ ( e𝐸 𝑗 +1 − e𝐸 𝑗 −1)+ ( 𝑘 2 − 𝑞 2) e𝐸 𝑗 = 0, e𝐸 𝛼 +𝑁 = e𝐸 𝛼 , 𝛼 = 1, 2. (14) For an integer reciprocal shift 𝑚𝜅 , define sampled multiplication by (𝑇 𝑚,ℎ 𝑣 ) 𝑗 = exp (i𝑚𝜅𝑥 𝑗 )𝑣 𝑗 and the central first-difference operator by (𝐷 ℎ𝑣 ) 𝑗 = (𝑣 𝑗 +1 − 𝑣 𝑗 −1)/( 2ℎ). The latter does not satisfy the exact gauge-product identity 𝐷 ℎ𝑇 𝑚,ℎ = 𝑇 𝑚,ℎ (𝐷 ℎ +
+
+i𝑚𝜅𝐼 ). Consequently the exact similarity relation does not generally hold on the discrete level: 
+
+𝑄 ℎ (𝑞 + 𝑚𝜅 ) ≠ 𝑇 −1 
+
+> 𝑚,ℎ
+
+𝑄 ℎ (𝑞 ) 𝑇 𝑚,ℎ . (15) This lack of reciprocal covariance may be viewed as the root cause of the qualitative difference between the FF and PF schemes (9) and (14), respectively. More specifically, problem (14) has multiple solutions, easily found via discrete Fourier transform. For each grid harmonic 
+
+e𝐸 𝑗 = exp (2𝜋 i𝑚 𝑗 /𝑁 ), the two dimensionless roots e𝑞 = 𝑞𝑎 are 
+
+e𝑞 ( 𝑁 ) 
+
+> 𝑚, ±
+
+= −𝑁 sin e𝑚 ±√︃ e𝑘 2 − 4𝑁 2 sin 4 ( e𝑚 /2), (16) where e𝑘 = 𝑘𝑎 and e𝑚 = 2𝜋𝑚 /𝑁 . For 𝑘𝑎 ≤ 𝜋 , the 𝑚 = 0harmonic gives the physical FBZ pair exactly. Every nonzero grid harmonic contributes another pair. Scheme (14) is second-order consistent, but not uniformly so in 𝑚 . Evaluate Eq. (14) on the sampled exact alias pair 
+
+e𝐸 𝑗 = exp (2𝜋 i𝑚 𝑗 /𝑁 ) and 𝑞 𝑚, ± = ±𝑘 − 𝑚𝜅 . Dividing the resulting nodal residual by e𝐸 𝑗 and normalizing gives 
+
+b𝜏 𝑚, ± = 1
+
+𝑁 2
+
+"
+
+±b𝑘 (2𝜋𝑚 )3
+
+3 − (2𝜋𝑚 )4
+
+4
+
+#
+
++ h.o.t. , (17) where b𝑘 = 𝑘𝑎 , and “h.o.t.” stands for higher-order terms. The terms in the brackets grow as 𝑚 3 and 𝑚 4, while the denominator grows only as 𝑁 2. As the FD grid is refined, the roots (16) corresponding to each fixed 𝑚 converge, but at the same time new high-order harmonics emerge and produce inaccurate roots. 
+
+## 2.3 Matrix structure and Schur reduction 
+
+The Fourier algebra above is simple for an empty cell; to extend the analysis to heterogeneous cells and higher dimensions, it is useful to recast Eq. (9) and the Bloch relations into matrix form. With the master and slave values defined above, let 𝐸 collect all 
+
+𝑁 + 2 nodal values. The resulting equations can be written as a generalized eigenproblem 
+
+𝐿𝐸 = 𝑧 𝑍 𝐸 (18) Schur elimination [15] of the 𝑁 master values reduces this problem of order 𝑁 + 2 to just a 2 × 2 pencil. This produces exactly two roots, in accord with the characteristic equation (11). The PF discretization, on the other hand, has the quadratic form 
+
+𝑄 (𝑞 ) e𝐸 :=
+
+
+
+𝑄 Δ + 𝑘 20𝑄 𝜀 + 2i 𝑞𝑄 𝑥 + 𝑞 2𝑄 2
+
+ e𝐸 = 0. (19) Here 𝑄 Δ, 𝑄 𝜀 , 𝑄 𝑥 , and 𝑄 2 represent the four respective terms in (14). In contrast with the FF system, all matrices correspond to the interior of the cell. The algebraic order of this problem grows as the grid is refined, leading to multiple additional roots. For each fixed reciprocal harmonic these roots approach the corresponding continuous aliases, but this convergence is not uniform with respect to the harmonic order 𝑚 , as the asymptotic relation (17) indicates. Inaccurate or nonphysical roots keep polluting the spectrum in the process of grid refinement. This can be illustrated with a simple numerical example. Let 
+
+𝑎 = 1, 𝑁 = 40, and 𝑎 /𝜆 = 0.1, so 𝑘𝑎 = 0.2𝜋 . The only physical roots are 𝑞𝑎 ≈ ± 0.628319 for 𝑚 = 0. For 𝑚 = 1, Eq. (16) gives 
+
+𝑞𝑎 ≈ − 5.867172 ≈ 0.416013 (mod2 𝜋 ). (20) which is not, at a reasonable level of precision, an alias of 
+
+±0.628319. The phantom nature of the root (20) is further illustrated with Figs. 1 and 2. The top panel of Fig. 1 shows the non-growing half-plane of the raw spectrum of the discrete PF problem (14). Each grid harmonic 𝑚 produces a pair of roots. The non-real roots cannot represent physical evanescent modes, which are in fact absent in a homogeneous lossless cell. The bottom panel shows the physical real roots and the phantom 𝑚 = 1 root. Fig. 2 compares the periodic factors themselves. For 𝑚 = 0, this factor is (correctly) constant across the cell; but the 𝑚 = 1exhibits a nonphysical yet grid-resolved oscillation. 
+
+# 3 Example: a lossy dispersive layer 
+
+## 3.1 1D model 
+
+As we have seen, the appearance of nonphysical modes is already visible in the toy empty-cell model. To explore the related effects further, let us turn to wave propagation in a layered lossy dispersive medium, still keeping the model one-dimensional. For illustration, consider a SiC layer in an otherwise empty 1D lattice cell [0, 𝑎 ]. For purposes of this paper, the choice of SiC is discretionary and loosely motivated by (i) its wide range of losses, from quite low to high, which is instructive for numerical studies, and (ii) the availability of an accurate analytical representation of the permittivity as a function of frequency (21). It may be noted in passing – beyond the scope of this paper – that SiC is standard in mid-infrared phonon-polariton photonics. Its Reststrahlen band, the phonon-resonance interval between the transverse-optical (TO) and longitudinal-optical (LO) frequencies, has been exploited for strong field enhancement and for critically coupled surface-phonon-polariton excitation, with applications in compact infrared components [5, 13, 29]. The standard analytical solution via the transfer-matrix method for waves in linear layered structures [46] is available for verification of the 3−10 −5 0 5 10 
+
+Re( qa )/ π        
+
+> 020 40 60 80
+> Im( qa )
+> m= 0 roots other algebraic roots −2 −1 12FBZ = [−1, 1] Re( qa )/ π
+
+Figure 1: Unfiltered PF spectrum for the one-dimensional empty cell, with 𝑁 = 40 and 𝑘𝑎 = 0.2𝜋 . Top: the non-growing half-plane, Im (𝑞𝑎 ) ≥ 0, of the finite algebraic spectrum of the discrete problem (14). Green points are the physical 𝑚 = 0roots and red points are the nonphysical ones. Bottom: the two physical real roots (green) and the phantom 𝑚 = 1 root (red). 0.0 0.2 0.4 0.6 0.8 1.0 
+
+## x/a
+
+> −1.0 −0.5 0.0 0.5 1.0 ̃
+> Eh(x)
+
+Re ̃ Eh Im ̃ Eh0.0 0.2 0.4 0.6 0.8 1.0 
+
+## x/a
+
+> −1.0 −0.5 0.0 0.5 1.0 ̃
+> Eh(x)
+
+Figure 2: One-dimensional periodic factors e𝐸 ℎ for 𝑎 = 1, 𝑁 = 40, and 𝑎 /𝜆 = 0.1. Markers show grid values and the curves are guides to the eye. The physical (top) and nonphysical (bottom) factors corresponding to 𝑚 = 0 and 𝑚 = 1, respectively. numerical results. For purposes of this paper, it is sufficient to consider propagation perpendicular to the layers; no auxiliary transverse phase constant is introduced. In the numerical experiments, the cell size is set to 𝑎 = 2.5 𝜇 m, representative of the mid-infrared scale; the width of a centered SiC layer is 3 𝑎 /8. The spectroscopic wavenumber is conventionally defined as 
+
+𝜈 = 𝜔 /( 2𝜋𝑐 ) = 𝜆 −1 and expressed in cm −1. The Lorentz model for the permittivity is 
+
+𝜀 SiC (𝜈 ) = 𝜀 ∞
+
+𝜈 2LO − 𝜈 2 − i𝛾𝜈 𝜈 2TO − 𝜈 2 − i𝛾𝜈 , (21) where, up to the quoted significant digits, 𝜀 ∞ = 6.7, 𝜈 TO =
+
+793 cm −1, 𝜈 LO = 969 cm −1, and 𝛾 = 4.76 cm −1 [37]; the sub-scripts TO and LO denote the transverse-optical and longitudinal-optical phonon frequencies, respectively. Both FF and PF control-volume schemes use the same material-fitted grids. Because the SiC interfaces lie at 𝑥 /𝑎 = 5/16 and 11 /16, taking 𝑁 to be a multiple of 16 places both interfaces on grid nodes. This reduces the numerical errors inherent in the schemes but unrelated to the subject of this paper. The PF problem leads to the quadratic pencil (19). The complex band diagram, shown in Fig. 3 for reference, covers 0–1100 cm −1, or 0 ≤ 𝑎 /𝜆 ≤ 0.2750. The physical branches are shown continuously, while markers are subsampled for readability. The attenuation outside the Reststrahlen band is small but not zero. The top panel displays the opposite directions symmetrically. The bottom panel uses the amplitude attenuation factor per period, 
+
+A = exp [Im (𝑞𝑎 )] , on the decaying branch and is shown up to 
+
+A = 100. The analytical and numerical results agree closely over this practical range. The nearly horizontal exact segment just below the lower Reststrahlen edge is not a flat band. It is the steep lower-frequency flank of the TO resonance: between 789 and 790 cm −1, the transfer-matrix result changes from A ≈ 48 to A ≈ 113, while 𝑎 /𝜆 changes only from 0 .19725 to 0 .19750. The central issue is the qualitative distinction of physical and nonphysical modes, as illustrated by, e.g., Fig. 2; regular errors of FD schemes are well-understood and of lesser interest from the physics perspective. Nevertheless, it is worth mentioning that these errors depend on the level of attenuation and affect the FF and PF results differently. Table 1 lists three representative cases for 𝑁 = 64. At 755 cm −1, the PF attenuation error is about three times smaller than that of the FF. Near the transverse-optical resonance, 795 cm −1, the FF results are better. But for the frequency just 2 cm −1 higher (797 cm −1), the PF solution is again substantially more accurate. Refinement computations (not shown) confirm approximately second-order convergence for both FF and PF formulations. These observations suggest that factoring out the Bloch exponential can help approximate strongly evanescent fields but can also be disadvantageous in a narrow resonant regime. One additional observation is relevant to reciprocal covariance. At 795 cm −1 and 𝑁 = 64, the direct-FBZ PF root is 𝑞𝑎 ≈−1.833267 + 10 .722377i, with complex-𝑞 error 5 .60 × 10 −2. An exterior PF root, 𝑞𝑎 = 4.510556 + 10 .679256i, is congruent modulo 2 𝜋 to −1.772629 + 10 .679256i and happens to have the smaller error 1 .85 × 10 −2. Reciprocal relabeling is not a 4−1.0 −0.5 0.0 0.5 1.0 
+
+# Re( qa )/ π
+
+0.0 0.1 0.2 
+
+> a/λ
+> exact FF PF Reststrahlen band
+
+0 20 40 60 80 100 
+
+#  = exp[Im( qa )] 
+
+0.0 0.1 0.2 
+
+> a/λ
+
+Figure 3: Complex bands of the 1D lossy-SiC structure over 0 ≤ 𝑎 /𝜆 ≤ 0.2750; 𝑁 = 32. Top: normalized frequency 𝑎 /𝜆 
+
+versus Re (𝑞𝑎 )/ 𝜋 . Bottom: 𝑎 /𝜆 versus the amplitude attenuation factor per period A = exp [Im (𝑞𝑎 )] , with the horizontal axis limited to 0 ≤ A ≤ 100. Results are marked as follows. Exact transfer-matrix – black curves, FF – green filled circles, PF – blue open squares. The light-brown horizontal interval is the SiC Reststrahlen band. The central legend applies to both panels. Table 1: Selected one-dimensional SiC attenuation errors at 
+
+𝑁 = 64. Here 𝛼 = | Im (𝑞𝑎 )| .
+
+𝜈 (cm −1) 𝛼 FF PF 755 0.775 4.83 × 10 −3 1.74 × 10 −3
+
+795 10.691 4.68 × 10 −3 3.17 × 10 −2
+
+797 9.364 1.31 × 10 −2 2.66 × 10 −4
+
+remedy for a nonphysical root: when the periodic factor is transformed consistently, the full Bloch field is unchanged. This example instead shows that reciprocal representatives can have substantially different accuracy in discrete PF problems. 
+
+# 4 A 2D example 
+
+## 4.1 Formulation 
+
+The 1D model exposes the lack of reciprocal covariance in the discrete PF problem, with related numerical errors and phantom modes. The 2D case illustrates the same effects in a larger dispersive problem. The governing equation for the electromagnetic 𝑠 mode in a square cell of side 𝑎 is, in the frequency domain, 
+
+∇2 𝐸 + 𝑘 20 𝜀 (r)𝐸 = 0 (22) For concreteness, consider Bloch waves propagating in 𝑥 , with periodicity in 𝑦 :
+
+𝐸 (r) = e𝐸 (r) exp (i𝑞 𝑥 𝑥 ). (23) The periodic factor satisfies 
+
+∇2 e𝐸 + 2i 𝑞 𝑥 𝜕 𝑥 e𝐸 +
+
+
+
+𝑘 20 𝜀 − 𝑞 2
+
+> 𝑥
+
+ e𝐸 = 0. (24) Flux-balance / control-volume discretization [7, 34, 43] gives a volume quadratic pencil, again of the generic form (19). For the FF formulation, let 𝐸 𝑏 denote nodal values on one vertical side and 𝐸 𝑖 all remaining values. After the values on the opposite side have been related by the multiplier 𝑧 , the discrete equations assume the form 
+
+𝐴 𝑖𝑖 𝐸 𝑖 + 𝐴 𝑖𝑏 (𝑧 )𝐸 𝑏 = 0,𝐴 𝑏𝑖 (𝑧 )𝐸 𝑖 + 𝐴 𝑏𝑏 (𝑧 )𝐸 𝑏 = 0. (25) Eliminating the interior values gives the boundary-sized quadratic pencil 
+
+(𝑆 −1 + 𝑆 0𝑧 + 𝑆 1𝑧 2)𝐸 𝑏 = 0. (26) For finite 𝑧 and nonsingular interior block 𝐴 𝑖𝑖 , this Schur re-duction transforms the problem to an equivalent one. This may be convenient for the analysis and computation, but does not affect the modes. The critical difference with (24) lies not in the Schur elimination but in the fact that 𝑧 , and not 𝑞 𝑥 , enters the FF equation. Plane-wave expansion (PWE) is standard and used below for comparison. The 𝜔 (𝑞 ) and the complex 𝑞 (𝜔 ) PWE problems are described, for example, in [33] and [6, 16], respectively, among many other places. In the 𝑞 (𝜔 ) case, one again ends up with a quadratic pencil: 
+
+𝑞 2 
+
+> 𝑥
+
+𝐼 + 2𝑞 𝑥 𝐺 𝑥 + 𝐺 2 
+
+> 𝑥
+
++ 𝐺 2 
+
+> 𝑦
+
+− 𝑘 20 E e𝐸 = 0. (27) Here 𝐺 𝑥 and 𝐺 𝑦 are diagonal matrices of the reciprocal-vector components, and E is the Fourier-convolution matrix of the permittivity. PWE provides a useful independent approximation, which may or may not be better than that of FD schemes, depend-ing on various physical, geometric and numerical parameters. Generally speaking, finite differences and finite elements retain their usual advantages for representing local geometric features and interfaces without the Gibbs oscillations. 
+
+## 4.2 Geometry and numerical setup 
+
+The square cell is [− 𝑎 /2, 𝑎 /2]2, with 𝑎 = 2.5 𝜇 m. Two SiC bars occupy the rectangles [− 0.3𝑎, −0.1𝑎 ] × [− 0.2𝑎, 0.2𝑎 ] and 
+
+[0.1𝑎, 0.3𝑎 ] × [− 0.2𝑎, 0.2𝑎 ]; the host is air. The SiC permittivity is given by Eq. (21). Figure 4 shows the material-fitted 6 × 10 grid; uniform subdivision by factors of two and three gives the 12 × 20 and 18 × 30 grids used for refinement checks. 5−0.50 −0.25 0.00 0.25 0.50 
+
+# x/a
+
+−0.4 −0.2 0.0 0.2 0.4 
+
+> y/a
+
+SiC bars grid cell Figure 4: Two-SiC-bar unit cell and the material-fitted 6 × 10 grid. The frequency sweep is 650–1100 cm −1, corresponding to 0.1625 ≤ 𝑎 /𝜆 ≤ 0.2750, with denser sampling near the transverse-optical resonance. The FF calculation uses the Schur pencil (26), whereas the PF calculation uses the discretized volume pencil (19). FF multipliers 𝑧 are reported through their principal logarithmic labels in the FBZ. Figure 5 provides a reference complex-band diagram. The phase panel is confined to the FBZ, while the attenuation panel uses the amplitude attenuation factor per period, A =
+
+exp [Im (𝑞 𝑥 𝑎 )] , and is limited to A ≤ 100. The PWE, FF, and PF calculations show the same band structure and agree closely over most of the displayed range; the largest visible differences occur in the rapid variation near the transverse-optical resonance. The apparent swarm near the lower Reststrahlen edge has the same origin as the nearly horizontal feature in the one-dimensional example. In the narrow neighborhood of the TO resonance, the Lorentz permittivity varies very rapidly with frequency and the phase constants sweep through a substantial fraction of the FBZ while 𝑎 /𝜆 changes only slightly. 
+
+## 4.3 Physical and nonphysical roots under refine-ment 
+
+A representative coarse-grid anomaly occurs at 650 cm −1. On the 20 × 12 grid the PF pencil produces the exterior root 
+
+𝑞 𝑥 𝑎 = 7.93026 + 0.00921i .
+
+Its FBZ alias is 1 .64707 + 0.00921i, whereas the PF root com-puted directly there is 2 .01315 + 0.00824i. Reciprocal relabeling does not repair this discrepancy: when the periodic factor is transformed consistently, the full Bloch field is unchanged, so the exterior root remains the same coarse-grid numerical mode. This is analogous to the 𝑚 = 0 and 𝑚 = 1 periodic-factor solutions in Fig. 2. Under refinement, this particular anomaly does not persist as −1.0 −0.5 0.0 0.5 1.0 
+
+# Re( qxa)/ π
+
+0.175 0.200 0.225 0.250 0.275 
+
+> a/λ
+> PWE FF PF Reststrahlen band
+
+0 20 40 60 80 100 
+
+#  = exp[Im( qxa)] 
+
+0.175 0.200 0.225 0.250 0.275 
+
+> a/λ
+
+Figure 5: Reference complex-band diagram of the two-SiC-bar crystal. Top: Re (𝑞 𝑥 𝑎 )/ 𝜋 , confined to the FBZ. Bottom: amplitude attenuation factor per period A = exp [Im (𝑞 𝑥 𝑎 )] ,with the horizontal axis limited to 0 ≤ A ≤ 100. Black curves are PWE, green filled circles are FF, and blue open squares are PF. The shaded interval is the SiC Reststrahlen band. The single legend beneath the top panel applies to both panels. a separate mode. Figure 6 shows the exterior ±2𝜋 PF represen-tatives approaching the directly computed first-zone PF root at both 650 and 1000 cm −1, with an approximately second-order decrease of the splitting. Thus this coarse-grid phantom tends to a physical reciprocal representative. However, other coarse-grid phantom roots continue to appear outside the FBZ as the volume PF spectrum expands with the grid; they add no new physical Bloch solutions. 
+
+# 5 Discussion and conclusion 
+
+Two discrete formulations of the scalar 𝑞 (𝜔 ) Bloch problem – in terms of the full field and periodic Bloch factor, respectively – have been compared. In FF, the Bloch wavenumber enters only through the boundary multiplier 𝑧 = exp (i𝑞𝑎 ). In the PF formulation, 𝑞 appears throughout the wave equation and results in a volume polynomial pencil. At the continuous level, the two descriptions are exactly equivalent and satisfy reciprocal-lattice covariance: 𝑞 and 𝑞 + 𝑚𝜅 correspond to the same full Bloch field. But an important structural difference emerges after the standard discretizations considered here. The FF formulation preserves reciprocal covariance by construction, simply because 620 40 60 100 
+
+# Nx
+
+10 −2 
+
+10 −1  
+
+> η(±1)
+> h
+> 650 cm −1 , + 2 π
+> 650 cm −1 , − 2 π
+> 1000 cm −1 , + 2 π
+> 1000 cm −1 , − 2 πN−2
+> x
+
+Figure 6: Differences between the computed FBZ PF roots and their out-of-FBZ ±2𝜋 aliases at wavenumbers 650 and 1000 cm −1. The reciprocal-covariance defect decreases approxi-mately at second order under refinement. 
+
+𝑧 (𝑞 + 𝑚𝜅 ) = 𝑧 (𝑞 ). The corresponding PF discretizations do not, and their eigenproblems can be polluted with inaccurate or nonphysical modes. The practical recommendation is correspondingly simple: use the FF formulation as the computational default, obtaining the periodic factor by straightforward postprocessing when needed. Schur reduction – equivalently, a discrete DtN map – provides an especially efficient implementation of the FF-Bloch problem [36, 44, 47]. For the PF formulation, out-of-FBZ roots should not be accepted merely by folding or relabeling them into the FBZ. Reciprocal relabeling leaves the full Bloch field unchanged; physical identification therefore has to precede spectral reporting, and nonphysical roots must be rejected. When an exterior root is a valid reciprocal representative of an FBZ mode, it adds no new physical solution and may simply be omitted from an FBZ presentation. As a side note related to computational mathematics, this paper can be associated with the broader theme of structure-preserving numerical algorithms. Examples in other areas include (i) symplectic integrators, which preserve the Hamiltonian structure of dynamical systems and thereby improve qualitative long-time fidelity [12, 27]; (ii) finite element families and mimetic schemes preserving discrete de Rham complexes and commuting maps in electrodynamics [1, 14, 18, 38, 40]. Apart from the theoretical considerations, the findings and rec-ommendations of this paper are of practical importance because Bloch-periodic factors are standard across several application areas. In photonics they appear in conventional band calculations [20, 33], topological photonics [25, 31, 42], and non-Hermitian formulations for dispersive and lossy structures [8, 10, 30]. The same Bloch-periodic representation is standard in phononic-crystal band calculations [35]. Beyond electrodynamics, cell-periodic Bloch functions underlie 𝑘 · 𝑝 and effective-mass theory [22, 26] and topological-insulator band theory [11, 45]. 
+
+# References 
+
+[1] Douglas N. Arnold, Richard S. Falk, and Ragnar Winther. Finite element exterior calculus, homological techniques, and applications. Acta Numerica , 15:1–155, 2006. doi:10.1017/S0962492906210018. [2] Navin A. R. Bhat and J. E. Sipe. Hamiltonian treatment of the electromagnetic field in dispersive and absorptive structured media. Physical Review A , 73(6):063808, 2006. doi:10.1103/PhysRevA.73.063808. [3] Daniele Boffi, Leszek Demkowicz, and Martin Costa-bel. Discrete compactness for the 𝑝 and ℎ𝑝 two-dimensional edge finite elements. Mathematical Models and Methods in Applied Sciences , 13:1673–1687, 2003. doi:10.1142/S0218202503003070. [4] Alain Bossavit. Computational Electromagnetism: Vari-ational Formulations, Complementarity, Edge Elements .Academic Press, 1998. doi:10.1016/B978-0-12-118710-1.X5000-4. [5] M. Brehm, A. Schliesser, F. Cajko, I. Tsukerman, and F. Keilmann. Antenna-mediated back-scattering efficiency in infrared near-field microscopy. Optics Express , 16(15): 11203–11215, Jul 2008. doi:10.1364/OE.16.011203. [6] Kikuo Cho, Jun Ushida, and Motoaki Bamba. Optical response of photonic crystals requiring high precision band calculation in the form of 𝑘 (𝜔 ) including evanescent waves. Journal of the Physical Society of Japan , 74(11): 3088–3092, 2005. doi:10.1143/JPSJ.74.3088. [7] Lothar Collatz. The Numerical Treatment of Differential Equations , volume 60 of Grundlehren der mathematischen Wissenschaften . Springer-Verlag, Berlin, 3 edition, 1960. doi:10.1007/978-3-662-05500-7. [8] Marcelo Davanco, Yaroslav Urzhumov, and Gennady Shvets. The complex Bloch bands of a 2D plasmonic crystal displaying isotropic negative refraction. Optics Express ,15(15):9681–9691, 2007. doi:10.1364/OE.15.009681. [9] Christian Engström. Spectral approximation of quadratic operator polynomials arising in photonic band structure calculations. Numerische Mathematik , 126:413–440, 2014. doi:10.1007/s00211-013-0568-y. [10] Christian Engström and Markus Richter. On the spectrum of an operator pencil with applications to wave propagation in periodic and frequency dependent materials. SIAM Journal on Applied Mathematics , 70(1):231–247, 2009. doi:10.1137/080728779. [11] Liang Fu and C. L. Kane. Topological insulators with inversion symmetry. Physical Review B , 76:045302, 2007. doi:10.1103/PhysRevB.76.045302. [12] Ernst Hairer, Christian Lubich, and Gerhard Wanner. Geo-metric Numerical Integration: Structure-Preserving Algo-rithms for Ordinary Differential Equations , volume 31 of 
+
+Springer Series in Computational Mathematics . Springer, 2 edition, 2006. doi:10.1007/3-540-30666-8. [13] R. Hillenbrand, T. Taubner, and F. Keilmann. Phonon-enhanced light–matter interaction at the nanometre scale. 
+
+Nature , 418:159–162, 2002. doi:10.1038/nature00899. [14] Ralf Hiptmair. Finite elements in computational elec-tromagnetism. Acta Numerica , 11:237–339, 2002. 7doi:10.1017/S0962492902000041. [15] Roger A. Horn and Charles R. Johnson. Matrix Analy-sis . Cambridge University Press, second edition, 2013. doi:10.1017/CBO9781139020411. [16] Young-Chung Hsue, Arthur J. Freeman, and Ben-Yuan Gu. Extended plane-wave expansion method in three-dimensional anisotropic photonic crys-tals. Physical Review B, 72(19):195118, 2005. doi:10.1103/PhysRevB.72.195118. [17] Tsung-Ming Huang, Tiexiang Li, Jia-Wei Lin, Wen-Wei Lin, and Heng Tian. Structure-preserving methods for computing complex band structures of three-dimensional photonic crystals. Journal of Scientific Computing , 83(2): 35, 2020. doi:10.1007/s10915-020-01220-1. [18] James M. Hyman and Mikhail Shashkov. Mimetic discretizations for maxwell’s equations. Journal of Computational Physics , 151(2):881–909, 1999. doi:10.1006/jcph.1999.6225. [19] John D. Joannopoulos, Steven G. Johnson, Joshua N. Winn, and Robert D. Meade. Photonic Crystals: Molding the Flow of Light . Princeton University Press, second edition, 2008. doi:10.2307/j.ctvcm4gz9. [20] Steven G. Johnson and J. D. Joannopoulos. Block-iterative frequency-domain methods for Maxwell’s equations in a planewave basis. Optics Express , 8(3):173–190, 2001. doi:10.1364/OE.8.000173. [21] Rose M. Joseph, Susan C. Hagness, and Allen Taflove. Direct time integration of Maxwell’s equations in linear dispersive media with absorption for scattering and propaga-tion of femtosecond electromagnetic pulses. Optics Letters ,16(18):1412–1414, 1991. doi:10.1364/OL.16.001412. [22] E. O. Kane. Band structure of indium antimonide. Journal of Physics and Chemistry of Solids , 1(4):249–261, 1957. doi:10.1016/0022-3697(57)90013-6. [23] Tatsuya Kashiwa and Ichiro Fukai. A treatment by the FD-TD method of the dispersive characteristics associated with electronic polarization. Microwave and Optical Technology Letters , 3(6):203–205, 1990. doi:10.1002/mop.4650030606. [24] Christopher Lackner, Shixu Meng, and Peter Monk. De-termination of electromagnetic Bloch variety in a medium with frequency-dependent coefficients. Journal of Com-putational and Applied Mathematics , 358:359–373, 2019. doi:10.1016/j.cam.2019.03.027. [25] Ling Lu, John D. Joannopoulos, and Marin Soljačić. Topo-logical photonics. Nature Photonics , 8:821–829, 2014. doi:10.1038/nphoton.2014.248. [26] J. M. Luttinger and W. Kohn. Motion of electrons and holes in perturbed periodic fields. Physical Review , 97(4): 869–883, 1955. doi:10.1103/PhysRev.97.869. [27] Jerrold E. Marsden and Matthew West. Discrete mechanics and variational integrators. Acta Numerica , 10:357–514, 2001. doi:10.1017/S096249290100006X. [28] Peter Monk. Finite Element Methods for Maxwell’s Equations . Oxford University Press, 2003. doi:10.1093/acprof:oso/9780198508885.001.0001. [29] Burton Neuner, III, Dmitriy Korobkin, Chris Fietz, Davy Carole, Gabriel Ferro, and Gennady Shvets. Criti-cally coupled surface phonon-polariton excitation in sil-icon carbide. Optics Letters , 34(17):2667–2669, 2009. doi:10.1364/OL.34.002667. [30] Jelena Notaroš and Miloš A. Popović. Finite-difference complex-wavevector band structure solver for analy-sis and design of periodic radiative microphotonic structures. Optics Letters , 40(6):1053–1056, 2015. doi:10.1364/OL.40.001053. [31] Tomoki Ozawa, Hannah M. Price, Alberto Amo, Nathan Goldman, Mohammad Hafezi, Ling Lu, Mikael C. Rechtsman, David Schuster, Jonathan Simon, Oded Zil-berberg, and Iacopo Carusotto. Topological photon-ics. Reviews of Modern Physics , 91(1):015006, 2019. doi:10.1103/RevModPhys.91.015006. [32] Aaswath Raman and Shanhui Fan. Photonic band structure of dispersive metamaterials formulated as a hermitian eigenvalue problem. Physical Review Letters , 104(8): 087401, 2010. doi:10.1103/PhysRevLett.104.087401. [33] Kazuaki Sakoda. Optical Properties of Photonic Crystals ,volume 80 of Springer Series in Optical Sciences . Springer, Berlin, Heidelberg, 2 edition, 2005. doi:10.1007/b138376. [34] Alexander A. Samarskii. The Theory of Difference Schemes ,volume 240 of Monographs and Textbooks in Pure and Applied Mathematics . Marcel Dekker, New York, 2001. doi:10.1201/9780203908518. [35] M. M. Sigalas and E. N. Economou. Band structure of elastic waves in two dimensional systems. Solid State Communications , 86(3):141–143, 1993. doi:10.1016/0038-1098(93)90888-T. [36] Tomasz Śmiarowski, Bartosz Janaszek, and Igor Tsuker-man. Computing Bloch bands with conforming quasi-Trefftz elements. Submitted to the Proceedings of CEFC 2026, Thessaloniki, Greece, 2026. [37] W. G. Spitzer, D. Kleinman, and D. Walsh. Infrared properties of hexagonal silicon carbide. Physical Review ,113(1):127–132, 1959. doi:10.1103/PhysRev.113.127. [38] Fernando L. Teixeira and Weng C. Chew. Lattice electromagnetic theory from a topological viewpoint. 
+
+Journal of Mathematical Physics , 40(1):169–187, 1999. doi:10.1063/1.532767. [39] A. Tip. Linear absorptive dielectrics. Physical Review A ,57(6):4818–4841, 1998. doi:10.1103/PhysRevA.57.4818. [40] Enzo Tonti. A direct discrete formulation of field laws: The cell method. Computer Model-ing in Engineering & Sciences , 2(2):237–258, 2001. doi:10.3970/cmes.2001.002.237. [41] Igor Tsukerman. Quasi-homogeneous backward-wave plas-monic structures: theory and accurate simulation. Journal of Optics A: Pure and Applied Optics , 11(11):114025, 2009. doi:10.1088/1464-4258/11/11/114025. [42] Igor Tsukerman. Bulk-boundary correspondence in two-dimensional topological photonics: analysis and simulation. 
+
+Journal of the Optical Society of America B , 42(4):833–839, 2025. doi:10.1364/JOSAB.545436. [43] Igor Tsukerman. Computational Methods for Nanoscale Applications: Particles, Plasmons and Waves . Nanos-tructure Science and Technology. Springer, Cham, 3 edi-tion, 2026. ISBN 978-3-032-28450-1. URL https: 
+
+8//link.springer.com/book/9783032284495 . Forth-coming; publication scheduled for August 2026. [44] Igor Tsukerman. Conforming and nonconforming Trefftz approximations for two-dimensional scalar electromagnetic problems. In preparation, 2026. [45] David Vanderbilt. Berry Phases in Electronic Structure Theory: Electric Polarization, Orbital Magnetization and Topological Insulators . Cambridge University Press, 2018. doi:10.1017/9781316662205. [46] Pochi Yeh. Optical Waves in Layered Media . Wiley Series in Pure and Applied Optics. Wiley-Interscience, Hoboken, NJ, 2005. ISBN 978-0-471-73192-4. doi:10.1002/0471724518. [47] J. Yuan and Y. Y. Lu. Photonic bandgap calculations using Dirichlet-to-Neumann maps. Journal of the Op-tical Society of America A , 23(12):3217–3222, 2006. doi:10.1364/JOSAA.23.003217. 9

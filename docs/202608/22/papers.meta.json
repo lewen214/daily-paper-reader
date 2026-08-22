@@ -1,0 +1,24 @@
+{
+  "label": "2026-08-22",
+  "date": "2026-08-22",
+  "generated_at": "2026-08-22T19:43:08",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202608/22/2608.14348v1-full-field-and-bloch-periodic-factor-discretizations-accuracy-and-phantom-modes",
+      "section": "quick",
+      "title_en": "Full-field and Bloch-periodic-factor discretizations: Accuracy and phantom modes",
+      "authors": "Igor Tsukerman",
+      "date": "2026-08-14",
+      "pdf": "https://arxiv.org/pdf/2608.14348v1",
+      "score": "6.0",
+      "evidence": "周期介质中的布洛赫模离散化与衍射光波导建模相关",
+      "tldr": "周期介质Bloch模式计算中，全场(FF)与Bloch周期因子(PF)两种公式在连续域完全等价，但常用离散方法可能造成本质差异。FF离散以Bloch相位因子为未知量，仅通过边界耦合；PF离散则将Bloch波数注入微分算子形成体积二次束，并常常破坏倒格矢平移协变性。理论与数值实验表明，标准PF离散会产生不准确甚至非物理的幻影模，而FF离散保持结构、更可靠。这一发现对光学、光子学、拓扑光子学及声学等广泛采用PF离散的领域具有重要指导意义。",
+      "tags": "query:pwad",
+      "abstract_en": "One can distinguish four major formulations of the Bloch-mode problem in linear periodic media. First, there are two common complementary ways of slicing the Bloch variety (Bloch wave vectors paired with the corresponding frequencies): frequency vs. wave vector or, conversely, wave vector vs. frequency. This paper deals exclusively with the latter option, directly applicable to lossy media, evanescent waves, and complex band structures.   A separate crossroads is the full field (FF) vs. the lattice-periodic Bloch factor (PF) formulations. These are fully equivalent on the continuous level, but common discretization techniques may break this equivalence not just approximately but qualitatively. In the FF problem, the primary unknown eigenvalue is the Bloch phase factor (not the wavenumber), which enters only through opposite-boundary coupling. The PF formulation, on the other hand, injects the Bloch wavenumber into the differential operator and leads to a volume quadratic pencil. Consequently, standard PF discretizations of the type considered here, in contrast with the corresponding FF discretizations, violate the reciprocal-lattice (Brillouin-zone-shift) covariance -- which, as the theory and numerical examples in the paper show, may lead to inaccurate or even nonphysical modes.   From the mathematical perspective, the paper highlights the role of structure-preserving algorithms. The practical importance of the results and recommendations stems from the wide adoption of PF formulations in optics, photonics, and beyond -- such as the computation of propagating and evanescent Bloch modes in photonic and acoustic structures, topological photonics, effective-mass and topological insulator band theories.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

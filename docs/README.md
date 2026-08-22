@@ -6,29 +6,26 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-08-21
-- 运行时间：2026-08-21 20:10:44 UTC
+- 最新运行日期：2026-08-22
+- 运行时间：2026-08-22 19:42:38 UTC
 - 运行状态：成功
-- 本次总论文数：2
+- 本次总论文数：1
 - 精读区：0
-- 速读区：2
+- 速读区：1
 
 ### 今日简报（AI）
-- 今日共生成 2 篇推荐（精读 0 篇，速读 2 篇）
-- 速读：《Spectrally smooth broadband response via autocorrelation-constrained inverse design》（6.0/10）, 《Spectrally smooth broadband response via autocorrelation-constrained inverse design》（6.0/10）
+- 今日共生成 1 篇推荐（精读 0 篇，速读 1 篇）
+- 速读：《Full-field and Bloch-periodic-factor discretizations: Accuracy and phantom modes》（6.0/10）
 - 这些结果覆盖了当下较热的方向，建议先看精读区论文的关键问题与方法。
-- 详情：[/202608/21/README](/202608/21/README)
+- 详情：[/202608/22/README](/202608/22/README)
 
 ### 精读区论文标签
 - 本次无精读推荐。
 
 ### 速读区论文标签
-1. [Spectrally smooth broadband response via autocorrelation-constrained inverse design](/202608/21/2608.13367v1-spectrally-smooth-broadband-response-via-autocorrelation-constrained-inverse-design)  
+1. [Full-field and Bloch-periodic-factor discretizations: Accuracy and phantom modes](/202608/22/2608.14348v1-full-field-and-bloch-periodic-factor-discretizations-accuracy-and-phantom-modes)  
    标签：评分：6.0/10、query:pwad
-   evidence：基于自相关约束的逆向设计实现光谱平滑宽带响应，可用于AR波导光栅优化
-2. [Spectrally smooth broadband response via autocorrelation-constrained inverse design](/202608/21/2608.13367v2-spectrally-smooth-broadband-response-via-autocorrelation-constrained-inverse-design)  
-   标签：评分：6.0/10、query:pwad
-   evidence：基于自相关约束的逆向设计实现光谱平滑宽带响应，可用于AR波导光栅优化
+   evidence：周期介质中的布洛赫模离散化与衍射光波导建模相关
 
 
 <div class="dpr-home-promo-card">

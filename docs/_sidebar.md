@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-08-22 <!--dpr-date:20260822-->
+    * 速读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202608/22/2608.14348v1-full-field-and-bloch-periodic-factor-discretizations-accuracy-and-phantom-modes" data-sidebar-item="{&quot;title&quot;: &quot;Full-field and Bloch-periodic-factor discretizations: Accuracy and phantom modes&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2608.14348v1-full-field-and-bloch-periodic-factor-discretizations-accuracy-and-phantom-modes&quot;, &quot;score&quot;: &quot;6.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;pwad&quot;}], &quot;evidence&quot;: &quot;周期介质中的布洛赫模离散化与衍射光波导建模相关&quot;}">Full-field and Bloch-periodic-factor discretizations: Accuracy and phantom modes</a>
   * 2026-08-21 <!--dpr-date:20260821-->
     * 速读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202608/21/2608.13367v1-spectrally-smooth-broadband-response-via-autocorrelation-constrained-inverse-design" data-sidebar-item="{&quot;title&quot;: &quot;Spectrally smooth broadband response via autocorrelation-constrained inverse design&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2608.13367v1-spectrally-smooth-broadband-response-via-autocorrelation-constrained-inverse-design&quot;, &quot;score&quot;: &quot;6.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;pwad&quot;}], &quot;evidence&quot;: &quot;基于自相关约束的逆向设计实现光谱平滑宽带响应，可用于AR波导光栅优化&quot;}">Spectrally smooth broadband response via autocorrelation-constrained inverse design</a>
