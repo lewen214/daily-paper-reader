@@ -1,0 +1,58 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-08-26T22:14:05.044622+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2608.20688v1",
+      "source": "arxiv",
+      "title": "VortexChat: An agentic framework for autonomous multi-objective integrated photonic design",
+      "abstract": "The advancement of modern integrated photonics is frequently bottlenecked by device design workflows that rely heavily on manual simulation and expert intuition. While inverse design offers an alternative, it remains constrained by expert supervision and a lack of end-to-end automation. To address these issues, we present VortexChat, an agentic framework for the autonomous, end-to-end inverse design of integrated photonic devices directly from natural language specifications. VortexChat couples a large language model (LLM) decision agent with topology generation, gradient-based refinement, and full-wave electromagnetic simulation. This closed-loop architecture enables the system to iteratively decompose design objectives, orchestrate computational tools, and update strategies based on feedback with minimal human intervention. Constrained by the absolute metrics of the Vortex100 Benchmark, VortexChat autonomously generates devices that strictly meet all predefined performance thresholds without any human-in-the-loop. As an experimental demonstration, we fabricated a broadband terahertz perfect vortex beam multiplexer, autonomously designed by VortexChat, with measurements confirming high-efficiency operation, high mode purity and low inter-channel crosstalk in agreement with full-wave simulations. These results demonstrate that an LLM agent can assume key aspects of expert decision-making in photonic inverse design while maintaining physical fidelity and fabrication feasibility, providing a scalable route towards autonomous design of complex integrated photonic systems.",
+      "authors": [
+        "Faqian Chong",
+        "Yulun Wu",
+        "Shilong Li",
+        "Andrew Forbes",
+        "Hongsheng Chen",
+        "Song Han"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "physics.optics"
+      ],
+      "published": "2026-08-21T02:50:44+00:00",
+      "link": "https://arxiv.org/pdf/2608.20688v1",
+      "tags": [
+        "keyword:pwad",
+        "query:pwad"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "autonomous inverse design for integrated photonic devices, potentially applicable to diffractive waveguides",
+      "llm_evidence_cn": "集成光子器件自主逆向设计，可潜在用于衍射光波导",
+      "llm_evidence": "集成光子器件自主逆向设计，可潜在用于衍射光波导",
+      "canonical_evidence": "集成光子器件自主逆向设计，可潜在用于衍射光波导",
+      "llm_tldr_en": "The paper presents VortexChat, an LLM-driven agentic framework for end-to-end inverse design of integrated photonic devices, combining topology generation, gradient-based refinement, and electromagnetic simulation, which could aid in designing diffractive optical waveguides.",
+      "llm_tldr_cn": "针对集成光子器件设计依赖人工经验的问题，提出VortexChat框架，利用LLM代理结合拓扑生成、梯度优化和全波仿真实现从自然语言到器件的自主设计。该闭环架构可迭代分解设计目标，支持多目标优化。实验验证了其在集成光子器件设计中的自动化能力。该框架有望应用于衍射光波导等复杂光学器件的设计。",
+      "llm_tldr": "针对集成光子器件设计依赖人工经验的问题，提出VortexChat框架，利用LLM代理结合拓扑生成、梯度优化和全波仿真实现从自然语言到器件的自主设计。该闭环架构可迭代分解设计目标，支持多目标优化。实验验证了其在集成光子器件设计中的自动化能力。该框架有望应用于衍射光波导等复杂光学器件的设计。",
+      "llm_tags": [
+        "query:pwad"
+      ],
+      "matched_query_tag": "query:pwad",
+      "matched_query_text": "diffractive optical waveguide",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

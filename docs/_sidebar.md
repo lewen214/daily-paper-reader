@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-08-26 <!--dpr-date:20260826-->
+    * 速读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202608/26/2608.20688v1-vortexchat-an-agentic-framework-for-autonomous-multi-objective-integrated-photonic-design" data-sidebar-item="{&quot;title&quot;: &quot;VortexChat: An agentic framework for autonomous multi-objective integrated photonic design&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2608.20688v1-vortexchat-an-agentic-framework-for-autonomous-multi-objective-integrated-photonic-design&quot;, &quot;score&quot;: &quot;6.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;pwad&quot;}], &quot;evidence&quot;: &quot;集成光子器件自主逆向设计，可潜在用于衍射光波导&quot;}">VortexChat: An agentic framework for autonomous multi-objective integrated photonic design</a>
   * 2026-08-22 <!--dpr-date:20260822-->
     * 速读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202608/22/2608.14348v1-full-field-and-bloch-periodic-factor-discretizations-accuracy-and-phantom-modes" data-sidebar-item="{&quot;title&quot;: &quot;Full-field and Bloch-periodic-factor discretizations: Accuracy and phantom modes&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2608.14348v1-full-field-and-bloch-periodic-factor-discretizations-accuracy-and-phantom-modes&quot;, &quot;score&quot;: &quot;6.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;pwad&quot;}], &quot;evidence&quot;: &quot;周期介质中的布洛赫模离散化与衍射光波导建模相关&quot;}">Full-field and Bloch-periodic-factor discretizations: Accuracy and phantom modes</a>

@@ -1,0 +1,24 @@
+{
+  "label": "2026-08-26",
+  "date": "2026-08-26",
+  "generated_at": "2026-08-26T22:16:32",
+  "count": 1,
+  "papers": [
+    {
+      "paper_id": "202608/26/2608.20688v1-vortexchat-an-agentic-framework-for-autonomous-multi-objective-integrated-photonic-design",
+      "section": "quick",
+      "title_en": "VortexChat: An agentic framework for autonomous multi-objective integrated photonic design",
+      "authors": "Faqian Chong, Yulun Wu, Shilong Li, Andrew Forbes, Hongsheng Chen, Song Han",
+      "date": "2026-08-21",
+      "pdf": "https://arxiv.org/pdf/2608.20688v1",
+      "score": "6.0",
+      "evidence": "集成光子器件自主逆向设计，可潜在用于衍射光波导",
+      "tldr": "集成光子设计依赖人工仿真与专家直觉，逆向设计也受限于人工监督和缺乏端到端自动化。VortexChat 框架结合 LLM 决策智能体、拓扑生成、梯度优化和全波仿真，从自然语言规范自主闭环设计。在 Vortex100 Benchmark 上，无需人工介入即严格满足所有性能阈值，并实验验证了自主设计的宽带太赫兹完美涡旋光束复用器。该工作证明 LLM 智能体能承担专家级设计决策，为复杂集成光子系统提供可扩展的自主设计路径。",
+      "tags": "query:pwad",
+      "abstract_en": "The advancement of modern integrated photonics is frequently bottlenecked by device design workflows that rely heavily on manual simulation and expert intuition. While inverse design offers an alternative, it remains constrained by expert supervision and a lack of end-to-end automation. To address these issues, we present VortexChat, an agentic framework for the autonomous, end-to-end inverse design of integrated photonic devices directly from natural language specifications. VortexChat couples a large language model (LLM) decision agent with topology generation, gradient-based refinement, and full-wave electromagnetic simulation. This closed-loop architecture enables the system to iteratively decompose design objectives, orchestrate computational tools, and update strategies based on feedback with minimal human intervention. Constrained by the absolute metrics of the Vortex100 Benchmark, VortexChat autonomously generates devices that strictly meet all predefined performance thresholds without any human-in-the-loop. As an experimental demonstration, we fabricated a broadband terahertz perfect vortex beam multiplexer, autonomously designed by VortexChat, with measurements confirming high-efficiency operation, high mode purity and low inter-channel crosstalk in agreement with full-wave simulations. These results demonstrate that an LLM agent can assume key aspects of expert decision-making in photonic inverse design while maintaining physical fidelity and fabrication feasibility, providing a scalable route towards autonomous design of complex integrated photonic systems.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
